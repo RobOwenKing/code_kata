@@ -57,8 +57,10 @@ const validInCol = (num, col) => {
 // Check whether a number already appears in a block
 const validInBlock = (num, x, y) => {
   let valid = true;
+  // Is our block No 0, 1 or 2 horizontally and vertically?
   const blockCol = Math.floor(x / 3);
   const blockRow = Math.floor(y / 3);
+  // Iterate over the cells in that block to check whether they match
   for (let i = 0; i < 3; i += 1) {
     for (let j = 0; j < 3; j += 1) {
       if (solutionArray[(blockRow * 3) + i][(blockCol * 3) + j] === num) {
@@ -69,6 +71,7 @@ const validInBlock = (num, x, y) => {
   return valid;
 };
 
+// Checks whether a number can go in a cell (x,y) based on the others in its row, column and block
 const checkValid = (num, x, y) => {
   if (validInRow(num, y) && validInCol(num, x) && validInBlock(num, x, y)) {
     return true;
@@ -77,6 +80,7 @@ const checkValid = (num, x, y) => {
   }
 };
 
+// Updates the value displayed in a single cell in the solution grid
 const updateCellInSolution = (x, y) => {
   // console.log(sudokuArray[y][x]);
   const cell = solutionTable.childNodes[y + 1].childNodes[x];
@@ -85,9 +89,15 @@ const updateCellInSolution = (x, y) => {
   } else {
     cell.innerText = "";
   }
+  if (solutionArray[y][x] === sudokuArray[y][x]) {
+    cell.style.color = "black";
+  } else {
+    cell.style.color = "blue";
+  }
   // console.log(solutionTable.childNodes[y + 1].childNodes[x]);
 };
 
+// Updates the entire solution grid
 const updateSolution = () => {
   for (let i = 0; i < 9; i += 1) {
     for (let j = 0; j < 9; j += 1) {
@@ -146,12 +156,12 @@ const solveBruteForce = () => {
 
 const btnBruteForce = document.getElementById('brute-force');
 btnBruteForce.addEventListener('click', event => {
-  console.log(sudokuArray);
+  // console.log(sudokuArray);
   solutionArray = JSON.parse(JSON.stringify(sudokuArray));
   solveBruteForce();
   updateSolution();
-  console.log(solutionArray);
-  console.log(sudokuArray);
+  // console.log(solutionArray);
+  // console.log(sudokuArray);
 });
 
 const moveH = (target) => {
