@@ -27,7 +27,7 @@ def random_fibonacci(term1, term2, num_terms)
   series
 end
 
-p random_fibonacci(0, 1, 10)
-p random_fibonacci(0, 1, 10)
-p random_fibonacci(0, 1, 10)
+# p random_fibonacci(0, 1, 10)
+# p random_fibonacci(0, 1, 10)
+# p random_fibonacci(0, 1, 10)
 # puts_ratios(fibonacci(0, 1, 10))

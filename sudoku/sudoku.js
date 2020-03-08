@@ -1,5 +1,6 @@
 const sudokuArray = [];
 let solutionArray = [];
+const candidatesArray = [];
 const sudokuTable = document.querySelector('#sudoku tbody');
 const solutionTable = document.querySelector('#solution tbody');
 
@@ -12,6 +13,7 @@ const createSudokuArray = () => {
     }
     sudokuArray.push(latestRow);
   }
+  solutionArray = sudokuArray;
 };
 
 // Populate the html table of inputs we'll use for the interface
@@ -35,6 +37,26 @@ const createSolutionTable = () => {
     }
   }
 };
+
+const fillCandidatesArray = () => {
+  for (let i = 0; i < 9; i += 1) {
+    const latestRow = [];
+    for (let j = 0; j < 9; j += 1) {
+      const cellCandidates = []
+      if (sudokuArray[j][i] === 0) {
+        for (let k = 1; k < 10; k+= 1) {
+          if (checkValid(k, i, j)) {
+            cellCandidates.push(k);
+          }
+        }
+      }
+      latestRow.push(cellCandidates);
+    }
+    candidatesArray.push(latestRow);
+  }
+  console.log(candidatesArray);
+};
+
 
 // Check whether a number already appears in a row
 const validInRow = (num, row) => {
@@ -166,6 +188,14 @@ btnBruteForce.addEventListener('click', event => {
   solutionArray = JSON.parse(JSON.stringify(sudokuArray));
   solveBruteForce();
   updateSolution();
+  // console.log(solutionArray);
+  // console.log(sudokuArray);
+});
+
+const btnGenerateCandidates = document.getElementById('candidates');
+btnGenerateCandidates.addEventListener('click', event => {
+  // console.log(sudokuArray);
+  fillCandidatesArray();
   // console.log(solutionArray);
   // console.log(sudokuArray);
 });
