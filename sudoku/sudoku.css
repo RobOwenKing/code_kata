@@ -29,11 +29,13 @@ input {
   border: 0;
   height: 38px;
   width: 38px;
-  text-align: center;
 }
 input:hover {
   background: #ffffff;
 }
 .container{
   display: flex;
+}
+#solution td {
+  text-align: center;
 }

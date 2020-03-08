@@ -83,15 +83,21 @@ const checkValid = (num, x, y) => {
 // Updates the value displayed in a single cell in the solution grid
 const updateCellInSolution = (x, y) => {
   // console.log(sudokuArray[y][x]);
+
+  // Find the cell in question in the HTML and update its value
   const cell = solutionTable.childNodes[y + 1].childNodes[x];
   if (solutionArray[y][x] >= 1 && solutionArray[y][x] <= 9) {
     cell.innerText = solutionArray[y][x];
   } else {
     cell.innerText = "";
   }
+
+  // Change the colour of the number in the cell
   if (solutionArray[y][x] === sudokuArray[y][x]) {
+    // Black if given by the user
     cell.style.color = "black";
   } else {
+    // Blue if calculated by the algorithm
     cell.style.color = "blue";
   }
   // console.log(solutionTable.childNodes[y + 1].childNodes[x]);
