@@ -154,37 +154,37 @@ btnBruteForce.addEventListener('click', event => {
   console.log(sudokuArray);
 });
 
+const moveH = (target) => {
+  if (target !== null) {
+    target.firstElementChild.focus();
+  }
+};
+
+const moveV = (currentFocus, up) => {
+  const child = currentFocus.parentElement;
+  const parent = child.parentElement;
+  const childPos = Array.prototype.indexOf.call(parent.childNodes, child);
+  const newRow = up === true ? parent.previousElementSibling : parent.nextElementSibling;
+  if (newRow !== null) {
+    const target = newRow.childNodes[childPos].childNodes[0];
+    target.focus();
+  }
+};
+
 document.addEventListener('keyup', (event) => {
   const currentFocus = document.activeElement;
   // console.log(currentFocus.parentElement);
   // console.log(event.key == "ArrowRight");
+  console.log(currentFocus);
   if (event.key === "ArrowRight") {
     const nextElement = currentFocus.parentElement.nextElementSibling;
-    if (nextElement !== null) {
-      nextElement.firstElementChild.focus();
-    }
+    moveH(nextElement);
   } else if (event.key === "ArrowLeft") {
     const previousElement = currentFocus.parentElement.previousElementSibling;
-    if (previousElement !== null) {
-      previousElement.firstElementChild.focus();
-    }
+    moveH(previousElement);
   } else if (event.key === "ArrowUp") {
-    const child = currentFocus.parentElement;
-    const parent = child.parentElement;
-    const childPos = Array.prototype.indexOf.call(parent.childNodes, child);
-    const newRow = parent.previousElementSibling;
-    if (newRow !== null) {
-      const target = newRow.childNodes[childPos].childNodes[0];
-      target.focus();
-    }
+    moveV(currentFocus, true);
   } else if (event.key === "ArrowDown") {
-    const child = currentFocus.parentElement;
-    const parent = child.parentElement;
-    const childPos = Array.prototype.indexOf.call(parent.childNodes, child);
-    const newRow = parent.nextElementSibling;
-    if (newRow !== null) {
-      const target = newRow.childNodes[childPos].childNodes[0];
-      target.focus();
-    }
+    moveV(currentFocus, false)
   }
 });
