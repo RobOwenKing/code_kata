@@ -38,11 +38,34 @@ const updateRGB = () => {
   rgb.value = `rgb(${red.value}, ${green.value}, ${blue.value})`;
 };
 
+const calculateS = (delta, lValue) => {
+  if (delta === 0) {
+    return 0;
+  } else {
+    return delta / (1 - Math.abs(2 * lValue - 1));
+  }
+}
+
+const updateHSL = () => {
+  const rPrime = red.value/255;
+  const gPrime = green.value/255;
+  const bPrime = blue.value/255;
+  const cMax = Math.max(rPrime, gPrime, bPrime);
+  const cMin = Math.min(rPrime, gPrime, bPrime);
+  const delta = cMax - cMin;
+
+  // const hValue = calculateH(rPrime, gPrime, bPrime, cMax, cMin, delta);
+  const lValue = (cMax + cMin) / 2;
+  const sValue = calculateS(delta, lValue);
+  console.log(sValue);
+};
+
 sliders.forEach((slider) => {
   slider.addEventListener('input', (event) => {
     updateBoxRGB();
     updateHex();
     updateRGB();
+    updateHSL();
     //console.log("Test");
     //console.log(event);
   });
