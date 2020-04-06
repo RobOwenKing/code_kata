@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Colour Translator</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Colour Translator</h1>
+
+      <div class="contents">
+        <div class="rgb">
+          <form class="sliders">
+            <label for="red">R: </label>
+            <input type="range" min="0" max="255" step="1" id="red">
+            <br>
+            <label for="green">G: </label>
+            <input type="range" min="0" max="255" step="1" id="green">
+            <br>
+            <label for="blue">B: </label>
+            <input type="range" min="0" max="255" step="1" id="blue">
+          </form>
+        </div>
+
+        <div class="middle">
+          <div id="box">BOX</div>
+          <label for="hex">Hex</label>
+          <input type="text" class="hex">
+        </div>
+
+        <div class="hsv">
+          <form class="sliders">
+            <label for="hue">H: </label>
+            <input type="range" min="0" max="255" step="1" id="hue">
+            <br>
+            <label for="saturation">S: </label>
+            <input type="range" min="0" max="255" step="1" id="saturation">
+            <br>
+            <label for="lightness">L: </label>
+            <input type="range" min="0" max="255" step="1" id="lightness">
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="main.js"></script>
+  </body>
+</html>
+
+

@@ -1,0 +1,23 @@
+.container {
+  text-align: center;
+}
+
+.contents {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contents div {
+  margin: 16px;
+}
+
+#box {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+label {
+  font-family: monospace;
+}
