@@ -12,6 +12,11 @@
   margin: 16px;
 }
 
+.inputs input {
+  margin: 4px auto;
+  width: 120px;
+}
+
 #box {
   width: 100px;
   height: 100px;
