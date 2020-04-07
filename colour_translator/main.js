@@ -1,7 +1,6 @@
 const box = document.getElementById('box');
 
 const slidersRGB = document.querySelectorAll('.rgb input');
-
 const red = document.getElementById('red');
 const green = document.getElementById('green');
 const blue = document.getElementById('blue');
@@ -10,8 +9,13 @@ const hex = document.getElementById('hex');
 const rgb = document.getElementById('rgb');
 const hsl = document.getElementById('hsl');
 
+const slidersHSL = document.querySelectorAll('.hsl input');
+const hue = document.getElementById('hue');
+const saturation = document.getElementById('saturation');
+const lightness = document.getElementById('lightness');
 
-console.log(slidersRGB);
+console.log(slidersHSL);
+console.log(saturation);
 
 const updateBoxRGB = () => {
   box.style.backgroundColor = `rgb(${red.value}, ${green.value}, ${blue.value})`;
