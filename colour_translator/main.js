@@ -64,6 +64,7 @@ const calculateH = (rPrime, gPrime, bPrime, cMax, cMin, delta) => {
     hValue = 0;
   } else if (cMax === rPrime) {
     hValue = 60 * (((gPrime - bPrime) / delta) % 6);
+    hValue = hValue < 0 ? 360 + hValue : hValue;
   } else if (cMax === gPrime) {
     hValue = 60 * (((bPrime - rPrime) / delta) + 2);
   } else if (cMax === bPrime) {
