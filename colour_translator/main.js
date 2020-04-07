@@ -1,6 +1,6 @@
 const box = document.getElementById('box');
 
-const sliders = document.querySelectorAll('.sliders input');
+const slidersRGB = document.querySelectorAll('.rgb input');
 
 const red = document.getElementById('red');
 const green = document.getElementById('green');
@@ -11,7 +11,7 @@ const rgb = document.getElementById('rgb');
 const hsl = document.getElementById('hsl');
 
 
-console.log(sliders);
+console.log(slidersRGB);
 
 const updateBoxRGB = () => {
   box.style.backgroundColor = `rgb(${red.value}, ${green.value}, ${blue.value})`;
@@ -44,7 +44,11 @@ const calculateS = (delta, lValue) => {
   } else {
     return delta / (1 - Math.abs(2 * lValue - 1));
   }
-}
+};
+
+const calculateH = (rPrime, gPrime, bPrime, cMax, cMin, delta) => {
+
+};
 
 const updateHSL = () => {
   const rPrime = red.value/255;
@@ -57,10 +61,10 @@ const updateHSL = () => {
   // const hValue = calculateH(rPrime, gPrime, bPrime, cMax, cMin, delta);
   const lValue = (cMax + cMin) / 2;
   const sValue = calculateS(delta, lValue);
-  console.log(sValue);
+  console.log(lValue);
 };
 
-sliders.forEach((slider) => {
+slidersRGB.forEach((slider) => {
   slider.addEventListener('input', (event) => {
     updateBoxRGB();
     updateHex();
