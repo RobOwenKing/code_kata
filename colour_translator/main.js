@@ -14,10 +14,7 @@ const hue = document.getElementById('hue');
 const saturation = document.getElementById('saturation');
 const lightness = document.getElementById('lightness');
 
-console.log(slidersHSL);
-console.log(saturation);
-
-const updateBoxRGB = () => {
+const updateBoxColour = () => {
   box.style.backgroundColor = `rgb(${red.value}, ${green.value}, ${blue.value})`;
 };
 
@@ -70,7 +67,7 @@ const updateHSL = () => {
 
 slidersRGB.forEach((slider) => {
   slider.addEventListener('input', (event) => {
-    updateBoxRGB();
+    updateBoxColour();
     updateHex();
     updateRGB();
     updateHSL();
