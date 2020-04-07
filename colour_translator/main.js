@@ -85,14 +85,14 @@ const updateHSL = () => {
   const hValue = calculateH(rPrime, gPrime, bPrime, cMax, cMin, delta);
   const lRaw = (cMax + cMin) / 2;
   const lValue = lRaw * 100;
-  const sRaw = calculateS(delta, lValue);
+  const sRaw = calculateS(delta, lRaw);
   const sValue = sRaw * 100;
 
   hue.value = hValue;
-  lightness.value = lValue;
   saturation.value = sValue;
+  lightness.value = lValue;
 
-  hsl.value = `hsl(${hue.value}, ${lightness.value}%, ${saturation.value}%)`;
+  hsl.value = `hsl(${hue.value}, ${saturation.value}%, ${lightness.value}%)`;
 };
 
 slidersRGB.forEach((slider) => {
