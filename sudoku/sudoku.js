@@ -164,9 +164,9 @@ const solveBruteForce = () => {
   for (let i = 0; i < 9; i += 1) {
     for (let j = 0; j < 9; j += 1) {
       if (solutionArray[j][i] === 0) {
-        for (let k = 1; k < 10; k += 1) {
-          if (checkValid(k, i, j)) {
-            solutionArray[j][i] = k;
+        for (let candidate = 1; candidate < 10; candidate += 1) {
+          if (checkValid(candidate, i, j)) {
+            solutionArray[j][i] = candidate;
             // updateCellInSolution(i, j);
             if (solveBruteForce()) {
               return true;

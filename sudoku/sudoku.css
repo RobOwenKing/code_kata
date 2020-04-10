@@ -39,3 +39,6 @@ input:hover {
 #solution td {
   text-align: center;
 }
+td {
+  font-weight: bold;
+}
