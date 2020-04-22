@@ -22,7 +22,7 @@ const updateBoxColour = () => {
 };
 
 // Use RGB sliders' values to update hex code in text input
-const updateHex = () => {
+const updateHexFromRGBSliders = () => {
   // First calculate the individual components of the hex colour
   // Convert the red value from base 10 to hex (uppercase)
   let hexRed = parseInt(red.value).toString(16).toUpperCase();
@@ -46,7 +46,7 @@ const updateHex = () => {
 };
 
 // Use RGB sliders' values to update RGB code in text input
-const updateRGB = () => {
+const updateRGBFromRGBSliders = () => {
   rgb.value = `rgb(${red.value}, ${green.value}, ${blue.value})`;
 };
 
@@ -75,7 +75,7 @@ const calculateH = (rPrime, gPrime, bPrime, cMax, cMin, delta) => {
   return hValue;
 };
 
-const updateHSL = () => {
+const updateHSLFromRGB = () => {
   const rPrime = red.value/255;
   const gPrime = green.value/255;
   const bPrime = blue.value/255;
@@ -96,13 +96,63 @@ const updateHSL = () => {
   hsl.value = `hsl(${hue.value}, ${saturation.value}%, ${lightness.value}%)`;
 };
 
+const calculateRGBPrimes = (cValue, xValue, hValue) => {
+  if (hValue < 60) {
+    return [cValue, xValue, 0];
+  } else if (hValue < 120) {
+    return [xValue, cValue, 0];
+  } else if (hValue < 180) {
+    return [0, cValue, xValue];
+  } else if (hValue < 240) {
+    return [0, xValue, cValue];
+  } else if (hValue < 300) {
+    return [xValue, 0, cValue];
+  } else if (hValue < 360) {
+    return [cValue, 0, xValue];
+  }
+};
+
+const updateRGBFromHSLSliders = () => {
+  const lValue = lightness.value / 100;
+  const sValue = saturation.value / 100;
+
+  const cValue = (1 - Math.abs(2 * lValue - 1)) * sValue;
+  const xValue = cValue * (1 - Math.abs((hue.value / 60) % 2 - 1));
+  const mValue = lValue - (cValue / 2);
+
+  const RGBPrimes = calculateRGBPrimes(cValue, xValue, hue.value);
+
+  red.value = (RGBPrimes[0] + mValue) * 255;
+  green.value = (RGBPrimes[1] + mValue) * 255;
+  blue.value = (RGBPrimes[2] + mValue) * 255;
+};
+
+const updateHSLfromHSLSliders = () => {
+  hsl.value = `hsl(${hue.value}, ${saturation.value}%, ${lightness.value}%)`;
+};
+
 slidersRGB.forEach((slider) => {
   slider.addEventListener('input', (event) => {
     updateBoxColour();
-    updateHex();
-    updateRGB();
-    updateHSL();
-    //console.log("Test");
-    //console.log(event);
+    updateHexFromRGBSliders();
+    updateRGBFromRGBSliders();
+    updateHSLFromRGB();
   });
+});
+
+slidersHSL.forEach((slider) => {
+  slider.addEventListener('input', (event) => {
+    updateRGBFromHSLSliders();
+    updateBoxColour();
+    updateHexFromRGBSliders();
+    updateRGBFromRGBSliders();
+    updateHSLfromHSLSliders();
+  });
+});
+
+window.addEventListener('load', (event) => {
+  updateBoxColour();
+  updateHexFromRGBSliders();
+  updateRGBFromRGBSliders();
+  updateHSLFromRGB();
 });
