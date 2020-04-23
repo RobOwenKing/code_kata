@@ -1,17 +1,24 @@
 class String
-  # Checks if a string is a palindrome, regardless of case, whitespace and punctuation
   def palindrome?
+    # We ignore case, whitespace and punctuation for comparison purposes
     relevant_chars = self.downcase.gsub(/[^A-Za-z0-9]/, '')
     relevant_chars == relevant_chars.reverse
   end
 
-  # count vowels, consonants
+  def count_vowels
+    self.count 'aeiouAEIOU'
+  end
+
+  def count_consonants
+    self.count 'b-df-hj-np-tv-zB-DF-HJ-NP-TV-Z'
+  end
+
   # caesar shift
   # calculator
   # case
 
-  # Remove whitespace from a string
   def squash
+    # Remove whitespace from a string
     self.gsub(/\s/, '')
   end
 end
