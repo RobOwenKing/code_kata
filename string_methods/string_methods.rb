@@ -15,6 +15,10 @@ class String
   end
 
   # caesar shift
+  def caesar(offset: 1)
+    self.tr('A-Za-z', 'B-ZAb-za')
+  end
+
   # calculator
   # case
 
