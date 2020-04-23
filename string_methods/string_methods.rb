@@ -10,7 +10,8 @@ class String
   end
 
   def count_consonants
-    self.count 'b-df-hj-np-tv-zB-DF-HJ-NP-TV-Z'
+    # self.count 'b-df-hj-np-tv-zB-DF-HJ-NP-TV-Z'
+    self.count 'A-Za-z', '^aeiouAEIOU'
   end
 
   # caesar shift
