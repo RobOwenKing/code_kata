@@ -16,6 +16,7 @@ class String
 
   def valid_password?
     return false if self.length < 8
+    return false unless self.index(/\s/) == nil
     true
   end
 
