@@ -5,7 +5,6 @@ class String
 
   # calculator
   # case
-  # valid password?
 
   def squash
     # Remove whitespace from a string
