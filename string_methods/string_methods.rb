@@ -7,8 +7,9 @@ class String
 
   def pangram?
     a_to_z = ('a'..'z').to_a
+    testee = self.downcase
     all_there = true
-    a_to_z.each { |letter| all_there = false unless self.include? letter }
+    a_to_z.each { |letter| all_there = false unless testee.include? letter }
     all_there
   end
 

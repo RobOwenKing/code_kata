@@ -29,7 +29,7 @@ RSpec.describe String do
       expect(subject).to be_pangram
     end
     it 'Correctly identifies a more complex pangram' do
-      expect('The quick brown fox jumped over the lazy dog.').to be_pangram
+      expect('The quick brown fox jumps over the lazy dog.').to be_pangram
     end
     it "Doesn't give a false positive for a near-pangram" do
       expect(subject.slice(0..-2)).to_not be_pangram
