@@ -1,6 +1,8 @@
+require_relative 'properties'
+
 class String
   def abbreviate
-    self.split.map { |word| word[0] }.join
+    self.split.map { |word| word.roman_numeral? ? word : word[0] }.join
   end
 
   # calculator

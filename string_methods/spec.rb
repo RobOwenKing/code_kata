@@ -12,5 +12,8 @@ RSpec.describe String do
     it 'Can cope with an empty string' do
       expect(''.abbreviate).to eql('')
     end
+    it 'Leaves Roman numerals intact' do
+      expect('World War II'.abbreviate).to eql('WWII')
+    end
   end
 end
