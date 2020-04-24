@@ -6,7 +6,10 @@ class String
   end
 
   def pangram?
-
+    a_to_z = ('a'..'z').to_a
+    all_there = true
+    a_to_z.each { |letter| all_there = false unless self.include? letter }
+    all_there
   end
 
   def count_vowels
