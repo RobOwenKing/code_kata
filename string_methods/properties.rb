@@ -20,6 +20,7 @@ class String
     return false unless ('a'..'z').to_a.any? { |x| self.include? x }
     return false unless ('A'..'Z').to_a.any? { |x| self.include? x }
     return false unless ('0'..'9').to_a.any? { |x| self.include? x }
+    return false if self.index(/[_\W]/).nil?
     true
   end
 

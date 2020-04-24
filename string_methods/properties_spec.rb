@@ -55,6 +55,12 @@ RSpec.describe String do
     it 'Must include at least one punctuation mark' do
       expect('Password1').to_not be_valid_password
     end
+    it 'Can cope with _' do
+      expect('Pass_word1').to be_valid_password
+    end
+    it 'Can cope with .' do
+      expect('Pass.word1').to be_valid_password
+    end
     it 'Should not include any whitespace' do
       expect('Pass word1!').to_not be_valid_password
     end
