@@ -18,6 +18,8 @@ class String
     return false if self.length < 8
     return false unless self.index(/\s/).nil?
     return false unless ('a'..'z').to_a.any? { |x| self.include? x }
+    return false unless ('A'..'Z').to_a.any? { |x| self.include? x }
+    return false unless ('0'..'9').to_a.any? { |x| self.include? x }
     true
   end
 
