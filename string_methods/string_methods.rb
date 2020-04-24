@@ -6,11 +6,12 @@ class String
   end
 
   def pangram?
-    a_to_z = ('a'..'z').to_a
-    testee = self.downcase
-    all_there = true
-    a_to_z.each { |letter| all_there = false unless testee.include? letter }
-    all_there
+    ('a'..'z').to_a.all? { |letter| self.include? letter }
+
+    # a_to_z = ('a'..'z').to_a
+    # testee = string.downcase
+    # a_to_z.each { |letter| return false unless testee.include? letter }
+    # true
   end
 
   def count_vowels
