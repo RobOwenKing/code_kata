@@ -14,6 +14,11 @@ class String
     # true
   end
 
+  def valid_password?
+    return false if self.length < 8
+    true
+  end
+
   def count_vowels
     self.count 'aeiouAEIOU'
   end
