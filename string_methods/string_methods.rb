@@ -5,6 +5,10 @@ class String
     relevant_chars == relevant_chars.reverse
   end
 
+  def pangram?
+
+  end
+
   def count_vowels
     self.count 'aeiouAEIOU'
   end
@@ -24,6 +28,8 @@ class String
 
   # calculator
   # case
+  # abbreviate
+  # valid password?
 
   def squash
     # Remove whitespace from a string

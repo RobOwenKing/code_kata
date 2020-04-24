@@ -23,6 +23,19 @@ RSpec.describe String do
     end
   end
 
+  describe '#pangram?' do
+    subject { ('a'..'z').to_a.join }
+    it 'Correctly identifies the alphabet as a pangram' do
+      expect(subject).to be_pangram
+    end
+    it 'Correctly identifies a more complex pangram' do
+      expect('The quick brown fox jumped over the lazy dog.').to be_pangram
+    end
+    it "Doesn't give a false positive for a near-pangram" do
+      expect(subject.slice(0..-2)).to_not be_pangram
+    end
+  end
+
   describe '#count_vowels' do
     it 'Correctly counts vowels regardless of case' do
       expect('AaIiUuEeO'.count_vowels).to eql(9)
