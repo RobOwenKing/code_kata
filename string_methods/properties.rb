@@ -21,11 +21,14 @@ class String
     return false unless ('A'..'Z').to_a.any? { |x| self.include? x }
     return false unless ('0'..'9').to_a.any? { |x| self.include? x }
     return false if self.index(/[_\W]/).nil?
+
     true
   end
 
   def roman_numeral?
-    self.match?(/^M{0,4}D?C{0,4}L?X{0,4}V?I{0,4}$/)
+    return false if self.length.zero?
+
+    self.match?(/^M{0,3}(C[MD]|D?C{0,3})?(X[CL]|L?X{0,3})?(I[XV]|V?I{0,3})?$/)
   end
 
   def count_vowels

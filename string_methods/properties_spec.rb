@@ -71,10 +71,10 @@ RSpec.describe String do
       expect('D').to be_roman_numeral
     end
     it 'Identifies valid repeated digit' do
-      expect('IIII').to be_roman_numeral
+      expect('III').to be_roman_numeral
     end
     it "Doesn't accept too many repetitions of a digit (I)" do
-      expect('IIIII').to_not be_roman_numeral
+      expect('IIII').to_not be_roman_numeral
     end
     it "Doesn't accept too many repetitions of a digit (V)" do
       expect('VV').to_not be_roman_numeral
@@ -99,6 +99,9 @@ RSpec.describe String do
     end
     it "Doesn't accept invalid combinations of valid subsets" do
       expect('IXVII').to_not be_roman_numeral
+    end
+    it "Doesn't accept the empty string" do
+      expect('').to_not be_roman_numeral
     end
   end
 
