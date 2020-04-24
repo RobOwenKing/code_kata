@@ -24,6 +24,10 @@ class String
     true
   end
 
+  def roman_numeral?
+    self.match?(/^M{0,4}D?C{0,4}L?X{0,4}V?I{0,4}$/)
+  end
+
   def count_vowels
     self.count 'aeiouAEIOU'
   end

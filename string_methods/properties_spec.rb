@@ -77,7 +77,7 @@ RSpec.describe String do
       expect('IIIII').to_not be_roman_numeral
     end
     it "Doesn't accept too many repetitions of a digit (V)" do
-      expect('VV').to be_roman_numeral
+      expect('VV').to_not be_roman_numeral
     end
     it 'Accepts a simple valid additive numeral' do
       expect('VI').to be_roman_numeral
