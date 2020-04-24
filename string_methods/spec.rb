@@ -58,5 +58,8 @@ RSpec.describe String do
     it 'Passing a negative offset parameter works' do
       expect(subject.caesar(-1)).to eql('Gdkkn Vnqkc!')
     end
+    it 'Copes (modulus) with offsets greater than 1' do
+      expect(subject.caesar(27)).to eql('Ifmmp Xpsme!')
+    end
   end
 end
