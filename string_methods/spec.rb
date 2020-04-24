@@ -2,19 +2,15 @@ require 'rspec'
 require_relative 'string_methods'
 
 RSpec.describe String do
-  describe '#caesar' do
-    subject { 'Hello World!' }
-    it 'Basic shift works' do
-      expect(subject.caesar).to eql('Ifmmp Xpsme!')
+  describe '#abbreviate' do
+    it 'Works in basic cases' do
+      expect('British Broadcasting Corporation'.abbreviate).to eql('BBC')
     end
-    it 'Passing an offset parameter works' do
-      expect(subject.caesar(2)).to eql('Jgnnq Yqtnf!')
+    it 'Can cope with random spaces' do
+      expect('  Lord of  the Rings '.abbreviate).to eql('LotR')
     end
-    it 'Passing a negative offset parameter works' do
-      expect(subject.caesar(-1)).to eql('Gdkkn Vnqkc!')
-    end
-    it 'Copes (modulus) with offsets greater than 1' do
-      expect(subject.caesar(27)).to eql('Ifmmp Xpsme!')
+    it 'Can cope with an empty string' do
+      expect(''.abbreviate).to eql('')
     end
   end
 end
