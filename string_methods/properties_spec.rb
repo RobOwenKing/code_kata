@@ -36,6 +36,30 @@ RSpec.describe String do
     end
   end
 
+  describe '#valid_password?' do
+    it 'Correctly identifies a valid password' do
+      expect('V4lidP4ssword!').to be_valid_password
+    end
+    it 'Must be more than 7 characters long' do
+      expect('passwor').to_not be_valid_password
+    end
+    it 'Must include at least one lowercase letter' do
+      expect('PASSWORD1!').to_not be_valid_password
+    end
+    it 'Must include at least one uppercase letter' do
+      expect('password1!').to_not be_valid_password
+    end
+    it 'Must include at least one number' do
+      expect('Password!').to_not be_valid_password
+    end
+    it 'Must include at least one punctuation mark' do
+      expect('Password1').to_not be_valid_password
+    end
+    it 'Should not include any whitespace' do
+      expect('Pass word1!').to_not be_valid_password
+    end
+  end
+
   describe '#count_vowels' do
     it 'Correctly counts vowels regardless of case' do
       expect('AaIiUuEeO'.count_vowels).to eql(9)
