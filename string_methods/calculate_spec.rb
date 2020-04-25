@@ -3,6 +3,12 @@ require_relative 'calculate'
 
 RSpec.describe String do
   describe '#calculate' do
+    it 'Returns a single digit' do
+      expect('2'.calculate).to eql(2)
+    end
+    it 'Returns a single number' do
+      expect('22'.calculate).to eql(22)
+    end
     it 'Can handle addition of two terms' do
       expect('2 + 2'.calculate).to eql(4)
     end
@@ -16,16 +22,28 @@ RSpec.describe String do
       expect('2 / 2'.calculate).to eql(1)
     end
     it 'Can handle addition of multiple terms' do
-      expect('4 + 2 + 1'.calculate).to eql(7)
+      expect('12 + 3 + 4'.calculate).to eql(19)
     end
     it 'Can handle subtraction of multiple terms' do
-      expect('4 - 2 - 1'.calculate).to eql(1)
+      expect('12 - 3 - 4'.calculate).to eql(5)
     end
     it 'Can handle multiplication of multiple terms' do
-      expect('4 * 2 * 1'.calculate).to eql(8)
+      expect('12 * 3 * 4'.calculate).to eql(144)
     end
     it 'Can handle division of multiple terms' do
-      expect('4 / 2 / 1'.calculate).to eql(2)
+      expect('12 / 3 / 4'.calculate).to eql(1)
+    end
+    it 'Accepts shorthand to add list of numbers' do
+      expect('+ 12 3 4'.calculate).to eql(19)
+    end
+    it 'Accepts shorthand to subtract list of numbers' do
+      expect('- 12 3 4'.calculate).to eql(5)
+    end
+    it 'Accepts shorthand to multiply list of numbers' do
+      expect('* 12 3 4'.calculate).to eql(144)
+    end
+    it 'Accepts shorthand to divide list of numbers' do
+      expect('/ 12 3 4'.calculate).to eql(1)
     end
   end
 end
