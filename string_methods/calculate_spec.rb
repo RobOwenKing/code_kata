@@ -45,5 +45,14 @@ RSpec.describe String do
     it 'Accepts shorthand to divide list of numbers' do
       expect('/ 12 3 4'.calculate).to eql(1)
     end
+    it 'Can handle negative numbers in lists (addition)' do
+      expect('+ 12 3 -4'.calculate).to eql(11)
+    end
+    it 'Can handle negative numbers in lists (subtraction)' do
+      expect('- -12 3 4'.calculate).to eql(-19)
+    end
+    it 'Can handle negative numbers in lists (multiplication)' do
+      expect('* 12 -3 4'.calculate).to eql(-144)
+    end
   end
 end
