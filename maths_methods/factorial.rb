@@ -22,3 +22,22 @@ end
 # puts choose(2, 1) # Should give 2
 # puts choose(4, 2) # Should give 6
 # puts choose(9, 6) # Should give 84
+
+# Wikipedia: "In mathematics, the double factorial or semifactorial
+#   of a number n (denoted by n!!) is the product of all the integers
+#   from 1 up to n that have the same parity (odd or even) as n."
+def semifactorial(number)
+  return nil if number.negative?
+  return 1 if number.zero?
+
+  all = (1..number).to_a
+  parity = all.select { |current| current.odd? == number.odd? }
+  parity.inject(:*)
+end
+
+puts semifactorial(-1) # Should give nil
+puts semifactorial(0)  # Should give 1
+puts semifactorial(1)  # Should give 1
+puts semifactorial(2)  # Should give 2
+puts semifactorial(5)  # Should give 15
+puts semifactorial(10) # Should give 3840
