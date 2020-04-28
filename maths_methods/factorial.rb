@@ -35,9 +35,9 @@ def semifactorial(number)
   parity.inject(:*)
 end
 
-puts semifactorial(-1) # Should give nil
-puts semifactorial(0)  # Should give 1
-puts semifactorial(1)  # Should give 1
-puts semifactorial(2)  # Should give 2
-puts semifactorial(5)  # Should give 15
-puts semifactorial(10) # Should give 3840
+# puts semifactorial(-1) # Should give nil
+# puts semifactorial(0)  # Should give 1
+# puts semifactorial(1)  # Should give 1
+# puts semifactorial(2)  # Should give 2
+# puts semifactorial(5)  # Should give 15
+# puts semifactorial(10) # Should give 3840
