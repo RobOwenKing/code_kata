@@ -131,12 +131,29 @@ const updateHSLfromHSLSliders = () => {
   hsl.value = `hsl(${hue.value}, ${saturation.value}%, ${lightness.value}%)`;
 };
 
+const updateSlidersBackground = () => {
+  red.style.background = `linear-gradient(to right, rgb(0, ${green.value}, ${blue.value}), rgb(255, ${green.value}, ${blue.value}))`;
+  green.style.background = `linear-gradient(to right, rgb(${red.value}, 0, ${blue.value}), rgb(${red.value}, 255, ${blue.value}))`;
+  blue.style.background = `linear-gradient(to right, rgb(${red.value}, ${green.value}, 0), rgb(${red.value}, ${green.value}, 255))`;
+  hue.style.background = `linear-gradient(to right, hsl(0, ${saturation.value}%, ${lightness.value}%),
+    hsl(120, ${saturation.value}%, ${lightness.value}%),
+    hsl(240, ${saturation.value}%, ${lightness.value}%),
+    hsl(360, ${saturation.value}%, ${lightness.value}%))`;
+  saturation.style.background = `linear-gradient(to right, hsl(${hue.value}, 0%, ${lightness.value}%),
+    hsl(${hue.value}, 50%, ${lightness.value}%),
+    hsl(${hue.value}, 100%, ${lightness.value}%))`;
+  lightness.style.background = `linear-gradient(to right, hsl(${hue.value}, ${saturation.value}%, 0%),
+    hsl(${hue.value}, ${saturation.value}%, 50%),
+    hsl(${hue.value}, ${saturation.value}%, 100%))`;
+};
+
 slidersRGB.forEach((slider) => {
   slider.addEventListener('input', (event) => {
     updateBoxColour();
     updateHexFromRGBSliders();
     updateRGBFromRGBSliders();
     updateHSLFromRGB();
+    updateSlidersBackground();
   });
 });
 
@@ -147,6 +164,7 @@ slidersHSL.forEach((slider) => {
     updateHexFromRGBSliders();
     updateRGBFromRGBSliders();
     updateHSLfromHSLSliders();
+    updateSlidersBackground();
   });
 });
 
