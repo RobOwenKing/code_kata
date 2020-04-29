@@ -19,6 +19,9 @@
 
 .inputs input {
   margin: 4px auto;
+  padding: 2px;
+  border-radius: 4px;
+  border: solid rgb(157, 150, 142) 1px;
   width: 132px;
 }
 
