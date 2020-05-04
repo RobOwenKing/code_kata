@@ -1,5 +1,6 @@
 require 'prime'
 
+# Third attempt (much faster algorithm)
 def factorise(number)
   factors = []
   candidate = 2
