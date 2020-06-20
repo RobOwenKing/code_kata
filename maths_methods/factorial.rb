@@ -30,9 +30,8 @@ def semifactorial(number)
   return nil if number.negative?
   return 1 if number.zero?
 
-  all = (1..number).to_a
-  parity = all.select { |current| current.odd? == number.odd? }
-  parity.inject(:*)
+  list = num.odd? ? (1..num).select { |n| n.odd? } : (1..num).select { |n| n.even? }
+  list.inject(:*)
 end
 
 # puts semifactorial(-1) # Should give nil
@@ -41,3 +40,8 @@ end
 # puts semifactorial(2)  # Should give 2
 # puts semifactorial(5)  # Should give 15
 # puts semifactorial(10) # Should give 3840
+
+# Old semifactorial
+  # all = (1..number).to_a
+  # parity = all.select { |current| current.odd? == number.odd? }
+  # parity.inject(:*)

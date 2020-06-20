@@ -33,6 +33,10 @@ def killer_sudoku_decomp(total, no_of_parts)
   total_options
 end
 
-p killer_sudoku_decomp(5, 2)
-p killer_sudoku_decomp(15, 2)
-p killer_sudoku_decomp(23, 4)
+# p killer_sudoku_decomp(5, 2)
+# p killer_sudoku_decomp(15, 2)
+# p killer_sudoku_decomp(23, 4)
+
+p killer_sudoku_decomp(25,4)
+p killer_sudoku_decomp(25,5)
+p killer_sudoku_decomp(25,6)
