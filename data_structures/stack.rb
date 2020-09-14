@@ -21,6 +21,7 @@ class Stack
     return nil if self.empty?
 
     @count -= 1
+    # In the video, the element is left in the internal array, overwritten by later pushes
     @stack.delete_at(@count)
   end
 
