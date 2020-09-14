@@ -21,10 +21,19 @@ class Stack
     return nil if self.empty?
 
     @count -= 1
-    @stack[@count]
+    @stack.delete_at(@count)
   end
 
   def peek
     self.empty? ? nil : @stack[@count - 1]
+  end
+
+  def size
+    @count
+  end
+
+  def clear
+    @stack = []
+    @count = 0
   end
 end

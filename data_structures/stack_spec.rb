@@ -81,4 +81,40 @@ RSpec.describe Stack do
       expect(stack.peek).to eql('b')
     end
   end
+
+  describe '#size' do
+    it 'Gives correct size for an empty stack' do
+      expect(Stack.new.size).to eql(0)
+    end
+    it 'Gives correct size for non-empty stack' do
+      stack = Stack.new
+      stack.push('a')
+      stack.push('b')
+      expect(stack.size).to eql(2)
+    end
+    it 'Gives correct size after multiple pushes and pops' do
+      stack = Stack.new
+      stack.push('a')
+      stack.push('b')
+      stack.pop
+      stack.push('c')
+      stack.push('d')
+      expect(stack.size).to eql(3)
+    end
+  end
+
+  describe '#clear' do
+    it 'Leaves the stack containing no elements' do
+      stack = Stack.new
+      stack.push('Hello world')
+      stack.clear
+      expect(stack.peek).to eql(nil)
+    end
+    it 'Leaves stack with size 0' do
+      stack = Stack.new
+      stack.push('Hello world')
+      stack.clear
+      expect(stack.size).to eql(0)
+    end
+  end
 end
