@@ -18,9 +18,13 @@ class Stack
   end
 
   def pop
-    return nil if @stack.empty?
+    return nil if self.empty?
 
     @count -= 1
     @stack[@count]
+  end
+
+  def peek
+    self.empty? ? nil : @stack[@count - 1]
   end
 end
