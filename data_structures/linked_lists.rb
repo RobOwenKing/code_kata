@@ -33,4 +33,10 @@ class LinkedList
     current_head = @head
     @head = Node.new(value, current_head)
   end
+
+  def shift
+    current_head = head
+    @head = current_head.next
+    current_head.value
+  end
 end

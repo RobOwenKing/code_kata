@@ -54,4 +54,15 @@ RSpec.describe LinkedList do
       expect(empty_list.head.next).to eql(nil)
     end
   end
+  describe '#shift' do
+    linked_list = LinkedList.new('100')
+    linked_list.unshift('200')
+    linked_list.unshift('300')
+    it "Should return the value of the list's head" do
+      expect(linked_list.head.value).to eql(linked_list.shift)
+    end
+    it 'Should remove the head from the list' do
+      expect(linked_list.shift).to_not eql(linked_list.head.value)
+    end
+  end
 end
