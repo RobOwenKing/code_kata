@@ -45,7 +45,9 @@ class LinkedList
   end
 
   def shift
-    current_head = head
+    return nil if head.nil?
+
+    current_head = @head
     @head = current_head.next
     current_head.value
   end
