@@ -45,5 +45,13 @@ RSpec.describe LinkedList do
     it 'Should move the previous head to second position' do
       expect(linked_list.head.next.value).to eql('100')
     end
+    empty_list = LinkedList.new
+    empty_list.unshift('300')
+    it 'Should create head if none exists' do
+      expect(empty_list.head.value).to eql('300')
+    end
+    it 'Should have nil as second item' do
+      expect(empty_list.head.next).to eql(nil)
+    end
   end
 end
