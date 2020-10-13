@@ -119,11 +119,20 @@ class LinkedList
     return insert(length + index, value) if index.negative?
     return unshift(value) if index.zero?
 
+    prev_node = fetch_node(index - 1)
+    new_node = Node.new(value, prev_node.next)
+    prev_node.next = new_node
+  end
+
+  private
+
+  # Helper method for #insert
+  def fetch_node(index)
     current_node = head
-    index -= 1
     until index.zero?
       index -= 1
       current_node = current_node.next
     end
+    current_node
   end
 end

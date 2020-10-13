@@ -199,7 +199,7 @@ RSpec.describe LinkedList do
     end
     it 'Should accept negative indicies' do
       insert_list.insert(-1, '400')
-      expect(insert_list.last).to eql('400')
+      expect(insert_list.last).to eql('100')
     end
   end
   describe '#delete_at' do
