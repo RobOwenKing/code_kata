@@ -29,6 +29,19 @@ class LinkedList
     @head
   end
 
+  def tail
+    return nil if @head.nil?
+
+    current_node = @head
+    current_node = current_node.next until current_node.next.nil?
+    current_node.value
+  end
+
+  # Like #first and #head, #last should alias #tail
+  def last
+    tail
+  end
+
   def unshift(value)
     current_head = @head
     @head = Node.new(value, current_head)

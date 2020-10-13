@@ -80,4 +80,12 @@ RSpec.describe LinkedList do
       expect(linked_list.tail).to eql('100')
     end
   end
+  describe '#last' do
+    linked_list = LinkedList.new
+    linked_list.unshift('100')
+    linked_list.unshift('200')
+    it 'Should be an alias for #tail' do
+      expect(linked_list.last).to eql(linked_list.tail)
+    end
+  end
 end
