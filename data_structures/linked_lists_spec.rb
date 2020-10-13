@@ -115,4 +115,19 @@ RSpec.describe LinkedList do
       expect(pop_list.pop).to_not eql(pop_list.last)
     end
   end
+  describe '#length' do
+    length_list = LinkedList.new
+    it 'Should return 0 if the head is nil' do
+      expect(length_list.length).to eql(0)
+    end
+    it 'Should work for a list of length 1' do
+      length_list.push('100')
+      expect(length_list.length).to eql(1)
+    end
+    it 'Should work for a longer list' do
+      length_list.push('200')
+      length_list.push('300')
+      expect(length_list.length).to eql(3)
+    end
+  end
 end
