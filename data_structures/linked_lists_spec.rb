@@ -65,4 +65,19 @@ RSpec.describe LinkedList do
       expect(linked_list.shift).to_not eql(linked_list.head.value)
     end
   end
+  describe '#tail' do
+    linked_list = LinkedList.new
+    it 'Should return nil if the list is empty' do
+      expect(linked_list.tail).to eql(nil)
+    end
+    it 'Should return the value of the head for a list length 1' do
+      linked_list.unshift('100')
+      expect(linked_list.tail).to eql('100')
+    end
+    it 'Should return the correct value for a list with more items' do
+      linked_list.unshift('200')
+      linked_list.unshift('300')
+      expect(linked_list.tail).to eql('100')
+    end
+  end
 end
