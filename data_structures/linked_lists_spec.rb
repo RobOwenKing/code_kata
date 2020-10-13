@@ -100,4 +100,15 @@ RSpec.describe LinkedList do
       expect(linked_list.last).to eql('300')
     end
   end
+  describe '#pop' do
+    linked_list = LinkedList.new('100')
+    linked_list.push('200')
+    linked_list.push('300')
+    it "Should return the value of the list's tail" do
+      expect(linked_list.last).to eql(linked_list.pop)
+    end
+    it 'Should remove the tail from the list' do
+      expect(linked_list.pop).to_not eql(linked_list.last)
+    end
+  end
 end
