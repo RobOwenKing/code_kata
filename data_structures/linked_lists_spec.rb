@@ -148,5 +148,8 @@ RSpec.describe LinkedList do
     it 'Should return nil when the index is too large' do
       expect(fetch_list.fetch(10)).to eql(nil)
     end
+    it 'Should handle negative indices' do
+      expect(fetch_list.fetch(-1)).to eql(fetch_list.last)
+    end
   end
 end

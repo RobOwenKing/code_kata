@@ -78,9 +78,10 @@ class LinkedList
 
   def fetch(index)
     return nil if index > length - 1
+    return fetch(length + index) if index.negative?
 
     current_node = head
-    until index == 0
+    until index.zero?
       index -= 1
       current_node = current_node.next
     end
