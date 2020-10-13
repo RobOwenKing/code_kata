@@ -51,13 +51,7 @@ class LinkedList
   end
 
   def push(value)
-    if @head.nil?
-      @head = Node.new(value)
-    else
-      current_node = @head
-      current_node = current_node.next until current_node.next.nil?
-      current_node.next = Node.new(value)
-    end
+    @head.nil? ? @head = Node.new(value) : tail.next = Node.new(value)
   end
 
   def pop
