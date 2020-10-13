@@ -28,4 +28,9 @@ class LinkedList
   def first
     @head
   end
+
+  def unshift(value)
+    current_head = @head
+    @head = Node.new(value, current_head)
+  end
 end

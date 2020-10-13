@@ -45,4 +45,5 @@ RSpec.describe LinkedList do
     it 'Should move the previous head to second position' do
       expect(linked_list.head.next.value).to eql('100')
     end
+  end
 end
