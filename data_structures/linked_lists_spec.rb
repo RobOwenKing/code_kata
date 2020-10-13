@@ -37,13 +37,13 @@ RSpec.describe LinkedList do
     end
   end
   describe '#unshift' do
-    linked_list = LinkedList.new('100')
-    linked_list.unshift('200')
+    unshift_list = LinkedList.new('100')
+    unshift_list.unshift('200')
     it "Should change the value of the list's head" do
-      expect(linked_list.first).to eql('200')
+      expect(unshift_list.first).to eql('200')
     end
     it 'Should move the previous head to second position' do
-      expect(linked_list.head.next.value).to eql('100')
+      expect(unshift_list.head.next.value).to eql('100')
     end
     empty_list = LinkedList.new
     empty_list.unshift('300')
@@ -55,60 +55,64 @@ RSpec.describe LinkedList do
     end
   end
   describe '#shift' do
-    linked_list = LinkedList.new('100')
-    linked_list.unshift('200')
-    linked_list.unshift('300')
+    shift_list = LinkedList.new('100')
+    shift_list.unshift('200')
+    shift_list.unshift('300')
     it "Should return the value of the list's head" do
-      expect(linked_list.first).to eql(linked_list.shift)
+      expect(shift_list.first).to eql(shift_list.shift)
     end
     it 'Should remove the head from the list' do
-      expect(linked_list.shift).to_not eql(linked_list.first)
+      expect(shift_list.shift).to_not eql(shift_list.first)
     end
   end
   describe '#tail' do
-    linked_list = LinkedList.new
+    tail_list = LinkedList.new
     it 'Should return nil if the list is empty' do
-      expect(linked_list.tail).to eql(nil)
+      expect(tail_list.tail).to eql(nil)
     end
     it 'Should return the head for a list length 1' do
-      linked_list.unshift('100')
-      expect(linked_list.tail).to eql(linked_list.head)
+      tail_list.unshift('100')
+      expect(tail_list.tail).to eql(tail_list.head)
     end
     it 'Should return the correct value for a list with more items' do
-      linked_list.unshift('200')
-      linked_list.unshift('300')
-      expect(linked_list.tail.value).to eql('100')
+      tail_list.unshift('200')
+      tail_list.unshift('300')
+      expect(tail_list.tail.value).to eql('100')
     end
   end
   describe '#last' do
-    linked_list = LinkedList.new
-    linked_list.unshift('100')
-    linked_list.unshift('200')
+    last_list = LinkedList.new
+    last_list.unshift('100')
+    last_list.unshift('200')
     it 'Should return the value of #tail' do
-      expect(linked_list.last).to eql(linked_list.tail.value)
+      expect(last_list.last).to eql(last_list.tail.value)
     end
   end
   describe '#push' do
-    linked_list = LinkedList.new
+    push_list = LinkedList.new
     it 'Should work for an empty list' do
-      linked_list.push('100')
-      expect(linked_list.last).to eql(linked_list.first)
+      push_list.push('100')
+      expect(push_list.last).to eql(push_list.first)
     end
     it 'Should work for longer lists' do
-      linked_list.push('200')
-      linked_list.push('300')
-      expect(linked_list.last).to eql('300')
+      push_list.push('200')
+      push_list.push('300')
+      expect(push_list.last).to eql('300')
     end
   end
   describe '#pop' do
-    linked_list = LinkedList.new('100')
-    linked_list.push('200')
-    linked_list.push('300')
+    pop_list = LinkedList.new
+    it 'Should return nil if the list is empty' do
+      expect(pop_list.pop).to eql(nil)
+    end
     it "Should return the value of the list's tail" do
-      expect(linked_list.last).to eql(linked_list.pop)
+      pop_list.push('100')
+      pop_list.push('200')
+      pop_list.push('300')
+      expect(pop_list.last).to eql(pop_list.pop)
     end
     it 'Should remove the tail from the list' do
-      expect(linked_list.pop).to_not eql(linked_list.last)
+      expect(pop_list.pop).to_not eql(pop_list.last)
     end
   end
 end

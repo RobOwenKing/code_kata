@@ -59,4 +59,14 @@ class LinkedList
       current_node.next = Node.new(value)
     end
   end
+
+  def pop
+    return nil if tail.nil?
+
+    current_tail = tail
+    current_node = @head
+    current_node = current_node.next until current_node.next == current_tail
+    current_node.next = nil
+    current_tail.value
+  end
 end
