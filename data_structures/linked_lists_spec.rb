@@ -152,4 +152,19 @@ RSpec.describe LinkedList do
       expect(fetch_list.fetch(-1)).to eql(fetch_list.last)
     end
   end
+  describe '#find_index' do
+    find_i_list = LinkedList.new
+    find_i_list.push('100')
+    find_i_list.push('200')
+    find_i_list.push('300')
+    it 'Should find the first element' do
+      expect(find_i_list.find_index('100')).to eql(0)
+    end
+    it 'Should find a later element' do
+      expect(find_i_list.find_index('200')).to eql(1)
+    end
+    it 'Should return nil if value not found' do
+      expect(find_i_list.find_index('400')).to eql(nil)
+    end
+  end
 end

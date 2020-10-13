@@ -87,4 +87,18 @@ class LinkedList
     end
     current_node.value
   end
+
+  def find_index(value)
+    return nil if head.nil?
+
+    current_node = head
+    count = 0
+    while current_node
+      return count if current_node.value == value
+
+      current_node = current_node.next
+      count += 1
+    end
+    nil
+  end
 end
