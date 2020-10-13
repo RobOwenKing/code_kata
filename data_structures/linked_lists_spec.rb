@@ -130,4 +130,23 @@ RSpec.describe LinkedList do
       expect(length_list.length).to eql(3)
     end
   end
+  describe '#fetch' do
+    fetch_list = LinkedList.new
+    fetch_list.push('100')
+    fetch_list.push('200')
+    fetch_list.push('300')
+    fetch_list.push('400')
+    it 'Should return the first for fetch(0)' do
+      expect(fetch_list.fetch(0)).to eql(fetch_list.first)
+    end
+    it 'Should return the correct value for an index in the middle' do
+      expect(fetch_list.fetch(2)).to eql('300')
+    end
+    it 'Should return the correct value for the tail' do
+      expect(fetch_list.fetch(3)).to eql(fetch_list.tail)
+    end
+    it 'Should return nil when the index is too large' do
+      expect(fetch_list.fetch(10)).to eql(nil)
+    end
+  end
 end
