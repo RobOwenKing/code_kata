@@ -157,14 +157,30 @@ RSpec.describe LinkedList do
     find_i_list.push('100')
     find_i_list.push('200')
     find_i_list.push('300')
+    find_i_list.push('300')
     it 'Should find the first element' do
       expect(find_i_list.find_index('100')).to eql(0)
     end
     it 'Should find a later element' do
       expect(find_i_list.find_index('200')).to eql(1)
     end
+    it 'Should return the index of the first match' do
+      expect(find_i_list.find_index('300')).to eql(2)
+    end
     it 'Should return nil if value not found' do
       expect(find_i_list.find_index('400')).to eql(nil)
+    end
+  end
+  describe '#find_node' do
+    find_n_list = LinkedList.new
+    find_n_list.push('100')
+    find_n_list.push('200')
+    find_n_list.push('300')
+    it 'Should return a node' do
+      expect(find_n_list.find_node('100').class).to eql(Node)
+    end
+    it 'Should return a node with the correct value' do
+      expect(find_n_list.find_node('200').value).to eql('200')
     end
   end
 end

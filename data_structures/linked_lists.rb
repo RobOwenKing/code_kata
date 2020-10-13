@@ -31,7 +31,7 @@ class LinkedList
     return nil if @head.nil?
 
     current_node = @head
-    current_node = current_node.next until current_node.next.nil?
+    current_node = current_node.next while current_node.next
     current_node
   end
 
@@ -98,6 +98,18 @@ class LinkedList
 
       current_node = current_node.next
       count += 1
+    end
+    nil
+  end
+
+  def find_node(value)
+    return nil if head.nil?
+
+    current_node = head
+    while current_node
+      return current_node if current_node.value == value
+
+      current_node = current_node.next
     end
     nil
   end
