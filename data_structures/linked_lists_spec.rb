@@ -32,15 +32,15 @@ RSpec.describe LinkedList do
     it 'Should have #head nil if none given' do
       expect(LinkedList.new.head).to eql(nil)
     end
-    it '#first should work as an alias of #head' do
-      expect(linked_list.first).to eql(linked_list.head)
+    it '#first should return value of #head' do
+      expect(linked_list.first).to eql(linked_list.head.value)
     end
   end
   describe '#unshift' do
     linked_list = LinkedList.new('100')
     linked_list.unshift('200')
     it "Should change the value of the list's head" do
-      expect(linked_list.head.value).to eql('200')
+      expect(linked_list.first).to eql('200')
     end
     it 'Should move the previous head to second position' do
       expect(linked_list.head.next.value).to eql('100')
@@ -48,7 +48,7 @@ RSpec.describe LinkedList do
     empty_list = LinkedList.new
     empty_list.unshift('300')
     it 'Should create head if none exists' do
-      expect(empty_list.head.value).to eql('300')
+      expect(empty_list.first).to eql('300')
     end
     it 'Should have nil as second item' do
       expect(empty_list.head.next).to eql(nil)
@@ -59,10 +59,10 @@ RSpec.describe LinkedList do
     linked_list.unshift('200')
     linked_list.unshift('300')
     it "Should return the value of the list's head" do
-      expect(linked_list.head.value).to eql(linked_list.shift)
+      expect(linked_list.first).to eql(linked_list.shift)
     end
     it 'Should remove the head from the list' do
-      expect(linked_list.shift).to_not eql(linked_list.head.value)
+      expect(linked_list.shift).to_not eql(linked_list.first)
     end
   end
   describe '#tail' do
@@ -70,34 +70,34 @@ RSpec.describe LinkedList do
     it 'Should return nil if the list is empty' do
       expect(linked_list.tail).to eql(nil)
     end
-    it 'Should return the value of the head for a list length 1' do
+    it 'Should return the head for a list length 1' do
       linked_list.unshift('100')
-      expect(linked_list.tail).to eql('100')
+      expect(linked_list.tail).to eql(linked_list.head)
     end
     it 'Should return the correct value for a list with more items' do
       linked_list.unshift('200')
       linked_list.unshift('300')
-      expect(linked_list.tail).to eql('100')
+      expect(linked_list.tail.value).to eql('100')
     end
   end
   describe '#last' do
     linked_list = LinkedList.new
     linked_list.unshift('100')
     linked_list.unshift('200')
-    it 'Should be an alias for #tail' do
-      expect(linked_list.last).to eql(linked_list.tail)
+    it 'Should return the value of #tail' do
+      expect(linked_list.last).to eql(linked_list.tail.value)
     end
   end
   describe '#push' do
     linked_list = LinkedList.new
     it 'Should work for an empty list' do
       linked_list.push('100')
-      expect(linked_list.tail).to eql(linked_list.head)
+      expect(linked_list.last).to eql(linked_list.first)
     end
     it 'Should work for longer lists' do
       linked_list.push('200')
       linked_list.push('300')
-      expect(linked_list.tail).to eql('300')
+      expect(linked_list.last).to eql('300')
     end
   end
 end

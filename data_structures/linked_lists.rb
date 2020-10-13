@@ -3,8 +3,7 @@
 
 # Node class for items of our linked list
 class Node
-  # Needed for tests
-  attr_reader :value, :next
+  attr_accessor :value, :next
 
   def initialize(value, next_node = nil)
     @value = value
@@ -24,9 +23,8 @@ class LinkedList
     @head = value.nil? ? nil : Node.new(value)
   end
 
-  # Mirroring inbuilt Ruby data types, #first should alias #head
   def first
-    @head
+    @head.value
   end
 
   def tail
@@ -34,12 +32,11 @@ class LinkedList
 
     current_node = @head
     current_node = current_node.next until current_node.next.nil?
-    current_node.value
+    current_node
   end
 
-  # Like #first and #head, #last should alias #tail
   def last
-    tail
+    tail.value
   end
 
   def unshift(value)
@@ -51,5 +48,15 @@ class LinkedList
     current_head = head
     @head = current_head.next
     current_head.value
+  end
+
+  def push(value)
+    if @head.nil?
+      @head = Node.new(value)
+    else
+      current_node = @head
+      current_node = current_node.next until current_node.next.nil?
+      current_node.next = Node.new(value)
+    end
   end
 end
