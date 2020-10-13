@@ -88,4 +88,16 @@ RSpec.describe LinkedList do
       expect(linked_list.last).to eql(linked_list.tail)
     end
   end
+  describe '#push' do
+    linked_list = LinkedList.new
+    it 'Should work for an empty list' do
+      linked_list.push('100')
+      expect(linked_list.tail).to eql(linked_list.head)
+    end
+    it 'Should work for longer lists' do
+      linked_list.push('200')
+      linked_list.push('300')
+      expect(linked_list.tail).to eql('300')
+    end
+  end
 end
