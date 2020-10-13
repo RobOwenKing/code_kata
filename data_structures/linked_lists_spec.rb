@@ -36,4 +36,13 @@ RSpec.describe LinkedList do
       expect(linked_list.first).to eql(linked_list.head)
     end
   end
+  describe '#unshift' do
+    linked_list = LinkedList.new('100')
+    linked_list.unshift('200')
+    it "Should change the value of the list's head" do
+      expect(linked_list.head.value).to eql('200')
+    end
+    it 'Should move the previous head to second position' do
+      expect(linked_list.head.next.value).to eql('100')
+    end
 end

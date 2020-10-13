@@ -1,6 +1,7 @@
 # I want to implement the most generic linked list possible
 # As such, it will be singly-linked and only keep track of the head
 
+# Node class for items of our linked list
 class Node
   # Needed for tests
   attr_reader :value, :next
@@ -15,8 +16,9 @@ class Node
   end
 end
 
+# The linked list class itself
 class LinkedList
-  attr_reader :head
+  attr_accessor :head
 
   def initialize(value = nil)
     @head = value.nil? ? nil : Node.new(value)
