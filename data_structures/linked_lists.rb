@@ -69,7 +69,7 @@ class LinkedList
   def length
     count = 0
     current_node = @head
-    until current_node.nil?
+    while current_node
       count += 1
       current_node = current_node.next
     end
