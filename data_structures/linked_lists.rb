@@ -75,4 +75,15 @@ class LinkedList
     end
     count
   end
+
+  def fetch(index)
+    return nil if index > length - 1
+
+    current_node = head
+    until index == 0
+      index -= 1
+      current_node = current_node.next
+    end
+    current_node.value
+  end
 end

@@ -143,7 +143,7 @@ RSpec.describe LinkedList do
       expect(fetch_list.fetch(2)).to eql('300')
     end
     it 'Should return the correct value for the tail' do
-      expect(fetch_list.fetch(3)).to eql(fetch_list.tail)
+      expect(fetch_list.fetch(3)).to eql(fetch_list.last)
     end
     it 'Should return nil when the index is too large' do
       expect(fetch_list.fetch(10)).to eql(nil)
