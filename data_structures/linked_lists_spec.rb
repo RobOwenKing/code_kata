@@ -19,3 +19,21 @@ RSpec.describe Node do
     end
   end
 end
+
+RSpec.describe LinkedList do
+  describe '#initialize' do
+    linked_list = LinkedList.new('Test')
+    it 'If passed a value, #head should be a node' do
+      expect(linked_list.head.class).to eql(Node)
+    end
+    it 'The value of that node should match the value given' do
+      expect(linked_list.head.value).to eql('Test')
+    end
+    it 'Should have #head nil if none given' do
+      expect(LinkedList.new.head).to eql(nil)
+    end
+    it '#first should work as an alias of #head' do
+      expect(linked_list.first).to eql(linked_list.head)
+    end
+  end
+end
