@@ -183,4 +183,26 @@ RSpec.describe LinkedList do
       expect(find_n_list.find_node('200').value).to eql('200')
     end
   end
+  describe '#insert' do
+    insert_list = LinkedList.new
+    insert_list.push('100')
+    it 'Should change the head with insert(0)' do
+      insert_list.insert(0, '200')
+      expect(insert_list.first).to eql('200')
+    end
+    it 'Should insert in the middle correctly' do
+      insert_list.insert(1, '300')
+      expect(insert_list.fetch(1)).to eql('300')
+    end
+    it 'Should maintain the links' do
+      expect(insert_list.last).to eql('100')
+    end
+    it 'Should accept negative indicies' do
+      insert_list.insert(-1, '400')
+      expect(insert_list.last).to eql('400')
+    end
+  end
+  describe '#delete_at' do
+
+  end
 end

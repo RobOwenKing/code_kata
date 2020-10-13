@@ -113,4 +113,17 @@ class LinkedList
     end
     nil
   end
+
+  def insert(index, value)
+    return nil if index > length - 1
+    return insert(length + index, value) if index.negative?
+    return unshift(value) if index.zero?
+
+    current_node = head
+    index -= 1
+    until index.zero?
+      index -= 1
+      current_node = current_node.next
+    end
+  end
 end
