@@ -124,6 +124,16 @@ class LinkedList
     prev_node.next = new_node
   end
 
+  def delete_at(index)
+    return nil if index > length - 1
+    return delete_at(length + index) if index.negative?
+
+    prev_node = fetch_node(index - 1)
+    to_delete = prev_node.next
+    prev_node.next = to_delete.next
+    to_delete.value
+  end
+
   private
 
   # Helper method for #insert

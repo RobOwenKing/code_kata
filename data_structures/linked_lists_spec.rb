@@ -216,5 +216,8 @@ RSpec.describe LinkedList do
     it "Shouldn't break the links" do
       expect(delete_last).to eql(delete_list.last)
     end
+    it 'Should return the deleted value' do
+      expect(delete_list.last).to eql(delete_list.delete_at(-1))
+    end
   end
 end
