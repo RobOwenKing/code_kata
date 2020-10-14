@@ -1,6 +1,9 @@
 # I want to implement the most generic linked list possible
 # As such, it will be singly-linked and only keep track of the head
 
+# USed for #reverse
+require_relative 'stack'
+
 # Node class for items of our linked list
 class Node
   attr_accessor :value, :next

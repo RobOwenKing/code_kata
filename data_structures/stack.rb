@@ -18,7 +18,7 @@ class Stack
   end
 
   def pop
-    return nil if self.empty?
+    return nil if empty?
 
     @count -= 1
     # In the video, the element is left in the internal array, overwritten by later pushes
@@ -26,7 +26,7 @@ class Stack
   end
 
   def peek
-    self.empty? ? nil : @stack[@count - 1]
+    empty? ? nil : @stack[@count - 1]
   end
 
   def size
