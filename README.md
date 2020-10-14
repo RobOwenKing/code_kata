@@ -4,7 +4,7 @@ This repo contains a variety of small projects I've worked on in my free time. I
 
 ## Projects
 1. Brute force password - A bonus challenge I was set by a TA during my Le Wagon bootcamp. It includes three algorithms for generating all possible combinations of symbols from a given alphabet up to a given length.
-2. Data structures - A TDD-approach to implementing a number of common data structures as Ruby classes. So far: stacks.
+2. Data structures - A TDD-approach to implementing a number of common data structures as Ruby classes. So far: Stack, LinkedList.
 3. Game of Life - A version of Conway's Game of Life for the command line.
 4. Hangman - A game of Hangman, again for the command line. It needs a csv wordlist to be provided.
 5. Maths methods - A number of simple methods inspired by common recreational Maths topics.
