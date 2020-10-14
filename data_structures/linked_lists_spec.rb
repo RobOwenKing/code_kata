@@ -121,6 +121,12 @@ RSpec.describe LinkedList do
     it 'Should remove the tail from the list' do
       expect(pop_list.pop).to_not eql(pop_list.last)
     end
+    it 'Should leave the correct tail' do
+      pop_list.push('400')
+      pop_list.push('500')
+      pop_list.pop
+      expect(pop_list.last).to eql('400')
+    end
   end
   describe '#length' do
     length_list = LinkedList.new
