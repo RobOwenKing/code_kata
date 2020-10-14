@@ -79,12 +79,19 @@ RSpec.describe LinkedList do
       tail_list.unshift('300')
       expect(tail_list.tail.value).to eql('100')
     end
+    it 'Should return nil if the list has a loops' do
+      tail_list.tail.next = tail_list.fetch_node(1)
+      expect(tail_list.tail).to eql(nil)
+    end
   end
   describe '#last' do
     last_list = LinkedList.new
-    last_list.unshift('100')
-    last_list.unshift('200')
+    it 'Should work for an empty list' do
+      expect(last_list.last).to eql(nil)
+    end
     it 'Should return the value of #tail' do
+      last_list.unshift('100')
+      last_list.unshift('200')
       expect(last_list.last).to eql(last_list.tail.value)
     end
   end

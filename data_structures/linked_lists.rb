@@ -20,26 +20,33 @@ class LinkedList
   attr_accessor :head
 
   def initialize(value = nil)
+    # List can start empty or with one node
     @head = value.nil? ? nil : Node.new(value)
   end
 
   def first
+    # Return the value of the head, #head returns the node
     @head.value
   end
 
   def tail
     return nil if @head.nil?
+    # A list with a loop in has no tail
+    return nil if loops?
 
+    # Step through nodes until next is nil (which tests to false)
     current_node = @head
     current_node = current_node.next while current_node.next
     current_node
   end
 
   def last
-    tail.value
+    # Return the value of the tail, #tail returns the node
+    tail.nil? ? nil : tail.value
   end
 
   def unshift(value)
+    # Create a new head for the list with the given value
     current_head = @head
     @head = Node.new(value, current_head)
   end
@@ -47,12 +54,18 @@ class LinkedList
   def shift
     return nil if head.nil?
 
+    # If there's a head, delete it and returns its value
     current_head = @head
     @head = current_head.next
     current_head.value
   end
 
   def push(value)
+    # Can't append to a list that loops
+    return nil if loops?
+
+    # If there's no head, pushing will create a head
+    # Else, it will give the list a new tail
     @head.nil? ? @head = Node.new(value) : tail.next = Node.new(value)
   end
 
@@ -67,6 +80,8 @@ class LinkedList
   end
 
   def length
+    # Will have issues if list loops
+
     count = 0
     current_node = @head
     while current_node
@@ -144,6 +159,8 @@ class LinkedList
   end
 
   def loops?
+    return false if @head.nil? || @head.next.nil?
+
     # Floyd's algorithm
     tortoise = @head
     hare = @head
