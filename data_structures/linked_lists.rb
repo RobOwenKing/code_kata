@@ -72,6 +72,7 @@ class LinkedList
   def pop
     return nil if tail.nil?
 
+    # Delete the current tail and return its value
     current_tail = tail
     fetch_node(length - 2).next = nil
     current_tail.value
@@ -82,6 +83,7 @@ class LinkedList
 
     count = 0
     current_node = @head
+    # Count through nodes until next is nil (which tests to false)
     while current_node
       count += 1
       current_node = current_node.next
@@ -90,9 +92,12 @@ class LinkedList
   end
 
   def fetch(index)
+    # Return nil if there's no such index
     return nil if index > length - 1
+    # Handle negative indexes
     return fetch(length + index) if index.negative?
 
+    # Step through nodes until we reach the given index
     current_node = head
     until index.zero?
       index -= 1
@@ -102,6 +107,10 @@ class LinkedList
   end
 
   def fetch_node(index)
+    # Same as #fetch, but returning the node, not its value
+    return nil if index > length - 1
+    return fetch(length + index) if index.negative?
+
     current_node = head
     until index.zero?
       index -= 1
@@ -111,6 +120,7 @@ class LinkedList
   end
 
   def find_index(value)
+    # Find the index of the first node with the given value
     return nil if head.nil?
 
     current_node = head
@@ -125,6 +135,7 @@ class LinkedList
   end
 
   def find_node(value)
+    # Like #find_index, but return the node, not its index
     return nil if head.nil?
 
     current_node = head
@@ -137,16 +148,24 @@ class LinkedList
   end
 
   def insert(index, value)
-    return nil if index > length - 1
+    # Create a node with given value at the given index
+    # Handle negative indexes
     return insert(length + index, value) if index.negative?
+    # If index is 0, equivalent to adding a new head
     return unshift(value) if index.zero?
+    # If the index is the current tail's + 1, make a new tail
+    return push(value) if index == length
+    return nil if index > length
 
     prev_node = fetch_node(index - 1)
+    # Create a new node linked to the one it's replacing
     new_node = Node.new(value, prev_node.next)
+    # Update the link in the previous node to our new node
     prev_node.next = new_node
   end
 
   def delete_at(index)
+    # Delete the node at the given index and return its value
     return nil if index > length - 1
     return delete_at(length + index) if index.negative?
 
@@ -157,18 +176,22 @@ class LinkedList
   end
 
   def loops?
+    # Guard clause needed for loop to not give false positive
     return false if @head.nil? || @head.next.nil?
 
     # Floyd's algorithm
     tortoise = @head
     hare = @head
 
+    # One pointer moves in steps of one, one in steps of two
+    # If they're ever the same, there must be a loop
     until hare.nil?
       tortoise = tortoise.next
       hare = hare.next.nil? ? nil : hare.next.next
 
       return true if hare == tortoise
     end
+    # Out here, hare must have reached the tail without finding a loop
     false
   end
 end
