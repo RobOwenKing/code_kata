@@ -1,6 +1,7 @@
 # Data structures practice, first exercise
 # Ruby port of Javascript example here: https://www.youtube.com/watch?v=wtynhUwS5hI
 
+# Stack class, to initialize with no arguments
 class Stack
   def initialize
     @stack = []
@@ -21,7 +22,8 @@ class Stack
     return nil if empty?
 
     @count -= 1
-    # In the video, the element is left in the internal array, overwritten by later pushes
+    # Different to the video
+    # There, the element is left in the array, overwritten by later pushes
     @stack.delete_at(@count)
   end
 
