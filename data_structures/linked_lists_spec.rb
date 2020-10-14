@@ -230,7 +230,7 @@ RSpec.describe LinkedList do
       expect(loop_list.loops?).to eql(false)
     end
     it 'Should return true when there is a loop' do
-      loop_list.tail.next = loop_list.fetch(1)
+      loop_list.tail.next = loop_list.fetch_node(1)
       expect(loop_list.loops?).to eql(true)
     end
   end

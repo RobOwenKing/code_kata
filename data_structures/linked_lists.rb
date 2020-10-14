@@ -142,4 +142,18 @@ class LinkedList
     prev_node.next = to_delete.next
     to_delete.value
   end
+
+  def loops?
+    # Floyd's algorithm
+    tortoise = @head
+    hare = @head
+
+    until hare.nil?
+      tortoise = tortoise.next
+      hare = hare.next.nil? ? nil : hare.next.next
+
+      return true if hare == tortoise
+    end
+    false
+  end
 end
