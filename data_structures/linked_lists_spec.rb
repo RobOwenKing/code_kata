@@ -203,6 +203,18 @@ RSpec.describe LinkedList do
     end
   end
   describe '#delete_at' do
-
+    delete_list = LinkedList.new
+    delete_list.push('100')
+    delete_list.push('200')
+    delete_list.push('300')
+    delete_fetch = delete_list.fetch(1)
+    delete_last = delete_list.last
+    delete_list.delete_at(1)
+    it 'Should delete the node at the given position' do
+      expect(delete_fetch).to_not eql(delete_list.fetch(1))
+    end
+    it "Shouldn't break the links" do
+      expect(delete_last).to eql(delete_list.last)
+    end
   end
 end
