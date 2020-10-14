@@ -252,14 +252,15 @@ RSpec.describe LinkedList do
     reverse_list.push('100')
     reverse_list.push('200')
     reverse_list.push('300')
+    reversed = reverse_list.reverse
     it 'Should return a list' do
-      expect(reverse_list.reverse.class).to eql(LinkedList)
+      expect(reversed.class).to eql(LinkedList)
     end
     it 'Should return a new list with former tail as its head' do
-      expect(reverse_list.reverse.first).to eql(reverse_list.last)
+      expect(reversed.first).to eql(reverse_list.last)
     end
     it 'Should return a new list with former head as its tail' do
-      expect(reverse_list.reverse.last).to eql(reverse_list.first)
+      expect(reversed.last).to eql(reverse_list.first)
     end
   end
   describe '#reverse!' do

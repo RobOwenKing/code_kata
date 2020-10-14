@@ -1,7 +1,7 @@
 # I want to implement the most generic linked list possible
 # As such, it will be singly-linked and only keep track of the head
 
-# USed for #reverse
+# Used for #reverse
 require_relative 'stack'
 
 # Node class for items of our linked list
@@ -199,17 +199,17 @@ class LinkedList
   end
 
   def reverse
-    stack = Stack.new
+    new_list = LinkedList.new
     current_node = @head
-
     until current_node.nil?
-      stack.push(current_node.value)
+      new_list.unshift(current_node.value)
       current_node = current_node.next
     end
 
-    new_list = LinkedList.new
-    new_list.push(stack.pop) until stack.empty?
-
     new_list
+  end
+
+  def reverse!
+
   end
 end
