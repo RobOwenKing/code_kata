@@ -197,4 +197,19 @@ class LinkedList
     # Out here, hare must have reached the tail without finding a loop
     false
   end
+
+  def reverse
+    stack = Stack.new
+    current_node = @head
+
+    until current_node.nil?
+      stack.push(current_node.value)
+      current_node = current_node.next
+    end
+
+    new_list = LinkedList.new
+    new_list.push(stack.pop) until stack.empty?
+
+    new_list
+  end
 end
