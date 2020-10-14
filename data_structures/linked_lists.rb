@@ -201,6 +201,7 @@ class LinkedList
   def reverse
     new_list = LinkedList.new
     current_node = @head
+    # For each node of original list, unshift it to head of new list
     until current_node.nil?
       new_list.unshift(current_node.value)
       current_node = current_node.next
@@ -210,6 +211,20 @@ class LinkedList
   end
 
   def reverse!
+    # Could just use reverse and reassign @head
+    # But let's do something different
+    return @head if @head.next.nil?
 
+    prev_node = nil
+    current_node = @head
+
+    until current_node.nil?
+      next_node = current_node.next
+      current_node.next = prev_node
+      prev_node = current_node
+      current_node = next_node
+    end
+
+    @head = prev_node
   end
 end
