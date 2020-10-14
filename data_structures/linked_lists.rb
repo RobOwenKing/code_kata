@@ -88,6 +88,15 @@ class LinkedList
     current_node.value
   end
 
+  def fetch_node(index)
+    current_node = head
+    until index.zero?
+      index -= 1
+      current_node = current_node.next
+    end
+    current_node
+  end
+
   def find_index(value)
     return nil if head.nil?
 
@@ -132,17 +141,5 @@ class LinkedList
     to_delete = prev_node.next
     prev_node.next = to_delete.next
     to_delete.value
-  end
-
-  private
-
-  # Helper method for #insert
-  def fetch_node(index)
-    current_node = head
-    until index.zero?
-      index -= 1
-      current_node = current_node.next
-    end
-    current_node
   end
 end

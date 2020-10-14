@@ -220,4 +220,18 @@ RSpec.describe LinkedList do
       expect(delete_list.last).to eql(delete_list.delete_at(-1))
     end
   end
+  describe '#loops?' do
+    loop_list = LinkedList.new
+    loop_list.push('100')
+    loop_list.push('200')
+    loop_list.push('300')
+    loop_list.push('400')
+    it "Should return false when there's no loop" do
+      expect(loop_list.loops?).to eql(false)
+    end
+    it 'Should return true when there is a loop' do
+      loop_list.tail.next = loop_list.fetch(1)
+      expect(loop_list.loops?).to eql(true)
+    end
+  end
 end
