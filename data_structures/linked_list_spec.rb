@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative 'linked_lists'
+require_relative 'linked_list'
 
 RSpec.describe Node do
   describe '#initialize' do
