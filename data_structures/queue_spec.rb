@@ -7,16 +7,17 @@ RSpec.describe Queue do
     it 'Returns nil for empty queue' do
       expect(queue.dequeue).to eql(nil)
     end
-    it 'Returns the correct value after one round' do
+    it 'Dequeues correct value after one enqueue' do
       queue.enqueue(10)
       expect(queue.dequeue).to eql(10)
     end
-    it 'Returns the correct value after two rounds' do
+    it 'Dequeues correct value after two enqueues' do
       queue.enqueue(20)
       queue.enqueue(30)
-      expect(queue.dequeue).to eql(30)
+      expect(queue.dequeue).to eql(20)
     end
-    it 'Returns the correct value second time' do
+    it 'Dequeues correct value second time' do
+      # Queue still contains 30 from previous test
       queue.enqueue(40)
       queue.enqueue(50)
       queue.dequeue

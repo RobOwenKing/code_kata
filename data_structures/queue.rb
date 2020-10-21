@@ -9,8 +9,8 @@ class Queue
     @for_dequeue = Stack.new
   end
 
-  def enqueue
-
+  def enqueue(val)
+    @for_enqueue.push(val)
   end
 
   def dequeue
