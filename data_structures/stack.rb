@@ -1,5 +1,5 @@
 # Data structures practice, first exercise
-# Ruby port of Javascript example here: https://www.youtube.com/watch?v=wtynhUwS5hI
+# Ruby port of Traversy Media JS example (https://www.youtube.com/watch?v=wtynhUwS5hI)
 
 # Stack class, to initialize with no arguments
 class Stack
