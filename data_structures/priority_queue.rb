@@ -25,4 +25,12 @@ class PriorityQueue
   def next
     @queue.empty? ? nil : @queue[-1][0]
   end
+
+  # Not worrying about uniqueness
+  def find_priority(value)
+    # Find an item in the queue whose first element matches given value
+    found = @queue.bsearch { |item| item[0] == value }
+    # If there is one, return its priority, else return nil
+    found.nil? ? nil : found[1]
+  end
 end
