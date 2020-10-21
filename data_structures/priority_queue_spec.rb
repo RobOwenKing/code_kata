@@ -4,7 +4,7 @@ require_relative 'priority_queue'
 RSpec.describe PriorityQueue do
   describe '#enqueue and #dequeue' do
     priority_queue = PriorityQueue.new
-    it 'Returns nil for empty queue' do
+    it 'Returns nil for an empty queue' do
       expect(priority_queue.dequeue).to eql(nil)
     end
     it 'Dequeues correct value after one enqueue' do
@@ -26,6 +26,21 @@ RSpec.describe PriorityQueue do
       priority_queue.enqueue('two', 12)
       priority_queue.dequeue
       expect(priority_queue.dequeue).to eql('one')
+    end
+  end
+  describe '#next' do
+    next_queue = PriorityQueue.new
+    it 'Returns nil for an empty queue' do
+      expect(next_queue.next).to eq(nil)
+    end
+    it 'Returns the highest priority value for a non-empty queue' do
+      next_queue.enqueue('low', 1)
+      next_queue.enqueue('high', 2)
+      expect(next_queue.next).to eq('high')
+    end
+    it "Doesn't affect the queue" do
+      next_queue.next
+      expect(next_queue.dequeue).to eq('high')
     end
   end
 end
