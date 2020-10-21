@@ -9,7 +9,13 @@ class Queue
     @for_dequeue = Stack.new
   end
 
+  def enqueue
+
+  end
+
   def dequeue
+    @for_dequeue.push(@for_enqueue.pop) until @for_enqueue.empty?
+
     @for_dequeue.pop
   end
 end
