@@ -140,4 +140,25 @@ RSpec.describe Set do
       expect(set_6.length).to eql(2)
     end
   end
+  describe '#subset?' do
+    subset_set = Set.new([1, 2, 3])
+    it 'Should return false called on an empty set' do
+      expect(Set.new.subset?(subset_set)).to eql(false)
+    end
+    it 'Should return true with the empty set as argument' do
+      expect(subset_set.subset?(Set.new)).to eql(true)
+    end
+    it 'Should return false with two non-empty sets with no overlap' do
+      set_1 = Set.new([4, 5])
+      expect(subset_set.subset?(set_1)).to eql(false)
+    end
+    it 'Should return false with two non-empty sets with some overlap' do
+      set_2 = Set.new([2, 6])
+      expect(subset_set.subset?(set_2)).to eql(false)
+    end
+    it 'Should return true when the argument is a subset' do
+      set_3 = Set.new([1, 3])
+      expect(subset_set.subset?(set_3)).to eql(true)
+    end
+  end
 end
