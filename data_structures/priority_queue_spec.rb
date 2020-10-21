@@ -55,4 +55,19 @@ RSpec.describe PriorityQueue do
       expect(find_queue.find_priority('no such element')).to eq(nil)
     end
   end
+  describe '#position' do
+    position_queue = PriorityQueue.new
+    position_queue.enqueue('mid', 2)
+    position_queue.enqueue('low', 1)
+    position_queue.enqueue('high', 3)
+    it 'Returns 1 for next element in queue' do
+      expect(position_queue.position(position_queue.next)).to eq(1)
+    end
+    it 'Returns correct number for other elements' do
+      expect(position_queue.position('mid')).to eq(2)
+    end
+    it 'Returns nil for element not in queue' do
+      expect(position_queue.position('oops')).to eq(nil)
+    end
+  end
 end
