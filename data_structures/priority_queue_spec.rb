@@ -43,4 +43,16 @@ RSpec.describe PriorityQueue do
       expect(next_queue.dequeue).to eq('high')
     end
   end
+  describe '#find_priority' do
+    find_queue = PriorityQueue.new
+    find_queue.enqueue('low', 1)
+    find_queue.enqueue('mid', 2)
+    find_queue.enqueue('high', 3)
+    it 'Returns priority of element' do
+      expect(find_queue.find_priority('mid')).to eq(2)
+    end
+    it 'Returns nil when no such element exists' do
+      expect(find_queue.find_priority('no such element')).to eq(nil)
+    end
+  end
 end
