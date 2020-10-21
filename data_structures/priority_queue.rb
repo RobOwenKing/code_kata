@@ -7,7 +7,7 @@ class PriorityQueue
 
   def enqueue(val, priority)
     pos = @queue.bsearch_index { |element| element[1] > priority }
-    pos.nil? ? @queue.push([val, priority]) : @queue.insert([val, priority], pos)
+    pos.nil? ? @queue.push([val, priority]) : @queue.insert(pos, [val, priority])
   end
 
   def dequeue
