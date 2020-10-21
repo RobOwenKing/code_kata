@@ -3,7 +3,7 @@
 
 require_relative 'stack'
 
-class Queue
+class MyQueue
   def initialize
     @for_enqueue = Stack.new
     @for_dequeue = Stack.new

@@ -1,9 +1,9 @@
 require 'rspec'
 require_relative 'queue'
 
-RSpec.describe Queue do
+RSpec.describe MyQueue do
   describe '#enqueue and #dequeue' do
-    queue = Queue.new
+    queue = MyQueue.new
     it 'Returns nil for empty queue' do
       expect(queue.dequeue).to eql(nil)
     end
