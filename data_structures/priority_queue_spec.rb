@@ -70,4 +70,17 @@ RSpec.describe PriorityQueue do
       expect(position_queue.position('oops')).to eq(nil)
     end
   end
+  describe '#change_priority' do
+    change_queue = PriorityQueue.new
+    change_queue.enqueue('mid', 2)
+    change_queue.enqueue('low', 1)
+    change_queue.enqueue('high', 3)
+    it 'Creates new element when value not found' do
+      change_queue.change_priority('new', 4)
+      expect(change_queue.next).to eq('new')
+    end
+    it 'Moves element as expected' do
+      change_queue.change_priority('mid', 5)
+      expect(change_queue.next).to eq('mid')
+  end
 end
