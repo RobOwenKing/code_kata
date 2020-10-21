@@ -35,7 +35,7 @@ RSpec.describe Set do
     end
   end
   describe '#include?' do
-    include_set = Set.new(0, 1, 2)
+    include_set = Set.new([0, 1, 2])
     it 'Should return true for an element in the set' do
       expect(include_set.include?(1)).to eq(true)
     end

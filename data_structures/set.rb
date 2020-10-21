@@ -19,4 +19,8 @@ class Set
     pos = @set.bsearch_index { |element| element > val }
     pos.nil? ? @set.push(val) : @set.insert(pos, val)
   end
+
+  def include?(val)
+    @set.include?(val)
+  end
 end
