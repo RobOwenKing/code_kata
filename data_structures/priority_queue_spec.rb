@@ -79,8 +79,13 @@ RSpec.describe PriorityQueue do
       change_queue.change_priority('new', 4)
       expect(change_queue.next).to eq('new')
     end
-    it 'Moves element as expected' do
+    it 'Raises priority' do
       change_queue.change_priority('mid', 5)
       expect(change_queue.next).to eq('mid')
+    end
+    it 'Reduces priority' do
+      change_queue.change_priority('mid', 2)
+      expect(change_queue.next).to_not eq('mid')
+    end
   end
 end

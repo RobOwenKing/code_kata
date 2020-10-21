@@ -36,7 +36,18 @@ class PriorityQueue
 
   # Again, not worrying about uniqueness
   def position(value)
+    # Find the index of some element with given value
     index = @queue.find_index { |item| item[0] == value}
+    # Return its position from the **end**
     index.nil? ? nil : @queue.length - index
+  end
+
+  # Still not worrying about uniqueness
+  def change_priority(value, priority)
+    # Plain #delete would delete any that match value
+    index = @queue.find_index { |item| item[0] == value}
+    @queue.delete_at(index) unless index.nil?
+
+    enqueue(value, priority)
   end
 end
