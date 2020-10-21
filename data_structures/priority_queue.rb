@@ -11,6 +11,6 @@ class PriorityQueue
   end
 
   def dequeue
-    @queue.pop[0]
+    @queue.empty? ? nil : @queue.pop[0]
   end
 end
