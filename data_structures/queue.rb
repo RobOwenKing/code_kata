@@ -14,7 +14,9 @@ class Queue
   end
 
   def dequeue
-    @for_dequeue.push(@for_enqueue.pop) until @for_enqueue.empty?
+    if @for_dequeue.empty?
+      @for_dequeue.push(@for_enqueue.pop) until @for_enqueue.empty?
+    end
 
     @for_dequeue.pop
   end
