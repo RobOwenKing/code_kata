@@ -3,6 +3,8 @@
 # In a real use case, a Hash would likely be preferable
 
 class Set
+  attr_reader :set
+
   def initialize(array = [])
     # We want only unique values in our array
     # Sorting it now will be useful later
@@ -23,5 +25,13 @@ class Set
 
   def delete(val)
     include?(val) ? @set.delete(val) : nil
+  end
+
+  def union(other_set)
+    new_set = @set
+    other_set.set.each do |element|
+      new_set.push(element) unless new_set.include?(element)
+    end
+    Set.new(new_set)
   end
 end
