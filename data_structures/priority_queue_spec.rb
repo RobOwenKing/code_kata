@@ -1,34 +1,31 @@
 require 'rspec'
-require_relative 'queue'
+require_relative 'priority_queue'
 
-RSpec.describe MyQueue do
+RSpec.describe PriorityQueue do
   describe '#enqueue and #dequeue' do
-    my_queue = MyQueue.new
-    ruby_queue = Queue.new
+    priority_queue = PriorityQueue.new
     it 'Returns nil for empty queue' do
-      expect(my_queue.dequeue).to eql(nil)
+      expect(priority_queue.dequeue).to eql(nil)
     end
     it 'Dequeues correct value after one enqueue' do
-      my_queue.enqueue(10)
-      ruby_queue.enq(10)
-      expect(my_queue.dequeue).to eql(ruby_queue.deq)
+      priority_queue.enqueue('Hello World', 1)
+      expect(priority_queue.dequeue).to eql('Hello World')
     end
-    it 'Dequeues correct value after two enqueues' do
-      my_queue.enqueue(20)
-      ruby_queue.enq(20)
-      my_queue.enqueue(30)
-      ruby_queue.enq(30)
-      expect(my_queue.dequeue).to eql(ruby_queue.deq)
+    it 'Dequeues correct value after two enqueues, highest priority last' do
+      priority_queue.enqueue('Tweedledum', 2)
+      priority_queue.enqueue('Tweedledee', 3)
+      expect(priority_queue.dequeue).to eql('Tweedledee')
+    end
+    it 'Dequeues correct value after two enqueues, highest priority first' do
+      priority_queue.enqueue('Tweedledum', 5)
+      priority_queue.enqueue('Tweedledee', 4)
+      expect(priority_queue.dequeue).to eql('Tweedledum')
     end
     it 'Dequeues correct value second time' do
-      # Queue still contains 30 from previous test
-      my_queue.enqueue(40)
-      ruby_queue.enq(40)
-      my_queue.enqueue(50)
-      ruby_queue.enq(50)
-      my_queue.dequeue
-      ruby_queue.deq
-      expect(my_queue.dequeue).to eql(ruby_queue.deq)
+      priority_queue.enqueue('one', 11)
+      priority_queue.enqueue('two', 12)
+      priority_queue.dequeue
+      expect(priority_queue.dequeue).to eql('one')
     end
   end
 end

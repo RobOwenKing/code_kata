@@ -1,12 +1,8 @@
-# Queue implemented using two stacks
-# Inspired by InterviewNest (https://www.youtube.com/watch?v=esuEG9VINVA)
+# Priority Queue class with some basic operations
 
-require_relative 'priority_queue'
-
-class MyQueue
+class PriorityQueue
   def initialize
-    @for_enqueue = Stack.new
-    @for_dequeue = Stack.new
+    @queue = []
   end
 
   def enqueue(val)
