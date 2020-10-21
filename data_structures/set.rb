@@ -6,8 +6,7 @@ class Set
   attr_reader :set
 
   def initialize(array = [])
-    # We want only unique values in our array
-    # Sorting it now will be useful later
+    # We want only unique values in our Set
     @set = array.uniq
   end
 
@@ -15,6 +14,7 @@ class Set
     @set.length
   end
 
+  # To maintain uniqueness, only add elements not already in our Set
   def add(val)
     @set.include?(val) ? nil : @set.push(val)
   end
@@ -30,6 +30,7 @@ class Set
   # a.union(b) returns Set of elements in a and/or b
   def union(other_set)
     new_set = @set
+    # Create an array with elements that are members of either set
     other_set.set.each do |element|
       new_set.push(element)
     end
@@ -39,6 +40,7 @@ class Set
   # a.intersection(b) returns Set of elements in a and b
   def intersection(other_set)
     new_set = []
+    # Fill our empty array with elements that are members of both sets
     other_set.set.each do |element|
       new_set.push(element) if @set.include?(element)
     end
@@ -48,6 +50,7 @@ class Set
   # a.difference(b) returns Set of elements of a not in b
   def difference(other_set)
     new_set = @set
+    # Delete elements from our array that are in the other set
     other_set.set.each do |element|
       new_set.delete(element)
     end
