@@ -42,4 +42,12 @@ class Set
     end
     Set.new(new_set)
   end
+
+  def difference(other_set)
+    new_set = @set
+    other_set.set.each do |element|
+      new_set.delete(element)
+    end
+    Set.new(new_set)
+  end
 end
