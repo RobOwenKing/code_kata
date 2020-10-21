@@ -33,4 +33,10 @@ class PriorityQueue
     # If there is one, return its priority, else return nil
     found.nil? ? nil : found[1]
   end
+
+  # Again, not worrying about uniqueness
+  def position(value)
+    index = @queue.find_index { |item| item[0] == value}
+    index.nil? ? nil : @queue.length - index
+  end
 end
