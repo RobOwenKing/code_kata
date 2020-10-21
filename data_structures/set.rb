@@ -27,14 +27,16 @@ class Set
     include?(val) ? @set.delete(val) : nil
   end
 
+  # a.union(b) returns Set of elements in a and/or b
   def union(other_set)
     new_set = @set
     other_set.set.each do |element|
-      new_set.push(element) unless new_set.include?(element)
+      new_set.push(element)
     end
     Set.new(new_set)
   end
 
+  # a.intersection(b) returns Set of elements in a and b
   def intersection(other_set)
     new_set = []
     other_set.set.each do |element|
@@ -43,6 +45,7 @@ class Set
     Set.new(new_set)
   end
 
+  # a.difference(b) returns Set of elements of a not in b
   def difference(other_set)
     new_set = @set
     other_set.set.each do |element|
