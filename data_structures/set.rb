@@ -16,11 +16,7 @@ class Set
   def add(val)
     return nil if @set.include?(val)
 
-    if @set.empty? || val > @set[-1]
-      @set.push(val)
-    else
-      pos = @set.bsearch_index { |element| element > val }
-      @set.insert(pos, val)
-    end
+    pos = @set.bsearch_index { |element| element > val }
+    pos.nil? ? @set.push(val) : @set.insert(pos, val)
   end
 end
