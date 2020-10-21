@@ -34,4 +34,13 @@ RSpec.describe Set do
       expect(add_set.length).to eq(2)
     end
   end
+  describe '#include?' do
+    include_set = Set.new(0, 1, 2)
+    it 'Should return true for an element in the set' do
+      expect(include_set.include?(1)).to eq(true)
+    end
+    it 'Should return false for an element not in the set' do
+      expect(include_set.include?(3)).to eq(false)
+    end
+  end
 end
