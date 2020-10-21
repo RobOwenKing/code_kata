@@ -6,7 +6,7 @@ class Set
   def initialize(array = [])
     # We want only unique values in our array
     # Sorting it now will be useful later
-    @set = array.uniq.sort
+    @set = array.uniq
   end
 
   def length
@@ -14,10 +14,7 @@ class Set
   end
 
   def add(val)
-    return nil if @set.include?(val)
-
-    pos = @set.bsearch_index { |element| element > val }
-    pos.nil? ? @set.push(val) : @set.insert(pos, val)
+    @set.include?(val) ? nil : @set.push(val)
   end
 
   def include?(val)
