@@ -23,4 +23,8 @@ class Set
   def include?(val)
     @set.include?(val)
   end
+
+  def delete(val)
+    include?(val) ? @set.delete(val) : nil
+  end
 end

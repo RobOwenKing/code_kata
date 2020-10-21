@@ -49,7 +49,8 @@ RSpec.describe Set do
       expect(Set.new.delete(1)).to eql(nil)
     end
     it 'Should delete an element in the set' do
-      expect(delete_set.delete('b').length).to eql(2)
+      delete_set.delete('b')
+      expect(delete_set.length).to eql(2)
     end
     it 'Should return nil for an element not in the set' do
       expect(delete_set.delete('d')).to eql(nil)
