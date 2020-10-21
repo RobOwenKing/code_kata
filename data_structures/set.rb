@@ -56,4 +56,9 @@ class Set
     end
     Set.new(new_set)
   end
+
+  # a.subset?(b) returns true if b is a subset of a
+  def subset?(other_set)
+    other_set.set.all? { |element| include?(element) }
+  end
 end
