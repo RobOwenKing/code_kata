@@ -5,15 +5,12 @@ class PriorityQueue
     @queue = []
   end
 
-  def enqueue(val)
-    @for_enqueue.push(val)
+  def enqueue(val, priority)
+    pos = @queue.bsearch_index { |element| element[1] > priority }
+    pos.nil? ? @queue.push([val, priority]) : @queue.insert([val, priority], pos)
   end
 
   def dequeue
-    if @for_dequeue.empty?
-      @for_dequeue.push(@for_enqueue.pop) until @for_enqueue.empty?
-    end
-
-    @for_dequeue.pop
+    @queue.pop[0]
   end
 end
