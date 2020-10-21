@@ -45,6 +45,9 @@ RSpec.describe Set do
   end
   describe '#delete' do
     delete_set = Set.new(%w[a b c])
+    it 'Should return nil for an empty set' do
+      expect(Set.new.delete(1)).to eql(nil)
+    end
     it 'Should delete an element in the set' do
       expect(delete_set.delete('b').length).to eql(2)
     end
