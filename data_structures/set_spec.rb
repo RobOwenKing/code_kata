@@ -77,4 +77,25 @@ RSpec.describe Set do
       expect(set_6.length).to eql(6)
     end
   end
+  describe '#intersection' do
+    intersection_set = Set.new([1, 2, 3])
+    it 'Should work called on an empty set' do
+      set_1 = Set.new.intersection(intersection_set)
+      expect(set_1.length).to eql(0)
+    end
+    it 'Should work with the empty set as argument' do
+      set_2 = intersection_set.intersection(Set.new)
+      expect(set_2.length).to eql(0)
+    end
+    it 'Should work with two non-empty sets with no overlap' do
+      set_3 = Set.new([4, 5])
+      set_4 = intersection_set.intersection(set_3)
+      expect(set_4.length).to eql(0)
+    end
+    it 'Should work with two non-empty sets with overlap' do
+      set_5 = Set.new([4, 6])
+      set_6 = intersection_set.intersection(set_5)
+      expect(set_6.length).to eql(1)
+    end
+  end
 end
