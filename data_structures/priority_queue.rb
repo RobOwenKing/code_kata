@@ -20,4 +20,9 @@ class PriorityQueue
     # Either return nil or the value of the last element
     @queue.empty? ? nil : @queue.pop[0]
   end
+
+  # A #peek method
+  def next
+    @queue.empty? ? nil : @queue[-1][0]
+  end
 end
