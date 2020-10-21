@@ -9,7 +9,8 @@ RSpec.describe Set do
   end
   describe '#length' do
     it 'Returns 0 for empty set' do
-      expect(Set.new.length).to eql(0)
+      empty_set = Set.new
+      expect(empty_set.length).to eql(0)
     end
     it 'Returns correct number for set created with array of unique values' do
       expect(Set.new([0, 1, 2, 3]).length).to eql(4)
