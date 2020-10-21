@@ -93,7 +93,7 @@ RSpec.describe Set do
       expect(set_4.length).to eql(0)
     end
     it 'Should work with two non-empty sets with overlap' do
-      set_5 = Set.new([4, 6])
+      set_5 = Set.new([2, 6])
       set_6 = intersection_set.intersection(set_5)
       expect(set_6.length).to eql(1)
     end

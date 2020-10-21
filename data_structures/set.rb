@@ -34,4 +34,12 @@ class Set
     end
     Set.new(new_set)
   end
+
+  def intersection(other_set)
+    new_set = []
+    other_set.set.each do |element|
+      new_set.push(element) if @set.include?(element)
+    end
+    Set.new(new_set)
+  end
 end
