@@ -17,7 +17,7 @@ class PriorityQueue
   end
 
   def dequeue
-    # Either return nil or the value of the last element
+    # Return the value of the last element, else nil
     @queue.empty? ? nil : @queue.pop[0]
   end
 
