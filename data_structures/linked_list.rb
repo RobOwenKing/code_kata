@@ -1,5 +1,6 @@
 # I want to implement the most generic linked list possible
 # As such, it will be singly-linked and only keep track of the head
+# In a real-life application, keeping track of size/tail might well pay off
 
 # Used for #reverse
 require_relative 'stack'

@@ -5,7 +5,9 @@ require_relative 'stack'
 
 class MyQueue
   def initialize
+    # One queue will receive new entries
     @for_enqueue = Stack.new
+    # Another will be used to reverse the order for dequeuing
     @for_dequeue = Stack.new
   end
 
@@ -14,7 +16,10 @@ class MyQueue
   end
 
   def dequeue
+    # If there is nothing in the second queue
     if @for_dequeue.empty?
+      # Empty the first queue into it, reversing the order automatically
+      # That means popping from the second queue will now be oldest entry
       @for_dequeue.push(@for_enqueue.pop) until @for_enqueue.empty?
     end
 
