@@ -41,4 +41,11 @@ class BinarySearchTree
     # Else place the node in the relevant child position
     value < parent_node.value ? parent_node.left = new_node : parent_node.right = new_node
   end
+
+  def include?(value)
+    return false if @root.nil?
+
+    found_node = @root.find_node(value)
+    found_node.value == value
+  end
 end
