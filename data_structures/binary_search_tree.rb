@@ -22,7 +22,7 @@ class Node
 end
 
 class BinarySearchTree
-  attr_reader :root
+  attr_reader :root, :count
 
   def initialize(value = nil)
     @root = value.nil? ? nil : Node.new(value)
@@ -31,12 +31,16 @@ class BinarySearchTree
 
   def insert(value)
     new_node = Node.new(value)
+    @count += 1
     return @root = new_node if @root.nil?
 
     # Find where the given value would go in the tree
     parent_node = @root.find_node(value)
     # If that would repeat a value, return nil
-    return nil if parent_node.value == value
+    if parent_node.value == value
+      @count -= 1
+      return nil
+    end
 
     # Else place the node in the relevant child position
     value < parent_node.value ? parent_node.left = new_node : parent_node.right = new_node

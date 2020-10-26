@@ -53,4 +53,18 @@ RSpec.describe BinarySearchTree do
       expect(include_tree.include?('c')).to eql(false)
     end
   end
+  describe '#count' do
+    count_tree = BinarySearchTree.new()
+    it 'should return 0 when root is nil' do
+      expect(count_tree.count).to eql(0)
+    end
+    it 'should return 1 for a tree with just a root' do
+      count_tree.insert('h')
+      expect(count_tree.count).to eql(1)
+    end
+    it 'should work for larger trees' do
+      %w[e l o w r d].each { |letter| count_tree.insert(letter) }
+      expect(count_tree.count).to eql(7)
+    end
+  end
 end
