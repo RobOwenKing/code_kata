@@ -6,6 +6,14 @@ class Node
     @left = nil
     @right = nil
   end
+
+  def find_node(value)
+    return self if value == @value
+
+    if value < @value
+      return @left.nil? ? self : @left.find_node(value)
+    end
+  end
 end
 
 class BinarySearchTree
@@ -17,11 +25,11 @@ class BinarySearchTree
   end
 
   def insert(value)
-    node = @root
-    if value < node.value
-      node.left = Node.new(value)
-    elsif value > node.value
-      node.right = Node.new(value)
-    end
+    new_node = Node.new(value)
+    parent_node = @root.find_node(value)
+
+    return nil if parent_node.value == value
+
+    value < parent_node.value ? parent_node.left = new_node : parent_node.right = new_node
   end
 end
