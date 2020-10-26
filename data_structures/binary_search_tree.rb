@@ -30,17 +30,16 @@ class BinarySearchTree
   end
 
   def insert(value)
-    new_node = Node.new(value)
-    @count += 1
-    return @root = new_node if @root.nil?
-
     # Find where the given value would go in the tree
-    parent_node = @root.find_node(value)
+    parent_node = @root.nil? ? nil : @root.find_node(value)
     # If that would repeat a value, return nil
-    if parent_node.value == value
-      @count -= 1
-      return nil
-    end
+    return nil if !parent_node.nil? && parent_node.value == value
+
+    # Else, we're adding a node, so update the count and create it
+    @count += 1
+    new_node = Node.new(value)
+    # If no root, put the new node there
+    return @root = new_node if @root.nil?
 
     # Else place the node in the relevant child position
     value < parent_node.value ? parent_node.left = new_node : parent_node.right = new_node
