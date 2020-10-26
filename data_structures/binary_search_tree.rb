@@ -26,7 +26,7 @@ class BinarySearchTree
 
   def initialize(value = nil)
     @root = value.nil? ? nil : Node.new(value)
-    @count = 0
+    @count = @root.nil? ? 0 : 1
   end
 
   def insert(value)

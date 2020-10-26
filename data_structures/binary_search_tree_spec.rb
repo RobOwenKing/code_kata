@@ -43,4 +43,14 @@ RSpec.describe BinarySearchTree do
       expect(insert_tree.insert(300).value).to eql(300)
     end
   end
+  describe '#include?' do
+    include_tree = BinarySearchTree.new('r')
+    %w[o b e t].each { |letter| include_tree.insert(letter) }
+    it 'should return true for a value in the tree' do
+      expect(include_tree.include?('b')).to eql(true)
+    end
+    it 'should return false for a value not in the tree' do
+      expect(include_tree.include?('c')).to eql(false)
+    end
+  end
 end
