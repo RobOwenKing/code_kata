@@ -51,4 +51,8 @@ class BinarySearchTree
     found_node = @root.find_node(value)
     found_node.value == value
   end
+
+  def min
+    return nil if @root.nil?
+  end
 end

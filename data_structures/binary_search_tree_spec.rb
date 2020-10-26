@@ -75,7 +75,7 @@ RSpec.describe BinarySearchTree do
     it 'should return root when root.left is nil' do
       min_tree.insert('m')
       min_tree.insert('t')
-      expect(min_tree.min).to eql(nil)
+      expect(min_tree.min).to eql('m')
     end
     it 'should return correct value for more complex cases' do
       min_tree.insert('j')
