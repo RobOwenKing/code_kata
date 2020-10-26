@@ -11,8 +11,11 @@ class Node
     return self if value == @value
 
     if value < @value
+      # If the value we're looking for is less than this node's value
+      # If it has no left child, return itself, otherwise go recursive
       return @left.nil? ? self : @left.find_node(value)
     else
+      # Same thing for larger values
       return @right.nil? ? self : @right.find_node(value)
     end
   end
@@ -27,11 +30,13 @@ class BinarySearchTree
   end
 
   def insert(value)
-    new_node = Node.new(value)
+    # Find where the given value would go in the tree
     parent_node = @root.find_node(value)
-
+    # If that would repeat a value, return nil
     return nil if parent_node.value == value
 
+    # Else create our new node and place it in the relevant child position
+    new_node = Node.new(value)
     value < parent_node.value ? parent_node.left = new_node : parent_node.right = new_node
   end
 end

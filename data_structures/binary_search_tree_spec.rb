@@ -23,7 +23,7 @@ RSpec.describe BinarySearchTree do
       expect(insert_root.right.right).to eql(nil)
     end
     it 'should return nil when passed a repeated value' do
-      expect(insert_tree.insert(5)).to eql(nil)
+      expect(insert_tree.insert(1)).to eql(nil)
     end
     it 'should return a node otherwise' do
       expect(insert_tree.insert(200).class).to eql(Node)
