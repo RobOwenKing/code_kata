@@ -84,4 +84,18 @@ RSpec.describe BinarySearchTree do
       expect(min_tree.min).to eql('d')
     end
   end
+  describe 'max' do
+    max_tree = BinarySearchTree.new()
+    it 'should return nil when root is nil' do
+      expect(max_tree.max).to eql(nil)
+    end
+    it 'should return root when root.right is nil' do
+      max_tree.insert('m')
+      expect(max_tree.max).to eql('m')
+    end
+    it 'should return correct value for more complex cases' do
+      %w[w o e i f n z y].each { |letter| count_tree.insert(letter) }
+      expect(max_tree.max).to eql('z')
+    end
+  end
 end
