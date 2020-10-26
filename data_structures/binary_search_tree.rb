@@ -59,4 +59,12 @@ class BinarySearchTree
     current_node = current_node.left until current_node.left.nil?
     current_node.value
   end
+
+  def max
+    return nil if @root.nil?
+
+    current_node = @root
+    current_node = current_node.right until current_node.right.nil?
+    current_node.value
+  end
 end

@@ -94,7 +94,7 @@ RSpec.describe BinarySearchTree do
       expect(max_tree.max).to eql('m')
     end
     it 'should return correct value for more complex cases' do
-      %w[w o e i f n z y].each { |letter| count_tree.insert(letter) }
+      %w[w o e i f n z y].each { |letter| max_tree.insert(letter) }
       expect(max_tree.max).to eql('z')
     end
   end
