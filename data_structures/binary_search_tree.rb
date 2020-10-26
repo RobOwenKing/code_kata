@@ -24,19 +24,21 @@ end
 class BinarySearchTree
   attr_reader :root
 
-  def initialize(value)
-    @root = Node.new(value)
+  def initialize(value = nil)
+    @root = value.nil? ? nil : Node.new(value)
     @count = 0
   end
 
   def insert(value)
+    new_node = Node.new(value)
+    return @root = new_node if @root.nil?
+
     # Find where the given value would go in the tree
     parent_node = @root.find_node(value)
     # If that would repeat a value, return nil
     return nil if parent_node.value == value
 
-    # Else create our new node and place it in the relevant child position
-    new_node = Node.new(value)
+    # Else place the node in the relevant child position
     value < parent_node.value ? parent_node.left = new_node : parent_node.right = new_node
   end
 end
