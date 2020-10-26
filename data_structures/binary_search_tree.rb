@@ -15,4 +15,11 @@ class BinarySearchTree
     @root = Node.new(value)
     @count = 0
   end
+
+  def insert(value)
+    node = @root
+    if value < node.value
+      node.left = Node.new(value)
+    end
+  end
 end
