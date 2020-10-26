@@ -9,7 +9,10 @@ class Node
 end
 
 class BinarySearchTree
+  attr_reader :root
+
   def initialize(value)
     @root = Node.new(value)
+    @count = 0
   end
 end
