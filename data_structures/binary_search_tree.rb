@@ -9,5 +9,7 @@ class Node
 end
 
 class BinarySearchTree
-
+  def initialize(value)
+    @root = Node.new(value)
+  end
 end
