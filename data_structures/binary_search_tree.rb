@@ -54,5 +54,9 @@ class BinarySearchTree
 
   def min
     return nil if @root.nil?
+
+    current_node = @root
+    current_node = current_node.left until current_node.left.nil?
+    current_node.value
   end
 end
