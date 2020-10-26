@@ -12,6 +12,8 @@ class Node
 
     if value < @value
       return @left.nil? ? self : @left.find_node(value)
+    else
+      return @right.nil? ? self : @right.find_node(value)
     end
   end
 end
