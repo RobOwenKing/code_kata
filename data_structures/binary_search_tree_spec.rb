@@ -11,7 +11,7 @@ RSpec.describe BinarySearchTree do
     end
     it 'should give root node a right child when passed a larger value' do
       insert_tree.insert(100)
-      expect(insert_root.right.value).to eql(1)
+      expect(insert_root.right.value).to eql(100)
     end
     it 'should place values in the correct place further down the tree' do
       insert_tree.insert(5)

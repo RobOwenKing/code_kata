@@ -20,6 +20,8 @@ class BinarySearchTree
     node = @root
     if value < node.value
       node.left = Node.new(value)
+    elsif value > node.value
+      node.right = Node.new(value)
     end
   end
 end
