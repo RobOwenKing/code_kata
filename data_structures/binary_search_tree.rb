@@ -67,4 +67,9 @@ class BinarySearchTree
     current_node = current_node.right until current_node.right.nil?
     current_node.value
   end
+
+  def find(value)
+    found_node = root.find_node(value)
+    found_node.value == value ? found_node : nil
+  end
 end

@@ -4,14 +4,14 @@ require_relative 'binary_search_tree'
 RSpec.describe BinarySearchTree do
   describe '#initialize' do
     it 'should work when passed no value' do
-      expect(BinarySearchTree.new().root).to eql(nil)
+      expect(BinarySearchTree.new.root).to eql(nil)
     end
     it 'should work when passed a value' do
       expect(BinarySearchTree.new('Hi').root.value).to eql('Hi')
     end
   end
   describe '#insert' do
-    insert_tree = BinarySearchTree.new()
+    insert_tree = BinarySearchTree.new
     it "should give a tree a root when it doesn't have one" do
       insert_tree.insert(10)
       expect(insert_tree.root.value).to eql(10)
@@ -54,7 +54,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#count' do
-    count_tree = BinarySearchTree.new()
+    count_tree = BinarySearchTree.new
     it 'should return 0 when root is nil' do
       expect(count_tree.count).to eql(0)
     end
@@ -68,7 +68,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#min' do
-    min_tree = BinarySearchTree.new()
+    min_tree = BinarySearchTree.new
     it 'should return nil when root is nil' do
       expect(min_tree.min).to eql(nil)
     end
@@ -85,7 +85,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#max' do
-    max_tree = BinarySearchTree.new()
+    max_tree = BinarySearchTree.new
     it 'should return nil when root is nil' do
       expect(max_tree.max).to eql(nil)
     end
@@ -99,7 +99,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#find' do
-    find_tree = BinarySearchTree.new()
+    find_tree = BinarySearchTree.new
     %w[m j k d l q r p].each { |letter| find_tree.insert(letter) }
     it 'should return a node when the value is in the tree' do
       expect(find_tree.find('k').class).to eql(Node)
