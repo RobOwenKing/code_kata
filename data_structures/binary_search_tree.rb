@@ -87,6 +87,12 @@ class BinarySearchTree
     return best_find < value ? nil : best_find
   end
 
+  # Returns an array of the tree's elements in sorted order
+  # (In lieu of a print method)
+  def to_a
+    root.nil? ? [] : build_array(root, [])
+  end
+
   private
 
   def find_floor(value, node)
@@ -113,5 +119,9 @@ class BinarySearchTree
       best_find = node.left.nil? ? node.value : find_ceil(value, node.left)
       best_find < value ? node.value : best_find
     end
+  end
+
+  def build_array(node, array)
+    array
   end
 end
