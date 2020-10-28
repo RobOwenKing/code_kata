@@ -136,4 +136,26 @@ RSpec.describe BinarySearchTree do
       expect(floor_tree.floor(2)).to eql(nil)
     end
   end
+  describe '#ceil' do
+    ceil_tree = BinarySearchTree.new
+    [10, 6, 4, 8, 14, 12, 16].each { |num| ceil_tree.insert(num) }
+    it 'should return the value when it matches the root' do
+      expect(ceil_tree.ceil(10)).to eql(10)
+    end
+    it 'should return the value when it matches another node' do
+      expect(ceil_tree.ceil(14)).to eql(14)
+    end
+    it 'should work for a value within the range of the tree (returning root)' do
+      expect(ceil_tree.ceil(9)).to eql(10)
+    end
+    it 'should work for a value within the range of the tree (returning other)' do
+      expect(ceil_tree.ceil(13)).to eql(14)
+    end
+    it 'should work for a value below the range of the tree' do
+      expect(ceil_tree.ceil(2)).to eql(4)
+    end
+    it 'should return nil for a value above the range of the tree' do
+      expect(ceil_tree.ceil(20)).to eql(nil)
+    end
+  end
 end

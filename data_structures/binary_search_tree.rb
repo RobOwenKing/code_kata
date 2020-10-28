@@ -81,6 +81,12 @@ class BinarySearchTree
     return best_find > value ? nil : best_find
   end
 
+  def ceil(value)
+    # Based on #floor
+    best_find = find_ceil(value, root)
+    return best_find < value ? nil : best_find
+  end
+
   private
 
   def find_floor(value, node)
@@ -94,6 +100,18 @@ class BinarySearchTree
       best_find = node.right.nil? ? node.value : find_floor(value, node.right)
       # If everything in the right subtree's too big, this node's value is the floor
       best_find > value ? node.value : best_find
+    end
+  end
+
+  # Based on #find_floor
+  def find_ceil(value, node)
+    return value if node.value == value
+
+    if node.value < value
+      node.right.nil? ? node.value : find_ceil(value, node.right)
+    else
+      best_find = node.left.nil? ? node.value : find_ceil(value, node.left)
+      best_find < value ? node.value : best_find
     end
   end
 end
