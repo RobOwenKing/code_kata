@@ -74,12 +74,20 @@ class BinarySearchTree
   end
 
   def floor(value)
+    # We're going to use a private method which also takes a node as input
+    # This allows us to use recursion
     find_floor(value, root)
   end
 
   private
 
   def find_floor(value, node)
-    value if node.value == value
+    return value if node.value == value
+
+    if node.value > value
+      return node.left.nil? ? node.value : find_floor(value, node.left)
+    else
+      return node.right.nil? ? node.value : find_floor(value, node.right)
+    end
   end
 end
