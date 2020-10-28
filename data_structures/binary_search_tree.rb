@@ -76,7 +76,9 @@ class BinarySearchTree
   def floor(value)
     # We're going to use a private method which also takes a node as input
     # This allows us to use recursion
-    find_floor(value, root)
+    # We evaluate here to avoid bringing nil into comparisons in #find_floor
+    best_find = find_floor(value, root)
+    return best_find > value ? nil : best_find
   end
 
   private
@@ -85,9 +87,13 @@ class BinarySearchTree
     return value if node.value == value
 
     if node.value > value
-      return node.left.nil? ? node.value : find_floor(value, node.left)
+      # If this node's value is too big, look for a smaller one if possible
+      node.left.nil? ? node.value : find_floor(value, node.left)
     else
-      return node.right.nil? ? node.value : find_floor(value, node.right)
+      # Now we're small enough, so we see if there's anything bigger possible
+      best_find = node.right.nil? ? node.value : find_floor(value, node.right)
+      # If everything in the right subtree's too big, this node's value is the floor
+      best_find > value ? node.value : best_find
     end
   end
 end
