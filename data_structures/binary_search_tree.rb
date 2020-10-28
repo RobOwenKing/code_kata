@@ -72,4 +72,14 @@ class BinarySearchTree
     found_node = root.find_node(value)
     found_node.value == value ? found_node : nil
   end
+
+  def floor(value)
+    find_floor(value, root)
+  end
+
+  private
+
+  def find_floor(value, node)
+    value if node.value == value
+  end
 end
