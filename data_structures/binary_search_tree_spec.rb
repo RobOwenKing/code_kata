@@ -114,4 +114,26 @@ RSpec.describe BinarySearchTree do
       expect(find_tree.find('a')).to eql(nil)
     end
   end
+  describe '#floor' do
+    floor_tree = BinarySearchTree.new
+    [10, 6, 4, 8, 14, 12, 16].each { |num| floor_tree.insert(num) }
+    it 'should return the value when it matches the root' do
+      expect(floor_tree.floor(10)).to eql(10)
+    end
+    it 'should return the value when it matches another node' do
+      expect(floor_tree.floor(14)).to eql(14)
+    end
+    it 'should work for a value within the range of the tree (returning root)' do
+      expect(floor_tree.floor(11)).to eql(10)
+    end
+    it 'should work for a value within the range of the tree (returning other)' do
+      expect(floor_tree.floor(13)).to eql(12)
+    end
+    it 'should work for a value above the range of the tree' do
+      expect(floor_tree.floor(20)).to eql(16)
+    end
+    it 'should return nil for a value below the range of the tree' do
+      expect(floor_tree.floor(2)).to eql(nil)
+    end
+  end
 end
