@@ -122,6 +122,13 @@ class BinarySearchTree
   end
 
   def build_array(node, array)
-    array
+    # If there's a left subtree, add all that to our array
+    array = build_array(node.left, array) unless node.left.nil?
+
+    # Push this node's value into the array
+    array << node.value
+    # If there's no right subtree, we're done
+    # Else return the value of calling #build_array on that
+    node.right.nil? ? array : build_array(node.right, array)
   end
 end

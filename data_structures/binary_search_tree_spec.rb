@@ -165,7 +165,7 @@ RSpec.describe BinarySearchTree do
     end
     it 'should return an array of the elements in sorted order' do
       array = [10, 6, 4, 8, 14, 5, 12, 16, 3, 20]
-      array.each { |num| ceil_tree.insert(num) }
+      array.each { |num| array_tree.insert(num) }
       expect(array_tree.to_a).to eql(array.sort)
     end
   end
