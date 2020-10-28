@@ -158,4 +158,15 @@ RSpec.describe BinarySearchTree do
       expect(ceil_tree.ceil(20)).to eql(nil)
     end
   end
+  describe '#to_a' do
+    array_tree = BinarySearchTree.new
+    it 'should return an empty array for an empty tree' do
+      expect(array_tree.to_a).to eql([])
+    end
+    it 'should return an array of the elements in sorted order' do
+      array = [10, 6, 4, 8, 14, 5, 12, 16, 3, 20]
+      array.each { |num| ceil_tree.insert(num) }
+      expect(array_tree.to_a).to eql(array.sort)
+    end
+  end
 end
