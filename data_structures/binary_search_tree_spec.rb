@@ -67,7 +67,7 @@ RSpec.describe BinarySearchTree do
       expect(count_tree.count).to eql(7)
     end
   end
-  describe 'min' do
+  describe '#min' do
     min_tree = BinarySearchTree.new()
     it 'should return nil when root is nil' do
       expect(min_tree.min).to eql(nil)
@@ -84,7 +84,7 @@ RSpec.describe BinarySearchTree do
       expect(min_tree.min).to eql('d')
     end
   end
-  describe 'max' do
+  describe '#max' do
     max_tree = BinarySearchTree.new()
     it 'should return nil when root is nil' do
       expect(max_tree.max).to eql(nil)
@@ -96,6 +96,22 @@ RSpec.describe BinarySearchTree do
     it 'should return correct value for more complex cases' do
       %w[w o e i f n z y].each { |letter| max_tree.insert(letter) }
       expect(max_tree.max).to eql('z')
+    end
+  end
+  describe '#find' do
+    find_tree = BinarySearchTree.new()
+    %w[m j k d l q r p].each { |letter| find_tree.insert(letter) }
+    it 'should return a node when the value is in the tree' do
+      expect(find_tree.find('k').class).to eql(Node)
+    end
+    it 'should return a node with the right value' do
+      expect(find_tree.find('k').value).to eql('k')
+    end
+    it 'should return nil for a value not in the tree (within range)' do
+      expect(find_tree.find('h')).to eql(nil)
+    end
+    it 'should return nil for a value not in the tree (outside range)' do
+      expect(find_tree.find('a')).to eql(nil)
     end
   end
 end
