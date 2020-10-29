@@ -115,13 +115,14 @@ class BinarySearchTree
     root.nil? ? [] : build_array(root, [])
   end
 
+  def height
+    @root.nil? ? 0 : @root.height
+  end
+
+  # In a full tree, every node has either 0 or 2 children
   def full?
     # Define as true if tree empty, else start iterating
     @root.nil? ? true : @root.full?
-  end
-
-  def height
-    @root.nil? ? 0 : @root.height
   end
 
   private

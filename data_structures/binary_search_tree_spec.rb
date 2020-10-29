@@ -206,4 +206,29 @@ RSpec.describe BinarySearchTree do
       expect(height_tree.height).to eql(4)
     end
   end
+  describe '#level' do
+    level_tree = BinarySearchTree.new
+    [10, 5, 15, 6, 7].each { |num| level_tree.insert(num) }
+    it 'should return 1 for the root' do
+      expect(level_tree.level(10)).to eql(1)
+    end
+    it 'should return the correct value for other nodes' do
+      expect(level_tree.level(6)).to eql(3)
+    end
+    it 'should return nil for a value not in the tree' do
+      expect(level_tree.level(8)).to eql(nil)
+    end
+  end
+  describe '#complete' do
+    it 'is a pending example'
+  end
+  describe '#perfect' do
+    it 'is a pending example'
+  end
+  describe '#balanced' do
+    it 'is a pending example'
+  end
+  describe '#degenerate' do
+    it 'is a pending example'
+  end
 end
