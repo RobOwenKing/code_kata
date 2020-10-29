@@ -119,6 +119,18 @@ class BinarySearchTree
     @root.nil? ? 0 : @root.height
   end
 
+  def level(value)
+    current_node = @root
+    tracker = 0
+
+    until current_node.nil? || current_node.value == value do
+      tracker += 1
+      current_node = current_node.value < value ? current_node.right : current_node.left
+    end
+
+    current_node.nil? ? nil : tracker
+  end
+
   # In a full tree, every node has either 0 or 2 children
   def full?
     # Define as true if tree empty, else start iterating
