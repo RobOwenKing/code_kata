@@ -19,6 +19,10 @@ class Node
       return @right.nil? ? self : @right.find_node(value)
     end
   end
+
+  def full?
+    return true if @left.nil? && @right.nil?
+  end
 end
 
 class BinarySearchTree
@@ -94,7 +98,7 @@ class BinarySearchTree
   end
 
   def full?
-    return true if @root.nil?
+    @root.nil? ? true : @root.full?
   end
 
   private
