@@ -33,7 +33,11 @@ class Node
   end
 
   def height
-    1
+    return 1 if @left.nil? && @right.nil?
+
+    return [@left.height, @right.height].max + 1 unless @left.nil? || @right.nil?
+
+    @left.nil? ? @right.height + 1 : @left.height + 1
   end
 end
 
