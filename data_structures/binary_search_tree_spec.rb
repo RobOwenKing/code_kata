@@ -174,4 +174,22 @@ RSpec.describe BinarySearchTree do
       expect(array_tree.to_a).to eql(array.sort)
     end
   end
+  describe '#full?' do
+    full_tree = BinarySearchTree.new
+    it 'should return true for an empty tree' do
+      expect(full_tree.full?).to eql(true)
+    end
+    it 'should return true for a tree with just a root' do
+      full_tree.insert(10)
+      expect(full_tree.full?).to eql(true)
+    end
+    it 'should return false in complex cases' do
+      [5, 15, 2, 7, 6].each { |num| full_tree.insert(num) }
+      expect(full_tree.full?).to eql(false)
+    end
+    it 'should return true in complex cases' do
+      full_tree.insert(8)
+      expect(full_tree.full?).to eql(true)
+    end
+  end
 end
