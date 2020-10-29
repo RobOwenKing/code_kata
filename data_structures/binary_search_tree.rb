@@ -93,6 +93,10 @@ class BinarySearchTree
     root.nil? ? [] : build_array(root, [])
   end
 
+  def full?
+    return true if @root.nil?
+  end
+
   private
 
   def find_floor(value, node)
