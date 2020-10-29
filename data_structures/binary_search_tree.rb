@@ -121,9 +121,9 @@ class BinarySearchTree
 
   def level(value)
     current_node = @root
-    tracker = 0
+    tracker = 1
 
-    until current_node.nil? || current_node.value == value do
+    until current_node.nil? || current_node.value == value
       tracker += 1
       current_node = current_node.value < value ? current_node.right : current_node.left
     end
