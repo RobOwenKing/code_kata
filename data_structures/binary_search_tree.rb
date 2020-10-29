@@ -1,3 +1,4 @@
+# Node class for our Binary Search Tree
 class Node
   attr_accessor :value, :left, :right
 
@@ -13,10 +14,10 @@ class Node
     if value < @value
       # If the value we're looking for is less than this node's value
       # If it has no left child, return itself, otherwise go recursive
-      return @left.nil? ? self : @left.find_node(value)
+      @left.nil? ? self : @left.find_node(value)
     else
       # Same thing for larger values
-      return @right.nil? ? self : @right.find_node(value)
+      @right.nil? ? self : @right.find_node(value)
     end
   end
 
@@ -41,6 +42,7 @@ class Node
   end
 end
 
+# Binary Search Tree class itself
 class BinarySearchTree
   attr_reader :root, :count
 
@@ -98,13 +100,13 @@ class BinarySearchTree
     # This allows us to use recursion
     # We evaluate here to avoid bringing nil into comparisons in #find_floor
     best_find = find_floor(value, root)
-    return best_find > value ? nil : best_find
+    best_find > value ? nil : best_find
   end
 
   def ceil(value)
     # Based on #floor
     best_find = find_ceil(value, root)
-    return best_find < value ? nil : best_find
+    best_find < value ? nil : best_find
   end
 
   # Returns an array of the tree's elements in sorted order
