@@ -1,3 +1,10 @@
+FULL = {
+  both: proc { true },
+  neither: proc { |left, right| left.iterate(FULL) && right.iterate(FULL) },
+  left: proc { false },
+  right: proc { false }
+}
+
 # Node class for our Binary Search Tree
 class Node
   attr_accessor :value, :left, :right
@@ -21,24 +28,20 @@ class Node
     end
   end
 
-  def full?
-    # If this node has no children, return true
-    return true if @left.nil? && @right.nil?
-
-    # If this node has two children, we need to check for problems further down
-    # Note that this will only return true if both subtrees full
-    return @left.full? && @right.full? unless @left.nil? || @right.nil?
-
-    # Else this node has only one child so clearly false
-    false
-  end
-
   def height
     return 1 if @left.nil? && @right.nil?
 
     return [@left.height, @right.height].max + 1 unless @left.nil? || @right.nil?
 
     @left.nil? ? @right.height + 1 : @left.height + 1
+  end
+
+  def iterate(methods)
+    return methods[:both].call if @left.nil? && @right.nil?
+
+    return methods[:neither].call(@left, @right) unless @left.nil? || @right.nil?
+
+    @left.nil? ? methods[:right].call : methods[:left].call
   end
 end
 
@@ -134,7 +137,8 @@ class BinarySearchTree
   # In a full tree, every node has either 0 or 2 children
   def full?
     # Define as true if tree empty, else start iterating
-    @root.nil? ? true : @root.full?
+    # @root.nil? ? true : @root.full?
+    @root.nil? ? true : @root.iterate(FULL)
   end
 
   private
@@ -176,3 +180,17 @@ class BinarySearchTree
     node.right.nil? ? array : build_array(node.right, array)
   end
 end
+
+# OLD CODE
+
+# def full?
+#   # If this node has no children, return true
+#   return true if @left.nil? && @right.nil?
+
+#   # If this node has two children, we need to check for problems further down
+#   # Note that this will only return true if both subtrees full
+#   return @left.full? && @right.full? unless @left.nil? || @right.nil?
+
+#   # Else this node has only one child so clearly false
+#   false
+# end
