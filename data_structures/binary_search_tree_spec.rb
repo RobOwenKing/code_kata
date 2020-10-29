@@ -192,4 +192,18 @@ RSpec.describe BinarySearchTree do
       expect(full_tree.full?).to eql(true)
     end
   end
+  describe '#height' do
+    height_tree = BinarySearchTree.new
+    it 'should return 0 for an empty tree' do
+      expect(height_tree.height).to eql(0)
+    end
+    it 'should return 1 for a tree with just a root' do
+      height_tree.insert(10)
+      expect(height_tree.height).to eql(1)
+    end
+    it 'should return the correct value for a larger tree' do
+      [5, 2, 7, 8, 15].each { |num| height_tree.insert(num) }
+      expect(height_tree.height).to eql(4)
+    end
+  end
 end

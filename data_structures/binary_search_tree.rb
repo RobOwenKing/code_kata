@@ -21,10 +21,14 @@ class Node
   end
 
   def full?
+    # If this node has no children, return true
     return true if @left.nil? && @right.nil?
 
+    # If this node has two children, we need to check for problems further down
+    # Note that this will only return true if both subtrees full
     return @left.full? && @right.full? unless @left.nil? || @right.nil?
 
+    # Else this node has only one child so clearly false
     false
   end
 end
@@ -102,6 +106,7 @@ class BinarySearchTree
   end
 
   def full?
+    # Define as true if tree empty, else start iterating
     @root.nil? ? true : @root.full?
   end
 
