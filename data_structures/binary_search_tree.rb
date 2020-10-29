@@ -5,6 +5,13 @@ FULL = {
   right: proc { false }
 }
 
+HEIGHT = {
+  both: proc { 1 },
+  neither: proc { |left, right| [left.height, right.height].max + 1 },
+  left: proc { |left, right| left.height + 1 },
+  right: proc { |left, right| right.height + 1 }
+}
+
 # Node class for our Binary Search Tree
 class Node
   attr_accessor :value, :left, :right
@@ -41,7 +48,8 @@ class Node
 
     return methods[:neither].call(@left, @right) unless @left.nil? || @right.nil?
 
-    @left.nil? ? methods[:right].call : methods[:left].call
+    # If left is nil, iterate down the right
+    @left.nil? ? methods[:right].call(@left, @right) : methods[:left].call(@left, @right)
   end
 end
 
@@ -119,7 +127,8 @@ class BinarySearchTree
   end
 
   def height
-    @root.nil? ? 0 : @root.height
+    # @root.nil? ? 0 : @root.height
+    @root.nil? ? 0 : @root.iterate(HEIGHT)
   end
 
   def level(value)
