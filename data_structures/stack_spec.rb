@@ -7,7 +7,6 @@ RSpec.describe Stack do
       expect(Stack.new.class).to eql(Stack)
     end
   end
-
   describe '#empty' do
     it 'Returns true if the stack is empty' do
       expect(Stack.new.empty?).to eql(true)
@@ -18,7 +17,6 @@ RSpec.describe Stack do
       expect(stack.empty?).to eql(false)
     end
   end
-
   describe '#push' do
     it 'Returns correct position of first pushed element' do
       expect(Stack.new.push(1)).to eql(0)
@@ -55,7 +53,6 @@ RSpec.describe Stack do
       expect(stack.pop).to eql('b')
     end
   end
-
   describe '#peek' do
     it 'Returns nil if the stack is empty' do
       expect(Stack.new.peek).to eql(nil)
@@ -81,7 +78,6 @@ RSpec.describe Stack do
       expect(stack.peek).to eql('b')
     end
   end
-
   describe '#size' do
     it 'Gives correct size for an empty stack' do
       expect(Stack.new.size).to eql(0)
@@ -102,7 +98,6 @@ RSpec.describe Stack do
       expect(stack.size).to eql(3)
     end
   end
-
   describe '#clear' do
     it 'Leaves the stack containing no elements' do
       stack = Stack.new
