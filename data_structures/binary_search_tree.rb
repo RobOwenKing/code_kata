@@ -22,6 +22,10 @@ class Node
 
   def full?
     return true if @left.nil? && @right.nil?
+
+    return @left.full? && @right.full? unless @left.nil? || @right.nil?
+
+    false
   end
 end
 
