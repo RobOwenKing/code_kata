@@ -31,6 +31,10 @@ class Node
     # Else this node has only one child so clearly false
     false
   end
+
+  def height
+    1
+  end
 end
 
 class BinarySearchTree
@@ -108,6 +112,10 @@ class BinarySearchTree
   def full?
     # Define as true if tree empty, else start iterating
     @root.nil? ? true : @root.full?
+  end
+
+  def height
+    @root.nil? ? 0 : @root.height
   end
 
   private
