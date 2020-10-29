@@ -66,6 +66,11 @@ RSpec.describe BinarySearchTree do
       %w[e l o w r d].each { |letter| count_tree.insert(letter) }
       expect(count_tree.count).to eql(7)
     end
+    it 'should work when repeated values passed' do
+      repeat_tree = BinarySearchTree.new
+      %w[h e e l o w l r d].each { |letter| repeat_tree.insert(letter) }
+      expect(repeat_tree.count).to eql(7)
+    end
   end
   describe '#min' do
     min_tree = BinarySearchTree.new
