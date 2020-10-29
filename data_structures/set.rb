@@ -1,7 +1,6 @@
 # Note, Ruby's standard libraries include a Set class
 # Also, this is built using Arrays as an exercise
 # In a real use case, a Hash might be preferable for speed
-
 class Set
   attr_reader :set
 
