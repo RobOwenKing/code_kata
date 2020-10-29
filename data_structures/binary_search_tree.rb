@@ -7,9 +7,9 @@ FULL = {
 
 HEIGHT = {
   both: proc { 1 },
-  neither: proc { |left, right| [left.height, right.height].max + 1 },
-  left: proc { |left, right| left.height + 1 },
-  right: proc { |left, right| right.height + 1 }
+  neither: proc { |left, right| [left.iterate(HEIGHT), right.iterate(HEIGHT)].max + 1 },
+  left: proc { |left, _right| left.iterate(HEIGHT) + 1 },
+  right: proc { |_left, right| right.iterate(HEIGHT) + 1 }
 }
 
 # Node class for our Binary Search Tree
@@ -33,14 +33,6 @@ class Node
       # Same thing for larger values
       @right.nil? ? self : @right.find_node(value)
     end
-  end
-
-  def height
-    return 1 if @left.nil? && @right.nil?
-
-    return [@left.height, @right.height].max + 1 unless @left.nil? || @right.nil?
-
-    @left.nil? ? @right.height + 1 : @left.height + 1
   end
 
   def iterate(methods)
@@ -202,4 +194,12 @@ end
 
 #   # Else this node has only one child so clearly false
 #   false
+# end
+
+# def height
+#   return 1 if @left.nil? && @right.nil?
+
+#   return [@left.height, @right.height].max + 1 unless @left.nil? || @right.nil?
+
+#   @left.nil? ? @right.height + 1 : @left.height + 1
 # end
