@@ -59,85 +59,85 @@ RSpec.describe Set do
   describe '#union' do
     union_set = Set.new([1, 2, 3])
     it 'Should work called on an empty set' do
-      set_1 = Set.new.union(union_set)
-      expect(set_1.length).to eql(3)
+      set1 = Set.new.union(union_set)
+      expect(set1.length).to eql(3)
     end
     it 'Should work with the empty set as argument' do
-      set_2 = union_set.union(Set.new)
-      expect(set_2.length).to eql(3)
+      set2 = union_set.union(Set.new)
+      expect(set2.length).to eql(3)
     end
     it 'Should work with two non-empty sets with no overlap' do
-      set_3 = Set.new([4, 5])
-      set_4 = union_set.union(set_3)
-      expect(set_4.length).to eql(5)
+      set3 = Set.new([4, 5])
+      set4 = union_set.union(set3)
+      expect(set4.length).to eql(5)
     end
     it 'Should work with two non-empty sets with overlap' do
-      set_5 = Set.new([4, 6])
-      set_6 = union_set.union(set_5)
-      expect(set_6.length).to eql(6)
+      set5 = Set.new([4, 6])
+      set6 = union_set.union(set5)
+      expect(set6.length).to eql(6)
     end
   end
   describe '#intersection' do
     intersection_set = Set.new([1, 2, 3])
     it 'Should work called on an empty set' do
-      set_1 = Set.new.intersection(intersection_set)
-      expect(set_1.length).to eql(0)
+      set1 = Set.new.intersection(intersection_set)
+      expect(set1.length).to eql(0)
     end
     it 'Should work with the empty set as argument' do
-      set_2 = intersection_set.intersection(Set.new)
-      expect(set_2.length).to eql(0)
+      set2 = intersection_set.intersection(Set.new)
+      expect(set2.length).to eql(0)
     end
     it 'Should work with two non-empty sets with no overlap' do
-      set_3 = Set.new([4, 5])
-      set_4 = intersection_set.intersection(set_3)
-      expect(set_4.length).to eql(0)
+      set3 = Set.new([4, 5])
+      set4 = intersection_set.intersection(set3)
+      expect(set4.length).to eql(0)
     end
     it 'Should work with two non-empty sets with overlap' do
-      set_5 = Set.new([2, 6])
-      set_6 = intersection_set.intersection(set_5)
-      expect(set_6.length).to eql(1)
+      set5 = Set.new([2, 6])
+      set6 = intersection_set.intersection(set5)
+      expect(set6.length).to eql(1)
     end
   end
   describe '#intersection' do
     intersection_set = Set.new([1, 2, 3])
     it 'Should work called on an empty set' do
-      set_1 = Set.new.intersection(intersection_set)
-      expect(set_1.length).to eql(0)
+      set1 = Set.new.intersection(intersection_set)
+      expect(set1.length).to eql(0)
     end
     it 'Should work with the empty set as argument' do
-      set_2 = intersection_set.intersection(Set.new)
-      expect(set_2.length).to eql(0)
+      set2 = intersection_set.intersection(Set.new)
+      expect(set2.length).to eql(0)
     end
     it 'Should work with two non-empty sets with no overlap' do
-      set_3 = Set.new([4, 5])
-      set_4 = intersection_set.intersection(set_3)
-      expect(set_4.length).to eql(0)
+      set3 = Set.new([4, 5])
+      set4 = intersection_set.intersection(set3)
+      expect(set4.length).to eql(0)
     end
     it 'Should work with two non-empty sets with overlap' do
-      set_5 = Set.new([2, 6])
-      set_6 = intersection_set.intersection(set_5)
-      expect(set_6.length).to eql(1)
+      set5 = Set.new([2, 6])
+      set6 = intersection_set.intersection(set5)
+      expect(set6.length).to eql(1)
     end
   end
   describe '#difference' do
     difference_set = Set.new([1, 2, 3])
     it 'Should work called on an empty set' do
-      set_1 = Set.new.difference(difference_set)
-      expect(set_1.length).to eql(0)
+      set1 = Set.new.difference(difference_set)
+      expect(set1.length).to eql(0)
     end
     it 'Should work with the empty set as argument' do
-      set_2 = difference_set.difference(Set.new)
-      expect(set_2.length).to eql(3)
+      set2 = difference_set.difference(Set.new)
+      expect(set2.length).to eql(3)
     end
     it 'Should work with two non-empty sets with no overlap' do
-      set_3 = Set.new([4, 5])
-      set_4 = difference_set.difference(set_3)
-      expect(set_4.length).to eql(3)
+      set3 = Set.new([4, 5])
+      set4 = difference_set.difference(set3)
+      expect(set4.length).to eql(3)
     end
     it 'Should work with two non-empty sets with overlap' do
-      set_5 = Set.new([2, 6])
-      set_6 = difference_set.difference(set_5)
-      expect(set_6.length).to eql(2)
+      set5 = Set.new([2, 6])
+      set6 = difference_set.difference(set5)
+      expect(set6.length).to eql(2)
     end
   end
   describe '#subset?' do
@@ -149,16 +149,16 @@ RSpec.describe Set do
       expect(subset_set.subset?(Set.new)).to eql(true)
     end
     it 'Should return false with two non-empty sets with no overlap' do
-      set_1 = Set.new([4, 5])
-      expect(subset_set.subset?(set_1)).to eql(false)
+      set1 = Set.new([4, 5])
+      expect(subset_set.subset?(set1)).to eql(false)
     end
     it 'Should return false with two non-empty sets with some overlap' do
-      set_2 = Set.new([2, 6])
-      expect(subset_set.subset?(set_2)).to eql(false)
+      set2 = Set.new([2, 6])
+      expect(subset_set.subset?(set2)).to eql(false)
     end
     it 'Should return true when the argument is a subset' do
-      set_3 = Set.new([1, 3])
-      expect(subset_set.subset?(set_3)).to eql(true)
+      set3 = Set.new([1, 3])
+      expect(subset_set.subset?(set3)).to eql(true)
     end
   end
 end
