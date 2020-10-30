@@ -100,7 +100,7 @@ class BinarySearchTree
   end
 
   def find(value)
-    found_node = root.find_node(value)
+    found_node = @root.find_node(value)
     found_node.value == value ? found_node : nil
   end
 
@@ -108,24 +108,28 @@ class BinarySearchTree
     # We're going to use a private method which also takes a node as input
     # This allows us to use recursion
     # We evaluate here to avoid bringing nil into comparisons in #find_floor
-    best_find = find_floor(value, root)
+    best_find = find_floor(value, @root)
     best_find > value ? nil : best_find
   end
 
   def ceil(value)
     # Based on #floor
-    best_find = find_ceil(value, root)
+    best_find = find_ceil(value, @root)
     best_find < value ? nil : best_find
   end
 
   # Returns an array of the tree's elements in sorted order
   # (In lieu of a print method)
   def to_a
-    root.nil? ? [] : build_array(root, [])
+    root.nil? ? [] : build_array(@root, [])
   end
 
   def in_order
     to_a
+  end
+
+  def pre_order
+    root.nil? ? [] : build_pre(@root, [])
   end
 
   def height
@@ -193,6 +197,12 @@ class BinarySearchTree
     # If there's no right subtree, we're done
     # Else return the value of calling #build_array on that
     node.right.nil? ? array : build_array(node.right, array)
+  end
+
+  def build_pre(node, array)
+    array << node.value
+    array = build_pre(node.left, array) unless node.left.nil?
+    node.right.nil? ? array : build_pre(node.right, array)
   end
 end
 
