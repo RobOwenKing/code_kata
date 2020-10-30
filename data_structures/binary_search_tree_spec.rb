@@ -277,7 +277,22 @@ RSpec.describe BinarySearchTree do
     it 'is a pending example'
   end
   describe '#balanced?' do
-    it 'is a pending example'
+    balanced_tree = BinarySearchTree.new
+    it 'should return true for an empty tree' do
+      expect(balanced_tree.balanced?).to eql(true)
+    end
+    it 'should return true for a tree with just a root' do
+      balanced_tree.insert(10)
+      expect(balanced_tree.balanced?).to eql(true)
+    end
+    it 'should return true for a balanced tree' do
+      [5, 3, 15].each { |num| balanced_tree.insert(num) }
+      expect(balanced_tree.balanced?).to eql(true)
+    end
+    it 'should return false for a non-balanced tree' do
+      balanced_tree.insert(4)
+      expect(balanced_tree.balanced?).to eql(false)
+    end
   end
   describe '#degenerate?' do
     degenerate_tree = BinarySearchTree.new

@@ -19,6 +19,15 @@ HEIGHT = {
   right: proc { |left, _right| left.iterate(HEIGHT) + 1 }
 }
 
+BALANCED = {
+  both: proc { true },
+  neither: proc do |left, right|
+    left.iterate(BALANCED) && right.iterate(BALANCED) && (left.iterate(HEIGHT) - right.iterate(HEIGHT)).abs <= 1
+  end,
+  left: proc { |_left, right| right.left.nil? && right.right.nil? },
+  right: proc { |left, _right| left.left.nil? && left.right.nil? }
+}
+
 # Node class for our Binary Search Tree
 class Node
   attr_accessor :value, :left, :right
@@ -158,6 +167,10 @@ class BinarySearchTree
     # Define as true if tree empty, else start iterating
     # @root.nil? ? true : @root.full?
     @root.nil? ? true : @root.iterate(FULL)
+  end
+
+  def balanced?
+    @root.nil? ? true : @root.iterate(BALANCED)
   end
 
   def degenerate?
