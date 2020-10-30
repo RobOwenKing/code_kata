@@ -196,7 +196,7 @@ RSpec.describe BinarySearchTree do
     it 'should return an empty array for an empty tree' do
       expect(pre_tree.pre_order).to eql([])
     end
-    it 'should return an array of the elements in sorted order' do
+    it 'should return an array of the elements in the correct order' do
       array = [10, 6, 4, 8, 14, 5, 12, 16, 3, 20]
       array.each { |num| pre_tree.insert(num) }
       expect(pre_tree.pre_order).to eql([10, 6, 4, 3, 5, 8, 14, 12, 16, 20])
@@ -213,7 +213,7 @@ RSpec.describe BinarySearchTree do
     it 'should return an empty array for an empty tree' do
       expect(post_tree.post_order).to eql([])
     end
-    it 'should return an array of the elements in sorted order' do
+    it 'should return an array of the elements in the correct order' do
       array = [10, 6, 4, 8, 14, 5, 12, 16, 3, 20]
       array.each { |num| post_tree.insert(num) }
       expect(post_tree.post_order).to eql([3, 5, 4, 8, 6, 12, 20, 16, 14, 10])
@@ -223,6 +223,17 @@ RSpec.describe BinarySearchTree do
       new_tree = BinarySearchTree.new
       array.each { |letter| new_tree.insert(letter) }
       expect(new_tree.post_order).to eql(%w[A C E D B H I G F])
+    end
+  end
+  describe '#bf_order' do
+    bf_tree = BinarySearchTree.new
+    it 'should return an empty array for an empty tree' do
+      expect(bf_tree.bf_order).to eql([])
+    end
+    it 'should return an array of the elements in sorted order' do
+      array = [10, 6, 4, 8, 14, 5, 12, 16, 3, 20]
+      array.each { |num| bf_tree.insert(num) }
+      expect(bf_tree.bf_order).to eql([10, 6, 14, 4, 8, 12, 16, 3, 5, 20])
     end
   end
   describe '#full?' do

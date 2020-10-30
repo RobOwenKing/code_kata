@@ -148,6 +148,10 @@ class BinarySearchTree
     root.nil? ? [] : traverse(@root, order, [])
   end
 
+  def bfs
+
+  end
+
   def height
     # @root.nil? ? 0 : @root.height
     @root.nil? ? 0 : @root.iterate(HEIGHT)
