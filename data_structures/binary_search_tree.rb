@@ -144,12 +144,14 @@ class BinarySearchTree
 
   def pre_order
     order = %w[root left right]
-    root.nil? ? [] : traverse(@root, order, [])
+    action = proc { |value, returnable| returnable << value }
+    root.nil? ? [] : traverse(@root, order, [], action)
   end
 
   def post_order
     order = %w[left right root]
-    root.nil? ? [] : traverse(@root, order, [])
+    action = proc { |value, returnable| returnable << value }
+    root.nil? ? [] : traverse(@root, order, [], action)
   end
 
   def bf_order
