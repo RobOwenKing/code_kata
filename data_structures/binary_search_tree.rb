@@ -124,6 +124,10 @@ class BinarySearchTree
     root.nil? ? [] : build_array(root, [])
   end
 
+  def in_order
+    to_a
+  end
+
   def height
     # @root.nil? ? 0 : @root.height
     @root.nil? ? 0 : @root.iterate(HEIGHT)
