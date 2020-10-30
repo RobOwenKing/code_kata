@@ -132,6 +132,10 @@ class BinarySearchTree
     root.nil? ? [] : build_pre(@root, [])
   end
 
+  def post_order
+    root.nil? ? [] : build_post(@root, [])
+  end
+
   def height
     # @root.nil? ? 0 : @root.height
     @root.nil? ? 0 : @root.iterate(HEIGHT)
@@ -203,6 +207,12 @@ class BinarySearchTree
     array << node.value
     array = build_pre(node.left, array) unless node.left.nil?
     node.right.nil? ? array : build_pre(node.right, array)
+  end
+
+  def build_post(node, array)
+    array = build_post(node.left, array) unless node.left.nil?
+    node.right.nil? ? array : build_post(node.right, array)
+    array << node.value
   end
 end
 
