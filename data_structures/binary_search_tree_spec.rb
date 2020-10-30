@@ -184,6 +184,12 @@ RSpec.describe BinarySearchTree do
       array.each { |num| in_tree.insert(num) }
       expect(in_tree.in_order).to eql(array.sort)
     end
+    it 'should work for an example from Wikipedia in case I got mine wrong' do
+      array = %w[F B G A D I C E H]
+      new_tree = BinarySearchTree.new
+      array.each { |letter| new_tree.insert(letter) }
+      expect(new_tree.in_order).to eql(%w[A B C D E F G H I])
+    end
   end
   describe '#pre_order' do
     pre_tree = BinarySearchTree.new
@@ -195,6 +201,12 @@ RSpec.describe BinarySearchTree do
       array.each { |num| pre_tree.insert(num) }
       expect(pre_tree.pre_order).to eql([10, 6, 4, 3, 5, 8, 14, 12, 16, 20])
     end
+    it 'should work for an example from Wikipedia in case I got mine wrong' do
+      array = %w[F B G A D I C E H]
+      new_tree = BinarySearchTree.new
+      array.each { |letter| new_tree.insert(letter) }
+      expect(new_tree.pre_order).to eql(%w[F B A D C E G I H])
+    end
   end
   describe '#post_order' do
     post_tree = BinarySearchTree.new
@@ -205,6 +217,12 @@ RSpec.describe BinarySearchTree do
       array = [10, 6, 4, 8, 14, 5, 12, 16, 3, 20]
       array.each { |num| post_tree.insert(num) }
       expect(post_tree.post_order).to eql([3, 5, 4, 8, 6, 12, 20, 16, 14, 10])
+    end
+    it 'should work for an example from Wikipedia in case I got mine wrong' do
+      array = %w[F B G A D I C E H]
+      new_tree = BinarySearchTree.new
+      array.each { |letter| new_tree.insert(letter) }
+      expect(new_tree.post_order).to eql(%w[A C E D B H I G F])
     end
   end
   describe '#full?' do
