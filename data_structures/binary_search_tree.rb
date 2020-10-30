@@ -153,9 +153,9 @@ class BinarySearchTree
 
   def bf_order
     order = []
-
     queue = MyQueue.new
     @root.nil? ? order : queue.enqueue(@root)
+
     until queue.empty?
       current = queue.dequeue
       queue.enqueue(current.left) unless current.left.nil?
