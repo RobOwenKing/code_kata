@@ -134,7 +134,8 @@ class BinarySearchTree
   # (In lieu of a print method)
   def to_a
     order = %w[left root right]
-    root.nil? ? [] : traverse(@root, order, [])
+    action = proc { |value, returnable| returnable << value }
+    root.nil? ? [] : traverse(@root, order, [], action)
   end
 
   def in_order
@@ -226,14 +227,14 @@ class BinarySearchTree
     end
   end
 
-  def traverse(node, order, returnable)
+  def traverse(node, order, returnable, action)
     order.each do |current|
       if current == 'left' && !node.left.nil?
-        returnable = traverse(node.left, order, returnable)
+        returnable = traverse(node.left, order, returnable, action)
       elsif current == 'right' && !node.right.nil?
-        returnable = traverse(node.right, order, returnable)
+        returnable = traverse(node.right, order, returnable, action)
       elsif current == 'root'
-        returnable << node.value
+        action.call(node.value, returnable)
       end
     end
     returnable
