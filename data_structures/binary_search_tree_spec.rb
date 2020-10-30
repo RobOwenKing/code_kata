@@ -239,12 +239,12 @@ RSpec.describe BinarySearchTree do
   describe '#leaves' do
     in_tree = BinarySearchTree.new
     it 'should return an empty array for an empty tree' do
-      expect(in_tree.in_order).to eql([])
+      expect(in_tree.leaves).to eql([])
     end
     it 'should return an array of the leaf elements in sorted order' do
       array = [10, 6, 4, 8, 14, 5, 12, 16, 3, 20]
       array.each { |num| in_tree.insert(num) }
-      expect(in_tree.in_order).to eql([3, 5, 8, 12, 20])
+      expect(in_tree.leaves).to eql([3, 5, 8, 12, 20])
     end
   end
   describe '#full?' do
