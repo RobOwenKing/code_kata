@@ -130,7 +130,8 @@ class BinarySearchTree
   # Returns an array of the tree's elements in sorted order
   # (In lieu of a print method)
   def to_a
-    root.nil? ? [] : build_array(@root, [])
+    order = %w[left root right]
+    root.nil? ? [] : traverse(@root, order, [])
   end
 
   def in_order
@@ -138,11 +139,13 @@ class BinarySearchTree
   end
 
   def pre_order
-    root.nil? ? [] : build_pre(@root, [])
+    order = %w[root left right]
+    root.nil? ? [] : traverse(@root, order, [])
   end
 
   def post_order
-    root.nil? ? [] : build_post(@root, [])
+    order = %w[left right root]
+    root.nil? ? [] : traverse(@root, order, [])
   end
 
   def height
@@ -205,28 +208,19 @@ class BinarySearchTree
     end
   end
 
-  def build_array(node, array)
-    # If there's a left subtree, add all that to our array
-    array = build_array(node.left, array) unless node.left.nil?
-
-    # Push this node's value into the array
-    array << node.value
-    # If there's no right subtree, we're done
-    # Else return the value of calling #build_array on that
-    node.right.nil? ? array : build_array(node.right, array)
+  def traverse(node, order, returnable)
+    order.each do |current|
+      if current == 'left' && !node.left.nil?
+        returnable = traverse(node.left, order, returnable)
+      elsif current == 'right' && !node.right.nil?
+        returnable = traverse(node.right, order, returnable)
+      elsif current == 'root'
+        returnable << node.value
+      end
+    end
+    returnable
   end
 
-  def build_pre(node, array)
-    array << node.value
-    array = build_pre(node.left, array) unless node.left.nil?
-    node.right.nil? ? array : build_pre(node.right, array)
-  end
-
-  def build_post(node, array)
-    array = build_post(node.left, array) unless node.left.nil?
-    node.right.nil? ? array : build_post(node.right, array)
-    array << node.value
-  end
 end
 
 # OLD CODE
@@ -249,4 +243,27 @@ end
 #   return [@left.height, @right.height].max + 1 unless @left.nil? || @right.nil?
 
 #   @left.nil? ? @right.height + 1 : @left.height + 1
+# end
+
+# def build_array(node, array)
+#   # If there's a left subtree, add all that to our array
+#   array = build_array(node.left, array) unless node.left.nil?
+
+#   # Push this node's value into the array
+#   array << node.value
+#   # If there's no right subtree, we're done
+#   # Else return the value of calling #build_array on that
+#   node.right.nil? ? array : build_array(node.right, array)
+# end
+
+# def build_pre(node, array)
+#   array << node.value
+#   array = build_pre(node.left, array) unless node.left.nil?
+#   node.right.nil? ? array : build_pre(node.right, array)
+# end
+
+# def build_post(node, array)
+#   array = build_post(node.left, array) unless node.left.nil?
+#   node.right.nil? ? array : build_post(node.right, array)
+#   array << node.value
 # end
