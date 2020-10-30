@@ -1,3 +1,6 @@
+# We'll use a queue for the breadth-first ordering
+require_relative 'queue'
+
 FULL = {
   both: proc { true },
   neither: proc { |left, right| left.iterate(FULL) && right.iterate(FULL) },
@@ -148,8 +151,19 @@ class BinarySearchTree
     root.nil? ? [] : traverse(@root, order, [])
   end
 
-  def bfs
+  def bf_order
+    order = []
 
+    queue = MyQueue.new
+    @root.nil? ? order : queue.enqueue(@root)
+    until queue.empty?
+      current = queue.dequeue
+      queue.enqueue(current.left) unless current.left.nil?
+      queue.enqueue(current.right) unless current.right.nil?
+      order << current.value
+    end
+
+    order
   end
 
   def height
