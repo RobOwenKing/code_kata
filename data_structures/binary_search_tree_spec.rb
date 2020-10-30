@@ -183,11 +183,11 @@ RSpec.describe BinarySearchTree do
       full_tree.insert(10)
       expect(full_tree.full?).to eql(true)
     end
-    it 'should return false in complex cases' do
+    it 'should return false when appropriate in complex cases' do
       [5, 15, 2, 7, 6].each { |num| full_tree.insert(num) }
       expect(full_tree.full?).to eql(false)
     end
-    it 'should return true in complex cases' do
+    it 'should return true when appropriate in complex cases' do
       full_tree.insert(8)
       expect(full_tree.full?).to eql(true)
     end
@@ -219,16 +219,31 @@ RSpec.describe BinarySearchTree do
       expect(level_tree.level(8)).to eql(nil)
     end
   end
-  describe '#complete' do
+  describe '#complete?' do
     it 'is a pending example'
   end
-  describe '#perfect' do
+  describe '#perfect?' do
     it 'is a pending example'
   end
-  describe '#balanced' do
+  describe '#balanced?' do
     it 'is a pending example'
   end
-  describe '#degenerate' do
-    it 'is a pending example'
+  describe '#degenerate?' do
+    degenerate_tree = BinarySearchTree.new
+    it 'should return true for an empty tree' do
+      expect(degenerate_tree.degenerate?).to eql(true)
+    end
+    it 'should return true for a tree with just a root' do
+      degenerate_tree.insert(10)
+      expect(degenerate_tree.degenerate?).to eql(true)
+    end
+    it 'should return true when appropriate in complex cases' do
+      [5, 6, 7].each { |num| degenerate_tree.insert(num) }
+      expect(degenerate_tree.degenerate?).to eql(true)
+    end
+    it 'should return false when appropriate in complex cases' do
+      degenerate_tree.insert(4)
+      expect(degenerate_tree.degenerate?).to eql(false)
+    end
   end
 end

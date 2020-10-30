@@ -5,11 +5,18 @@ FULL = {
   right: proc { false }
 }
 
+DEGENERATE = {
+  both: proc { true },
+  neither: proc { false },
+  left: proc { |_left, right| right.iterate(DEGENERATE) },
+  right: proc { |left, _right| left.iterate(DEGENERATE) }
+}
+
 HEIGHT = {
   both: proc { 1 },
   neither: proc { |left, right| [left.iterate(HEIGHT), right.iterate(HEIGHT)].max + 1 },
-  left: proc { |left, _right| left.iterate(HEIGHT) + 1 },
-  right: proc { |_left, right| right.iterate(HEIGHT) + 1 }
+  left: proc { |_left, right| right.iterate(HEIGHT) + 1 },
+  right: proc { |left, _right| left.iterate(HEIGHT) + 1 }
 }
 
 # Node class for our Binary Search Tree
@@ -40,8 +47,7 @@ class Node
 
     return methods[:neither].call(@left, @right) unless @left.nil? || @right.nil?
 
-    # If left is nil, iterate down the right
-    @left.nil? ? methods[:right].call(@left, @right) : methods[:left].call(@left, @right)
+    @left.nil? ? methods[:left].call(@left, @right) : methods[:right].call(@left, @right)
   end
 end
 
@@ -140,6 +146,10 @@ class BinarySearchTree
     # Define as true if tree empty, else start iterating
     # @root.nil? ? true : @root.full?
     @root.nil? ? true : @root.iterate(FULL)
+  end
+
+  def degenerate?
+    @root.nil? ? true : @root.iterate(DEGENERATE)
   end
 
   private
