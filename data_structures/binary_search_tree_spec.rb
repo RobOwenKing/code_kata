@@ -306,12 +306,27 @@ RSpec.describe BinarySearchTree do
       expect(complete_tree.complete?).to eql(false)
     end
     it 'should return true when appropriate for a complex case' do
-      complete_tree.insert(3)
+      complete_tree.insert(2)
       expect(complete_tree.complete?).to eql(true)
     end
   end
   describe '#perfect?' do
-    it 'is a pending example'
+    perfect_tree = BinarySearchTree.new
+    it 'should return true for an empty tree' do
+      expect(perfect_tree.perfect?).to eql(true)
+    end
+    it 'should return true for a tree with only a root' do
+      perfect_tree.insert(10)
+      expect(perfect_tree.perfect?).to eql(true)
+    end
+    it 'should return false when appropriate for a complex case' do
+      [5, 7, 15].each { |num| perfect_tree.insert(num) }
+      expect(perfect_tree.perfect?).to eql(false)
+    end
+    it 'should return true when appropriate for a complex case' do
+      [2, 12, 17].each { |num| perfect_tree.insert(num) }
+      expect(perfect_tree.perfect?).to eql(true)
+    end
   end
   describe '#balanced?' do
     balanced_tree = BinarySearchTree.new

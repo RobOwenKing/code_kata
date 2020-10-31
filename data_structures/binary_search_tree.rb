@@ -199,6 +199,23 @@ class BinarySearchTree
     @root.nil? ? true : @root.iterate(FULL)
   end
 
+  def complete?
+    return true if @root.nil?
+
+    queue = MyQueue.new
+    current = @root
+
+    until current.nil?
+      queue.enqueue(current.left)
+      queue.enqueue(current.right)
+      current = queue.dequeue
+    end
+
+    return false unless queue.dequeue.nil? until queue.empty?
+
+    true
+  end
+
   def balanced?
     @root.nil? ? true : @root.iterate(BALANCED)
   end
