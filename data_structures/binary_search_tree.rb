@@ -216,6 +216,13 @@ class BinarySearchTree
     true
   end
 
+  def perfect?
+    return true if @root.nil?
+    return false unless complete?
+
+    (@count + 1).to_s(2).count('1') == 1
+  end
+
   def balanced?
     @root.nil? ? true : @root.iterate(BALANCED)
   end
