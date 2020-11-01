@@ -54,6 +54,17 @@ class Node
     end
   end
 
+  def find_parent(value)
+    return false if @left.nil? || @right.nil?
+    return self if [@left.value, @right.value].include?(value)
+
+    if value < @value
+      @left.find_parent(value)
+    else
+      @right.find_parent(value)
+    end
+  end
+
   def iterate(methods)
     return methods[:both].call if @left.nil? && @right.nil?
 
@@ -114,6 +125,13 @@ class BinarySearchTree
   def find(value)
     found_node = @root.find_node(value)
     found_node.value == value ? found_node : nil
+  end
+
+  def parent(value)
+    return nil if @root.value == value
+
+    found_node = @root.find_parent(value)
+    !found_node ? false : found_node.value
   end
 
   def floor(value)
