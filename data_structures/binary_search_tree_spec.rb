@@ -163,6 +163,66 @@ RSpec.describe BinarySearchTree do
       expect(ceil_tree.ceil(20)).to eql(nil)
     end
   end
+  describe '#parent' do
+    parent_tree = BinarySearchTree.new
+    [10, 6, 4, 8, 14, 12, 16].each { |num| parent_tree.insert(num) }
+    it 'should return nil for the root' do
+      expect(parent_tree.parent(10)).to eql(nil)
+    end
+    it 'should return false for a value not in the tree' do
+      expect(parent_tree.parent(2)).to eql(false)
+    end
+    it 'should work for a leaf' do
+      expect(parent_tree.parent(12)).to eql(14)
+    end
+    it 'should work for an intermediary node' do
+      expect(parent_tree.parent(6)).to eql(10)
+    end
+  end
+  describe '#next' do
+    next_tree = BinarySearchTree.new
+    [10, 6, 4, 8, 7, 9, 14, 12, 16].each { |num| next_tree.insert(num) }
+    it 'should return nil when #max' do
+      expect(next_tree.next(16)).to eql(nil)
+    end
+    it 'should return false for a value not in the tree' do
+      expect(next_tree.next(2)).to eql(false)
+    end
+    it 'should return a right child which is a leaf' do
+      expect(next_tree.next(14)).to eql(16)
+    end
+    it 'should return min value of right child subtree' do
+      expect(next_tree.next(6)).to eql(7)
+    end
+    it 'should return parent when no right child (and self left child)' do
+      expect(next_tree.next(4)).to eql(6)
+    end
+    it 'should return earlier parent when no right child (and self right child)' do
+      expect(next_tree.next(9)).to eql(10)
+    end
+  end
+  describe '#previous' do
+    previous_tree = BinarySearchTree.new
+    [10, 6, 4, 8, 7, 9, 14, 12, 16].each { |num| previous_tree.insert(num) }
+    it 'should return nil when #max' do
+      expect(previous_tree.previous(4)).to eql(nil)
+    end
+    it 'should return false for a value not in the tree' do
+      expect(previous_tree.previous(2)).to eql(false)
+    end
+    it 'should return a left child which is a leaf' do
+      expect(previous_tree.previous(6)).to eql(4)
+    end
+    it 'should return min value of left child subtree' do
+      expect(previous_tree.previous(10)).to eql(9)
+    end
+    it 'should return parent when no left child (and self right child)' do
+      expect(previous_tree.previous(16)).to eql(14)
+    end
+    it 'should return earlier parent when no left child (and self left child)' do
+      expect(previous_tree.previous(12)).to eql(10)
+    end
+  end
   describe '#to_a' do
     array_tree = BinarySearchTree.new
     it 'should return an empty array for an empty tree' do
