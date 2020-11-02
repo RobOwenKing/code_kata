@@ -45,7 +45,7 @@ RSpec.describe BinarySearchTree do
   end
   describe '#delete' do
     delete_tree = BinarySearchTree.new
-    nodes = [10, 5, 3, 7, 2, 4, 6, 8]
+    nodes = [10, 5, 3, 7, 2, 4, 6]
     nodes.each { |num| delete_tree.insert(num) }
     it 'should return nil for a value not in the tree' do
       expect(delete_tree.delete(100)).to eql(nil)
@@ -58,6 +58,16 @@ RSpec.describe BinarySearchTree do
     end
     it 'should reduce the size of the tree by 1' do
       expect(delete_tree.count).to eql(nodes.size - 1)
+    end
+    it 'should delete a node with just a left child' do
+      delete_tree.delete(7)
+      expect(delete_tree.find(7)).to eql(nil)
+    end
+    it 'should reduce the size of the tree by 1' do
+      expect(delete_tree.count).to eql(nodes.size - 2)
+    end
+    it "shouldn't disconnect the child" do
+      expect(delete_tree.find(6).class).to eql(Node)
     end
   end
   describe '#include?' do

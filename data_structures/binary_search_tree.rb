@@ -153,13 +153,9 @@ class BinarySearchTree
     node = find(value)
     return nil if node.nil?
 
-    parent_value = parent(value)
-    parent_node = find(parent_value)
-
-    parent_node.left = nil if parent_node.left == node
-    parent_node.right = nil if parent_node.right == node
-
-    value
+    if node.left.nil? && node.right.nil?
+      delete_leaf(node)
+    end
   end
 
   # Returns the largest value in the tree smaller than the passed value
@@ -395,6 +391,16 @@ class BinarySearchTree
     returnable
   end
 
+  def delete_leaf(node)
+    if node == @root
+      @root = nil
+    else
+      parent_node = find(parent(node.value))
+      parent_node.left = nil if parent_node.left == node
+      parent_node.right = nil if parent_node.right == node
+    end
+    node.value
+  end
 end
 
 # OLD CODE
