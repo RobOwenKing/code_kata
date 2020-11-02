@@ -155,6 +155,10 @@ class BinarySearchTree
 
     if node.left.nil? && node.right.nil?
       delete_leaf(node)
+    elsif node.right.nil?
+      delete_with_no_right_child(node)
+    else
+      delete_with_right_child(node)
     end
   end
 
@@ -248,7 +252,7 @@ class BinarySearchTree
   # Returns the next value in the tree larger than the passed value
   # Returns nil if no larger value found
   # Returns false if no node found with the passed value
-  def next(value)
+  def successor(value)
     node = find(value)
     return false if node.nil?
 
@@ -395,11 +399,28 @@ class BinarySearchTree
     if node == @root
       @root = nil
     else
+      # Find parent of node to be deleted and set relevant child node to nil
       parent_node = find(parent(node.value))
       parent_node.left = nil if parent_node.left == node
       parent_node.right = nil if parent_node.right == node
     end
     node.value
+  end
+
+  def delete_with_no_right_child(node)
+    value = node.value
+    replacement = previous(value)
+    delete(replacement)
+    node.value = replacement
+    value
+  end
+
+  def delete_with_right_child(node)
+    value = node.value
+    replacement = successor(value)
+    delete(replacement)
+    node.value = replacement
+    value
   end
 end
 

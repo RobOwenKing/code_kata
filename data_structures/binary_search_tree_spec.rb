@@ -45,29 +45,42 @@ RSpec.describe BinarySearchTree do
   end
   describe '#delete' do
     delete_tree = BinarySearchTree.new
-    nodes = [10, 5, 3, 7, 2, 4, 6]
+    nodes = [10, 5, 3, 7, 2, 4, 9, 8]
     nodes.each { |num| delete_tree.insert(num) }
     it 'should return nil for a value not in the tree' do
       expect(delete_tree.delete(100)).to eql(nil)
     end
     it 'should return the deleted value' do
-      expect(delete_tree.delete(2)).to eql(2)
+      expect(delete_tree.delete(4)).to eql(4)
     end
     it 'should delete a leaf' do
-      expect(delete_tree.find(2)).to eql(nil)
+      expect(delete_tree.find(4)).to eql(nil)
     end
     it 'should reduce the size of the tree by 1' do
       expect(delete_tree.count).to eql(nodes.size - 1)
     end
     it 'should delete a node with just a left child' do
-      delete_tree.delete(7)
-      expect(delete_tree.find(7)).to eql(nil)
+      delete_tree.delete(3)
+      expect(delete_tree.find(3)).to eql(nil)
     end
     it 'should reduce the size of the tree by 1' do
       expect(delete_tree.count).to eql(nodes.size - 2)
     end
     it "shouldn't disconnect the child" do
-      expect(delete_tree.find(6).class).to eql(Node)
+      expect(delete_tree.find(2).class).to eql(Node)
+    end
+    it 'should delete a node with just a right child' do
+      delete_tree.delete(7)
+      expect(delete_tree.find(7)).to eql(nil)
+    end
+    it 'should reduce the size of the tree by 1' do
+      expect(delete_tree.count).to eql(nodes.size - 3)
+    end
+    it "shouldn't disconnect the child" do
+      expect(delete_tree.find(9).class).to eql(Node)
+    end
+    it 'should leave the tree in sorted order' do
+      expect(delete_tree.to_a.sort).to eql(delete_tree.to_a)
     end
   end
   describe '#include?' do
@@ -226,26 +239,26 @@ RSpec.describe BinarySearchTree do
       expect(parent_tree.parent(6)).to eql(10)
     end
   end
-  describe '#next' do
-    next_tree = BinarySearchTree.new
-    [10, 6, 4, 8, 7, 9, 14, 12, 16].each { |num| next_tree.insert(num) }
+  describe '#successor' do
+    successor_tree = BinarySearchTree.new
+    [10, 6, 4, 8, 7, 9, 14, 12, 16].each { |num| successor_tree.insert(num) }
     it 'should return nil when #max' do
-      expect(next_tree.next(16)).to eql(nil)
+      expect(successor_tree.successor(16)).to eql(nil)
     end
     it 'should return false for a value not in the tree' do
-      expect(next_tree.next(2)).to eql(false)
+      expect(successor_tree.successor(2)).to eql(false)
     end
     it 'should return a right child which is a leaf' do
-      expect(next_tree.next(14)).to eql(16)
+      expect(successor_tree.successor(14)).to eql(16)
     end
     it 'should return min value of right child subtree' do
-      expect(next_tree.next(6)).to eql(7)
+      expect(successor_tree.successor(6)).to eql(7)
     end
     it 'should return parent when no right child (and self left child)' do
-      expect(next_tree.next(4)).to eql(6)
+      expect(successor_tree.successor(4)).to eql(6)
     end
     it 'should return earlier parent when no right child (and self right child)' do
-      expect(next_tree.next(9)).to eql(10)
+      expect(successor_tree.successor(9)).to eql(10)
     end
   end
   describe '#previous' do
