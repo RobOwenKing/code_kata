@@ -76,11 +76,10 @@ end
 
 # Binary Search Tree class itself
 class BinarySearchTree
-  attr_reader :root, :count
+  attr_reader :root
 
   def initialize(value = nil)
     @root = value.nil? ? nil : Node.new(value)
-    @count = @root.nil? ? 0 : 1
   end
 
   def insert(value)
@@ -89,8 +88,7 @@ class BinarySearchTree
     # If that would repeat a value, return nil
     return nil if !parent_node.nil? && parent_node.value == value
 
-    # Else, we're adding a node, so update the count and create it
-    @count += 1
+    # Else, we're adding a node
     new_node = Node.new(value)
     # If no root, put the new node there
     return @root = new_node if @root.nil?
@@ -193,6 +191,12 @@ class BinarySearchTree
     order
   end
 
+  # Quick fix
+  # Would be better to count while traversing rather than building array then counting that
+  def count
+    to_a.count
+  end
+
   def height
     # @root.nil? ? 0 : @root.height
     @root.nil? ? 0 : @root.iterate(HEIGHT)
@@ -238,7 +242,7 @@ class BinarySearchTree
     return true if @root.nil?
     return false unless complete?
 
-    (@count + 1).to_s(2).count('1') == 1
+    (count + 1).to_s(2).count('1') == 1
   end
 
   def balanced?
