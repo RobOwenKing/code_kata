@@ -55,14 +55,16 @@ class Node
   end
 
   def find_parent(value)
-    return false if @left.nil? || @right.nil?
-    return self if [@left.value, @right.value].include?(value)
-
     if value < @value
+      return false if @left.nil?
+      return self if @left.value == value
+
       @left.find_parent(value)
     else
-      @right.find_parent(value)
-    end
+      return false if @right.nil?
+      return self if @right.value == value
+
+      @right.find_parent(value)    end
   end
 
   def iterate(methods)
@@ -136,7 +138,7 @@ class BinarySearchTree
     found_node.value == value ? found_node : nil
   end
 
-  # Returns the parent node of the node with the passed value
+  # Returns the value of the parent node of the node with the passed value
   # Returns nil if the value matches the root
   # Returns false if there is no node with the given value
   def parent(value)
@@ -144,6 +146,17 @@ class BinarySearchTree
 
     found_node = @root.find_parent(value)
     !found_node ? false : found_node.value
+  end
+
+  def delete(value)
+    node = find(value)
+    return nil if node.nil?
+
+    parent_value = parent(value)
+    parent_node = find(parent_value)
+
+    parent_node.left = nil if parent_node.left == node
+    parent_node.right = nil if parent_node.right == node
   end
 
   # Returns the largest value in the tree smaller than the passed value
