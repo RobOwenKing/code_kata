@@ -149,6 +149,9 @@ class BinarySearchTree
     !found_node ? false : found_node.value
   end
 
+  # Deletes node with given value and returns that value
+  # If no such node, returns nil
+  # The algorithm maintains tree connectedness and sortedness
   def delete(value)
     node = find(value)
     return nil if node.nil?
@@ -395,6 +398,7 @@ class BinarySearchTree
 
   def delete_leaf(node)
     if node == @root
+      # If the root is a leaf, just delete it and we're done
       @root = nil
     else
       # Find parent of node to be deleted and set relevant child node to nil
@@ -407,8 +411,12 @@ class BinarySearchTree
 
   def delete_with_child(node)
     value = node.value
+    # Note: If this method is called, it definitely has at least one child node
+    # We'll find the previous or succesor node as our replacement
     replacement = node.right.nil? ? previous(value) : successor(value)
+    # We need to recursively delete that replacement to avoid duplication
     delete(replacement)
+    # Now we can reassign our node to the value of the replacement
     node.value = replacement
     value
   end
