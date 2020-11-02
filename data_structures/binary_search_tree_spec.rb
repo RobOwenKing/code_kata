@@ -43,6 +43,23 @@ RSpec.describe BinarySearchTree do
       expect(insert_tree.insert(300).value).to eql(300)
     end
   end
+  describe '#delete' do
+    delete_tree = BinarySearchTree.new
+    nodes = [10, 5, 3, 7, 2, 4, 6, 8]
+    nodes.each { |num| delete_tree.insert(num) }
+    it 'should return nil for a value not in the tree' do
+      expect(delete_tree.delete(100)).to eql(nil)
+    end
+    it 'should return the deleted value' do
+      expect(delete_tree.delete(2)).to eql(2)
+    end
+    it 'should delete a leaf' do
+      expect(delete_tree.find(2)).to eql(nil)
+    end
+    it 'should reduce the size of the tree by 1' do
+      expect(delete_tree.count).to eql(nodes.size - 1)
+    end
+  end
   describe '#include?' do
     include_tree = BinarySearchTree.new('r')
     %w[o b e t].each { |letter| include_tree.insert(letter) }
