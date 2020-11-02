@@ -76,7 +76,7 @@ end
 
 # Binary Search Tree class itself
 class BinarySearchTree
-  attr_reader :root
+  attr_accessor :root
 
   def initialize(value = nil)
     @root = value.nil? ? nil : Node.new(value)
@@ -195,6 +195,17 @@ class BinarySearchTree
   # Would be better to count while traversing rather than building array then counting that
   def count
     to_a.count
+  end
+
+  def subtree(value)
+    node = find(value)
+    if node.nil?
+      nil
+    else
+      tree = BinarySearchTree.new
+      tree.root = node
+      tree
+    end
   end
 
   def height

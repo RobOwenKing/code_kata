@@ -122,21 +122,21 @@ RSpec.describe BinarySearchTree do
   describe '#subtree' do
     subtree_tree = BinarySearchTree.new
     [10, 6, 4, 8, 7, 9, 14, 12, 16].each { |num| subtree_tree.insert(num) }
+    subtree1 = subtree_tree.subtree(6)
     it "should return nil when the value passed isn't found" do
       expect(subtree_tree.subtree(2)).to eql(nil)
     end
     it 'should return a tree if the value is found' do
-      subtree1 = subtree_tree.subtree(6)
       expect(subtree1.class).to eql(BinarySearchTree)
     end
     it 'should have the correct size' do
       expect(subtree1.count).to eql(5)
     end
     it 'should include appropriate nodes' do
-      expect(subtree1.find(7)).to eql(true)
+      expect(subtree1.find(7)).to be_truthy
     end
     it 'should not include other nodes from the original' do
-      expect(subtree1.find(14)).to eql(false)
+      expect(subtree1.find(14)).to be_falsy
     end
   end
   describe '#floor' do
