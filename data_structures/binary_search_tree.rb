@@ -64,7 +64,8 @@ class Node
       return false if @right.nil?
       return self if @right.value == value
 
-      @right.find_parent(value)    end
+      @right.find_parent(value)
+    end
   end
 
   def iterate(methods)
@@ -157,6 +158,8 @@ class BinarySearchTree
 
     parent_node.left = nil if parent_node.left == node
     parent_node.right = nil if parent_node.right == node
+
+    value
   end
 
   # Returns the largest value in the tree smaller than the passed value
