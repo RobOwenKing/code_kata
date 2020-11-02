@@ -82,6 +82,9 @@ class BinarySearchTree
     @root = value.nil? ? nil : Node.new(value)
   end
 
+  # Add a value to the tree
+  # Returns new Node
+  # Repeat values not added, return nil
   def insert(value)
     # Find where the given value would go in the tree
     parent_node = @root.nil? ? nil : @root.find_node(value)
@@ -97,6 +100,8 @@ class BinarySearchTree
     value < parent_node.value ? parent_node.left = new_node : parent_node.right = new_node
   end
 
+  # Test whether a given value is in the tree
+  # Returns boolean
   def include?(value)
     return false if @root.nil?
 
@@ -104,6 +109,8 @@ class BinarySearchTree
     found_node.value == value
   end
 
+  # Return the minimum value of any node in the tree
+  # Returns nil for an empty tree
   def min
     return nil if @root.nil?
 
@@ -112,6 +119,8 @@ class BinarySearchTree
     current_node.value
   end
 
+  # Return the maximum value of any node in the tree
+  # Returns nil for an empty tree
   def max
     return nil if @root.nil?
 
@@ -120,11 +129,16 @@ class BinarySearchTree
     current_node.value
   end
 
+  # Returns the node from the tree with the given value
+  # Returns nil if no such node in the tree
   def find(value)
     found_node = @root.find_node(value)
     found_node.value == value ? found_node : nil
   end
 
+  # Returns the parent node of the node with the passed value
+  # Returns nil if the value matches the root
+  # Returns false if there is no node with the given value
   def parent(value)
     return nil if @root.value == value
 
@@ -132,6 +146,8 @@ class BinarySearchTree
     !found_node ? false : found_node.value
   end
 
+  # Returns the largest value in the tree smaller than the passed value
+  # Returns nil if no such value found
   def floor(value)
     # We're going to use a private method which also takes a node as input
     # This allows us to use recursion
@@ -140,42 +156,48 @@ class BinarySearchTree
     best_find > value ? nil : best_find
   end
 
+  # Returns the smallest value in the tree larger than the passed value
+  # Returns nil if no such value found
   def ceil(value)
     # Based on #floor
     best_find = find_ceil(value, @root)
     best_find < value ? nil : best_find
   end
 
-  # Returns an array of the tree's elements in sorted order
-  # (In lieu of a print method)
+  # Returns a sorted array of the values of the tree's nodes
   def to_a
     order = %w[left root right]
     action = proc { |node, returnable| returnable << node.value }
     root.nil? ? [] : traverse(@root, order, [], action)
   end
 
+  # Alias of #to_a
   def in_order
     to_a
   end
 
+  # Returns a pre-ordered array of the values of the tree's nodes
   def pre_order
     order = %w[root left right]
     action = proc { |node, returnable| returnable << node.value }
     root.nil? ? [] : traverse(@root, order, [], action)
   end
 
+  # Returns a post-ordered array of the values of the tree's nodes
   def post_order
     order = %w[left right root]
     action = proc { |node, returnable| returnable << node.value }
     root.nil? ? [] : traverse(@root, order, [], action)
   end
 
+  # Returns a sorted array of the values of the tree's leaves
   def leaves
     order = %w[left root right]
     action = proc { |node, returnable| returnable << node.value if node.left.nil? && node.right.nil? }
     root.nil? ? [] : traverse(@root, order, [], action)
   end
 
+  # Returns an array of the values of the tree's nodes (breadth-first order)
   def bf_order
     order = []
     queue = MyQueue.new
@@ -191,12 +213,15 @@ class BinarySearchTree
     order
   end
 
-  # Quick fix
-  # Would be better to count while traversing rather than building array then counting that
+  # Returns the number of nodes in the tree (integer)
   def count
+    # Quick fix
+    # Would be better to count while traversing rather than building array then counting that
     to_a.count
   end
 
+  # Returns a new Binary Search Tree
+  # New tree's root node is the node of original tree with passed value
   def subtree(value)
     node = find(value)
     if node.nil?
@@ -208,11 +233,16 @@ class BinarySearchTree
     end
   end
 
+  # Returns the number of levels in the tree with any nodes (integer)
+  # eg: 1 for a tree with just a root, 2 if only the root has children, etc
   def height
     # @root.nil? ? 0 : @root.height
     @root.nil? ? 0 : @root.iterate(HEIGHT)
   end
 
+  # Returns the level in the tree where the node with the passed value is (integer)
+  # eg: Returns 1 if passed the root's value, 2 if passed one of its children's values, etc
+  # Returns nil if there is no node with passed value
   def level(value)
     current_node = @root
     tracker = 1
@@ -225,13 +255,17 @@ class BinarySearchTree
     current_node.nil? ? nil : tracker
   end
 
-  # In a full tree, every node has either 0 or 2 children
+  # Tests whether the tree is full
+  # eg: Whether every node has either 0 or 2 children
   def full?
     # Define as true if tree empty, else start iterating
     # @root.nil? ? true : @root.full?
     @root.nil? ? true : @root.iterate(FULL)
   end
 
+  # Tests whether the tree is complete
+  # eg: Whether every level is complete except possibly the last level...
+  # ... and all nodes in the last level are as far left as possible
   def complete?
     return true if @root.nil?
 
@@ -249,6 +283,8 @@ class BinarySearchTree
     true
   end
 
+  # Tests whether the tree is perfect
+  # eg: Whether every non-leaf node has precisely two children
   def perfect?
     return true if @root.nil?
     return false unless complete?
