@@ -155,10 +155,8 @@ class BinarySearchTree
 
     if node.left.nil? && node.right.nil?
       delete_leaf(node)
-    elsif node.right.nil?
-      delete_with_no_right_child(node)
     else
-      delete_with_right_child(node)
+      delete_with_child(node)
     end
   end
 
@@ -407,17 +405,9 @@ class BinarySearchTree
     node.value
   end
 
-  def delete_with_no_right_child(node)
+  def delete_with_child(node)
     value = node.value
-    replacement = previous(value)
-    delete(replacement)
-    node.value = replacement
-    value
-  end
-
-  def delete_with_right_child(node)
-    value = node.value
-    replacement = successor(value)
+    replacement = node.right.nil? ? previous(value) : successor(value)
     delete(replacement)
     node.value = replacement
     value
