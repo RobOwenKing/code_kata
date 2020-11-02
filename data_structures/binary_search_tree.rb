@@ -233,6 +233,16 @@ class BinarySearchTree
     end
   end
 
+  # Returns the next value in the tree larger than the passed value
+  # Returns nil if no larger value found
+  # Returns false if no node found with the passed value
+  def next(value)
+    node = find(value)
+    return false if node.nil?
+
+    return subtree(node.right.value).min unless node.right.nil?
+  end
+
   # Returns the number of levels in the tree with any nodes (integer)
   # eg: 1 for a tree with just a root, 2 if only the root has children, etc
   def height
