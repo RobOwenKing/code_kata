@@ -240,7 +240,35 @@ class BinarySearchTree
     node = find(value)
     return false if node.nil?
 
+    # If the node has a right subtree, its minimum value will be next largest
     return subtree(node.right.value).min unless node.right.nil?
+
+    current_parent = parent(node.value)
+    until find(current_parent).left.value == node.value
+      node = find(current_parent)
+      current_parent = parent(node.value)
+      return nil if current_parent.nil?
+    end
+    current_parent
+  end
+
+  # Returns the next value in the tree smaller than the passed value
+  # Returns nil if no smaller value found
+  # Returns false if no node found with the passed value
+  def previous(value)
+    node = find(value)
+    return false if node.nil?
+
+    # If the node has a left subtree, its maximum value will be next smallest
+    return subtree(node.left.value).max unless node.left.nil?
+
+    current_parent = parent(node.value)
+    until find(current_parent).right.value == node.value
+      node = find(current_parent)
+      current_parent = parent(node.value)
+      return nil if current_parent.nil?
+    end
+    current_parent
   end
 
   # Returns the number of levels in the tree with any nodes (integer)
