@@ -8,7 +8,7 @@ I should note that all of them are learning experiments and, as such, contain th
 
 ## Projects in order
 1. Stack - Includes: #push(element), #pop, #peek, #size, #empty?, #clear. I use it [here](https://github.com/RobOwenKing/code_kata/blob/master/string_methods/parentheses.rb) to solve the Matching Parentheses problem.
-2. Singly-Linked List - Includes: #first => returns value, #head => returns node, #last, #tail, #unshift(value), #shift, #push(value), #pop, #fetch(index) => returns value, #fetch_node(index), #find_index(value), #find_node(value), #insert(index, value), #delete_at(index), #loops?, #reverse, #reverse (different algorithm).
+2. Singly-Linked List - Includes: #first => returns value, #head => returns node, #last, #tail, #unshift(value), #shift, #push(value), #pop, #fetch(index) => returns value, #fetch_node(index), #find_index(value), #find_node(value), #insert(index, value), #delete_at(index), #loops?, #reverse, #reverse! (different algorithm).
 3. Queue - Includes: #enqueue, #dequeue. I saw an interview question to implement a queue using two stacks. So that's what I did.
 4. Set - Includes: #add(val), #delete(val), #include?(val), #length, #union(other_set), #intersection(other_set), #difference(other_set), #subset?(other_set).
 5. Priority Queue - Includes: #enqueue(value, priority), #dequeue, #next, #find_priority(value), #position(value), #change_priority(value, priority).
