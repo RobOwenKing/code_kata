@@ -43,6 +43,62 @@ RSpec.describe BinarySearchTree do
       expect(insert_tree.insert(300).value).to eql(300)
     end
   end
+  describe '#delete' do
+    delete_tree = BinarySearchTree.new
+    nodes = [10, 5, 3, 7, 2, 4, 9, 8, 15, 12, 17, 16, 18]
+    nodes.each { |num| delete_tree.insert(num) }
+    it 'should return nil for a value not in the tree' do
+      expect(delete_tree.delete(100)).to eql(nil)
+    end
+    it 'should return the deleted value' do
+      expect(delete_tree.delete(4)).to eql(4)
+    end
+    it 'should delete a leaf' do
+      expect(delete_tree.find(4)).to eql(nil)
+    end
+    it 'should reduce the size of the tree by 1' do
+      expect(delete_tree.count).to eql(nodes.size - 1)
+    end
+    it 'should delete a node with just a left child' do
+      delete_tree.delete(3)
+      expect(delete_tree.find(3)).to eql(nil)
+    end
+    it 'should reduce the size of the tree by 1' do
+      expect(delete_tree.count).to eql(nodes.size - 2)
+    end
+    it "shouldn't disconnect the child" do
+      expect(delete_tree.find(2).class).to eql(Node)
+    end
+    it 'should delete a node with just a right child' do
+      delete_tree.delete(7)
+      expect(delete_tree.find(7)).to eql(nil)
+    end
+    it 'should reduce the size of the tree by 1' do
+      expect(delete_tree.count).to eql(nodes.size - 3)
+    end
+    it "shouldn't disconnect the child" do
+      expect(delete_tree.find(9).class).to eql(Node)
+    end
+    it 'should leave the tree in sorted order' do
+      expect(delete_tree.to_a.sort).to eql(delete_tree.to_a)
+    end
+    it 'should delete a node with just a right child' do
+      delete_tree.delete(15)
+      expect(delete_tree.find(15)).to eql(nil)
+    end
+    it 'should reduce the size of the tree by 1' do
+      expect(delete_tree.count).to eql(nodes.size - 4)
+    end
+    it "shouldn't disconnect children" do
+      expect(delete_tree.find(12).class).to eql(Node)
+    end
+    it "shouldn't disconnect children" do
+      expect(delete_tree.find(18).class).to eql(Node)
+    end
+    it 'should leave the tree in sorted order' do
+      expect(delete_tree.to_a.sort).to eql(delete_tree.to_a)
+    end
+  end
   describe '#include?' do
     include_tree = BinarySearchTree.new('r')
     %w[o b e t].each { |letter| include_tree.insert(letter) }
@@ -119,6 +175,26 @@ RSpec.describe BinarySearchTree do
       expect(find_tree.find('a')).to eql(nil)
     end
   end
+  describe '#subtree' do
+    subtree_tree = BinarySearchTree.new
+    [10, 6, 4, 8, 7, 9, 14, 12, 16].each { |num| subtree_tree.insert(num) }
+    subtree1 = subtree_tree.subtree(6)
+    it "should return nil when the value passed isn't found" do
+      expect(subtree_tree.subtree(2)).to eql(nil)
+    end
+    it 'should return a tree if the value is found' do
+      expect(subtree1.class).to eql(BinarySearchTree)
+    end
+    it 'should have the correct size' do
+      expect(subtree1.count).to eql(5)
+    end
+    it 'should include appropriate nodes' do
+      expect(subtree1.find(7)).to be_truthy
+    end
+    it 'should not include other nodes from the original' do
+      expect(subtree1.find(14)).to be_falsy
+    end
+  end
   describe '#floor' do
     floor_tree = BinarySearchTree.new
     [10, 6, 4, 8, 14, 12, 16].each { |num| floor_tree.insert(num) }
@@ -163,6 +239,66 @@ RSpec.describe BinarySearchTree do
       expect(ceil_tree.ceil(20)).to eql(nil)
     end
   end
+  describe '#parent' do
+    parent_tree = BinarySearchTree.new
+    [10, 6, 4, 8, 14, 12, 16].each { |num| parent_tree.insert(num) }
+    it 'should return nil for the root' do
+      expect(parent_tree.parent(10)).to eql(nil)
+    end
+    it 'should return false for a value not in the tree' do
+      expect(parent_tree.parent(2)).to eql(false)
+    end
+    it 'should work for a leaf' do
+      expect(parent_tree.parent(12)).to eql(14)
+    end
+    it 'should work for an intermediary node' do
+      expect(parent_tree.parent(6)).to eql(10)
+    end
+  end
+  describe '#successor' do
+    successor_tree = BinarySearchTree.new
+    [10, 6, 4, 8, 7, 9, 14, 12, 16].each { |num| successor_tree.insert(num) }
+    it 'should return nil when #max' do
+      expect(successor_tree.successor(16)).to eql(nil)
+    end
+    it 'should return false for a value not in the tree' do
+      expect(successor_tree.successor(2)).to eql(false)
+    end
+    it 'should return a right child which is a leaf' do
+      expect(successor_tree.successor(14)).to eql(16)
+    end
+    it 'should return min value of right child subtree' do
+      expect(successor_tree.successor(6)).to eql(7)
+    end
+    it 'should return parent when no right child (and self left child)' do
+      expect(successor_tree.successor(4)).to eql(6)
+    end
+    it 'should return earlier parent when no right child (and self right child)' do
+      expect(successor_tree.successor(9)).to eql(10)
+    end
+  end
+  describe '#previous' do
+    previous_tree = BinarySearchTree.new
+    [10, 6, 4, 8, 7, 9, 14, 12, 16].each { |num| previous_tree.insert(num) }
+    it 'should return nil when #max' do
+      expect(previous_tree.previous(4)).to eql(nil)
+    end
+    it 'should return false for a value not in the tree' do
+      expect(previous_tree.previous(2)).to eql(false)
+    end
+    it 'should return a left child which is a leaf' do
+      expect(previous_tree.previous(6)).to eql(4)
+    end
+    it 'should return min value of left child subtree' do
+      expect(previous_tree.previous(10)).to eql(9)
+    end
+    it 'should return parent when no left child (and self right child)' do
+      expect(previous_tree.previous(16)).to eql(14)
+    end
+    it 'should return earlier parent when no left child (and self left child)' do
+      expect(previous_tree.previous(12)).to eql(10)
+    end
+  end
   describe '#to_a' do
     array_tree = BinarySearchTree.new
     it 'should return an empty array for an empty tree' do
@@ -174,6 +310,79 @@ RSpec.describe BinarySearchTree do
       expect(array_tree.to_a).to eql(array.sort)
     end
   end
+  describe '#in_order' do
+    in_tree = BinarySearchTree.new
+    it 'should return an empty array for an empty tree' do
+      expect(in_tree.in_order).to eql([])
+    end
+    it 'should return an array of the elements in sorted order' do
+      array = [10, 6, 4, 8, 14, 5, 12, 16, 3, 20]
+      array.each { |num| in_tree.insert(num) }
+      expect(in_tree.in_order).to eql(array.sort)
+    end
+    it 'should work for an example from Wikipedia in case I got mine wrong' do
+      array = %w[F B G A D I C E H]
+      new_tree = BinarySearchTree.new
+      array.each { |letter| new_tree.insert(letter) }
+      expect(new_tree.in_order).to eql(%w[A B C D E F G H I])
+    end
+  end
+  describe '#pre_order' do
+    pre_tree = BinarySearchTree.new
+    it 'should return an empty array for an empty tree' do
+      expect(pre_tree.pre_order).to eql([])
+    end
+    it 'should return an array of the elements in the correct order' do
+      array = [10, 6, 4, 8, 14, 5, 12, 16, 3, 20]
+      array.each { |num| pre_tree.insert(num) }
+      expect(pre_tree.pre_order).to eql([10, 6, 4, 3, 5, 8, 14, 12, 16, 20])
+    end
+    it 'should work for an example from Wikipedia in case I got mine wrong' do
+      array = %w[F B G A D I C E H]
+      new_tree = BinarySearchTree.new
+      array.each { |letter| new_tree.insert(letter) }
+      expect(new_tree.pre_order).to eql(%w[F B A D C E G I H])
+    end
+  end
+  describe '#post_order' do
+    post_tree = BinarySearchTree.new
+    it 'should return an empty array for an empty tree' do
+      expect(post_tree.post_order).to eql([])
+    end
+    it 'should return an array of the elements in the correct order' do
+      array = [10, 6, 4, 8, 14, 5, 12, 16, 3, 20]
+      array.each { |num| post_tree.insert(num) }
+      expect(post_tree.post_order).to eql([3, 5, 4, 8, 6, 12, 20, 16, 14, 10])
+    end
+    it 'should work for an example from Wikipedia in case I got mine wrong' do
+      array = %w[F B G A D I C E H]
+      new_tree = BinarySearchTree.new
+      array.each { |letter| new_tree.insert(letter) }
+      expect(new_tree.post_order).to eql(%w[A C E D B H I G F])
+    end
+  end
+  describe '#bf_order' do
+    bf_tree = BinarySearchTree.new
+    it 'should return an empty array for an empty tree' do
+      expect(bf_tree.bf_order).to eql([])
+    end
+    it 'should return an array of the elements in sorted order' do
+      array = [10, 6, 4, 8, 14, 5, 12, 16, 3, 20]
+      array.each { |num| bf_tree.insert(num) }
+      expect(bf_tree.bf_order).to eql([10, 6, 14, 4, 8, 12, 16, 3, 5, 20])
+    end
+  end
+  describe '#leaves' do
+    in_tree = BinarySearchTree.new
+    it 'should return an empty array for an empty tree' do
+      expect(in_tree.leaves).to eql([])
+    end
+    it 'should return an array of the leaf elements in sorted order' do
+      array = [10, 6, 4, 8, 14, 5, 12, 16, 3, 20]
+      array.each { |num| in_tree.insert(num) }
+      expect(in_tree.leaves).to eql([3, 5, 8, 12, 20])
+    end
+  end
   describe '#full?' do
     full_tree = BinarySearchTree.new
     it 'should return true for an empty tree' do
@@ -183,11 +392,11 @@ RSpec.describe BinarySearchTree do
       full_tree.insert(10)
       expect(full_tree.full?).to eql(true)
     end
-    it 'should return false in complex cases' do
+    it 'should return false when appropriate in complex cases' do
       [5, 15, 2, 7, 6].each { |num| full_tree.insert(num) }
       expect(full_tree.full?).to eql(false)
     end
-    it 'should return true in complex cases' do
+    it 'should return true when appropriate in complex cases' do
       full_tree.insert(8)
       expect(full_tree.full?).to eql(true)
     end
@@ -204,6 +413,91 @@ RSpec.describe BinarySearchTree do
     it 'should return the correct value for a larger tree' do
       [5, 2, 7, 8, 15].each { |num| height_tree.insert(num) }
       expect(height_tree.height).to eql(4)
+    end
+  end
+  describe '#level' do
+    level_tree = BinarySearchTree.new
+    [10, 5, 15, 6, 7].each { |num| level_tree.insert(num) }
+    it 'should return 1 for the root' do
+      expect(level_tree.level(10)).to eql(1)
+    end
+    it 'should return the correct value for other nodes' do
+      expect(level_tree.level(6)).to eql(3)
+    end
+    it 'should return nil for a value not in the tree' do
+      expect(level_tree.level(8)).to eql(nil)
+    end
+  end
+  describe '#complete?' do
+    complete_tree = BinarySearchTree.new
+    it 'should return true for an empty tree' do
+      expect(complete_tree.complete?).to eql(true)
+    end
+    it 'should return true for a tree with only a root' do
+      complete_tree.insert(10)
+      expect(complete_tree.complete?).to eql(true)
+    end
+    it 'should return false when appropriate for a complex case' do
+      [5, 7, 15].each { |num| complete_tree.insert(num) }
+      expect(complete_tree.complete?).to eql(false)
+    end
+    it 'should return true when appropriate for a complex case' do
+      complete_tree.insert(2)
+      expect(complete_tree.complete?).to eql(true)
+    end
+  end
+  describe '#perfect?' do
+    perfect_tree = BinarySearchTree.new
+    it 'should return true for an empty tree' do
+      expect(perfect_tree.perfect?).to eql(true)
+    end
+    it 'should return true for a tree with only a root' do
+      perfect_tree.insert(10)
+      expect(perfect_tree.perfect?).to eql(true)
+    end
+    it 'should return false when appropriate for a complex case' do
+      [5, 7, 15].each { |num| perfect_tree.insert(num) }
+      expect(perfect_tree.perfect?).to eql(false)
+    end
+    it 'should return true when appropriate for a complex case' do
+      [2, 12, 17].each { |num| perfect_tree.insert(num) }
+      expect(perfect_tree.perfect?).to eql(true)
+    end
+  end
+  describe '#balanced?' do
+    balanced_tree = BinarySearchTree.new
+    it 'should return true for an empty tree' do
+      expect(balanced_tree.balanced?).to eql(true)
+    end
+    it 'should return true for a tree with just a root' do
+      balanced_tree.insert(10)
+      expect(balanced_tree.balanced?).to eql(true)
+    end
+    it 'should return true for a balanced tree' do
+      [5, 3, 15].each { |num| balanced_tree.insert(num) }
+      expect(balanced_tree.balanced?).to eql(true)
+    end
+    it 'should return false for a non-balanced tree' do
+      balanced_tree.insert(4)
+      expect(balanced_tree.balanced?).to eql(false)
+    end
+  end
+  describe '#degenerate?' do
+    degenerate_tree = BinarySearchTree.new
+    it 'should return true for an empty tree' do
+      expect(degenerate_tree.degenerate?).to eql(true)
+    end
+    it 'should return true for a tree with just a root' do
+      degenerate_tree.insert(10)
+      expect(degenerate_tree.degenerate?).to eql(true)
+    end
+    it 'should return true when appropriate in complex cases' do
+      [5, 6, 7].each { |num| degenerate_tree.insert(num) }
+      expect(degenerate_tree.degenerate?).to eql(true)
+    end
+    it 'should return false when appropriate in complex cases' do
+      degenerate_tree.insert(4)
+      expect(degenerate_tree.degenerate?).to eql(false)
     end
   end
 end

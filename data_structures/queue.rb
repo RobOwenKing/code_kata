@@ -24,4 +24,8 @@ class MyQueue
 
     @for_dequeue.pop
   end
+
+  def empty?
+    @for_enqueue.empty? && @for_dequeue.empty?
+  end
 end
