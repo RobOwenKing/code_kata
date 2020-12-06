@@ -430,6 +430,8 @@ class BinarySearchTree
   def mirror?(left, right)
     return right.nil? if left.nil?
     return false if right.nil?
+
+    mirror?(left.left, right.right) && mirror?(left.right, right.left)
   end
 end
 
