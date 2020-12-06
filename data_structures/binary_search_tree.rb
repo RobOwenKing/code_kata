@@ -357,6 +357,8 @@ class BinarySearchTree
 
   def symmetric?
     return true if @root.nil?
+
+    mirror?(@root.left, @root.right)
   end
 
   private
@@ -423,6 +425,11 @@ class BinarySearchTree
     # Now we can reassign our node to the value of the replacement
     node.value = replacement
     value
+  end
+
+  def mirror?(left, right)
+    return right.nil? if left.nil?
+    return false if right.nil?
   end
 end
 
