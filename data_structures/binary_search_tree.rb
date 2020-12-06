@@ -355,6 +355,10 @@ class BinarySearchTree
     @root.nil? ? true : @root.iterate(DEGENERATE)
   end
 
+  def symmetric?
+    return true if @root.nil?
+  end
+
   private
 
   def find_floor(value, node)
