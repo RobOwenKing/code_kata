@@ -517,5 +517,13 @@ RSpec.describe BinarySearchTree do
       symmetric_tree.insert(17)
       expect(symmetric_tree.symmetric?).to eql(true)
     end
+    it 'should return false when appropriate in complex cases' do
+      [1, 19, 8, 12, 9, 11, 5].each { |num| symmetric_tree.insert(num) }
+      expect(symmetric_tree.symmetric?).to eql(false)
+    end
+    it 'should return true when appropriate in complex cases' do
+      symmetric_tree.insert(15)
+      expect(symmetric_tree.symmetric?).to eql(true)
+    end
   end
 end
