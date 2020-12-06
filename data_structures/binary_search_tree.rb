@@ -75,6 +75,12 @@ class Node
 
     @left.nil? ? methods[:left].call(@left, @right) : methods[:right].call(@left, @right)
   end
+
+  def swap
+    holding = @left.nil? ? nil : @left.swap
+    @left = @right.nil? ? nil : @right.swap
+    @right = holding
+  end
 end
 
 # Binary Search Tree class itself
@@ -359,6 +365,11 @@ class BinarySearchTree
     return true if @root.nil?
 
     mirror?(@root.left, @root.right)
+  end
+
+  # NOTE: This is a Binary Tree algorithm - it will break many other methods
+  def invert
+    @root.swap unless @root.nil?
   end
 
   private
