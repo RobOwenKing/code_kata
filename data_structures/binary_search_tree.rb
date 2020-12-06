@@ -80,6 +80,8 @@ class Node
     holding = @left.nil? ? nil : @left.swap
     @left = @right.nil? ? nil : @right.swap
     @right = holding
+
+    self
   end
 end
 
