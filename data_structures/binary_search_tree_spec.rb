@@ -500,4 +500,30 @@ RSpec.describe BinarySearchTree do
       expect(degenerate_tree.degenerate?).to eql(false)
     end
   end
+  describe '#symmetric?' do
+    symmetric_tree = BinarySearchTree.new
+    it 'should return true for an empty tree' do
+      expect(symmetric_tree.symmetric?).to eql(true)
+    end
+    it 'should return true for a tree with just a root' do
+      symmetric_tree.insert(10)
+      expect(symmetric_tree.symmetric?).to eql(true)
+    end
+    it 'should return false for a tree with a root with one child' do
+      symmetric_tree.insert(3)
+      expect(symmetric_tree.symmetric?).to eql(false)
+    end
+    it 'should return true for a tree with a root with two children' do
+      symmetric_tree.insert(17)
+      expect(symmetric_tree.symmetric?).to eql(true)
+    end
+    it 'should return false when appropriate in complex cases' do
+      [1, 19, 8, 12, 9, 11, 5].each { |num| symmetric_tree.insert(num) }
+      expect(symmetric_tree.symmetric?).to eql(false)
+    end
+    it 'should return true when appropriate in complex cases' do
+      symmetric_tree.insert(15)
+      expect(symmetric_tree.symmetric?).to eql(true)
+    end
+  end
 end

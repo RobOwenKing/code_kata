@@ -355,6 +355,12 @@ class BinarySearchTree
     @root.nil? ? true : @root.iterate(DEGENERATE)
   end
 
+  def symmetric?
+    return true if @root.nil?
+
+    mirror?(@root.left, @root.right)
+  end
+
   private
 
   def find_floor(value, node)
@@ -419,6 +425,13 @@ class BinarySearchTree
     # Now we can reassign our node to the value of the replacement
     node.value = replacement
     value
+  end
+
+  def mirror?(left, right)
+    return right.nil? if left.nil?
+    return false if right.nil?
+
+    mirror?(left.left, right.right) && mirror?(left.right, right.left)
   end
 end
 
