@@ -11,15 +11,29 @@ class MinHeap
     @heap[0]
   end
 
-  # Input: Integer
-  # Adds the element to the end of @heap, then bubbles if necessary to preserve heapness
+  # Input: Object
+  # Adds the given object to the end of @heap, then bubbles if necessary to preserve heapness
   def insert(value)
     @heap << value
 
     bubble_up(@heap.length - 1) unless @heap.length < 2
   end
 
+  # Input: Object
+  # Deletes the first element found in the heap matching the given object
+  def delete(value)
+    index = index(value)
+
+    index = @heap.length - 1 ? @heap.delete_at(index) : @heap.delete_at(index)
+  end
+
   private
+
+  # Input: Object
+  # Returns the index in @heap of the first element whose value matches the object passed
+  def index(value)
+    @heap.index(value)
+  end
 
   # Input: Integer, the index of a child in @heap
   # Output: Integer, the index of that child's parent in @heap
