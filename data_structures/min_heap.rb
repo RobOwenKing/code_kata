@@ -16,14 +16,7 @@ class MinHeap
   def insert(value)
     @heap << value
 
-    current = @heap.length - 1
-    parent = parent_index(current)
-
-    while !current.zero? && @heap[parent] > @heap[current]
-      swap(current, parent)
-      current = parent
-      parent = parent_index(current)
-    end
+    bubble_up(@heap.length - 1) unless @heap.length < 2
   end
 
   private
@@ -41,5 +34,12 @@ class MinHeap
     hold = @heap[index1]
     @heap[index1] = @heap[index2]
     @heap[index2] = hold
+  end
+
+  def bubble_up(index)
+    parent = parent_index(index)
+
+    swap(index, parent) if @heap[parent] > @heap[index]
+    bubble_up(parent) unless parent.zero?
   end
 end
