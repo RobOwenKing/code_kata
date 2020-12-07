@@ -1,3 +1,21 @@
+# A Minimum Binary Heap class in Ruby
+# Contents
+# class MinHeap
+# - #initialize
+# - #to_a
+# - #root
+# - #insert
+# - #delete
+# - private
+# - #index
+# - #parent_index
+# - #left_child_index
+# - #right_child_index
+# - #min_child_index
+# - #swap
+# - #bubble_up
+# - #bubble_down
+
 class MinHeap
   def initialize
     @heap = []
@@ -60,6 +78,20 @@ class MinHeap
     option < @heap.length ? option : nil
   end
 
+  # Input: Integer, the index of an element in @heap
+  def min_child_index(index)
+    left_child_index = left_child_index(index)
+    # Return nil if it has no left child
+    return nil if left_child_index.nil?
+
+    right_child_index = right_child_index(index)
+    # If it has only a left child, return that
+    return left_child_index if right_child_index.nil?
+
+    # If it has two children, return the index of the child with smaller value
+    @heap[left_child_index] < @heap[right_child_index] ? left_child_index : right_child_index
+  end
+
   # Input: (Integer, Integer), indexes of elements in @heap
   # Swaps the values in the heap at the two given indexes
   def swap(index1, index2)
@@ -80,20 +112,6 @@ class MinHeap
     swap(index, parent)
     # Then iterate #bubble_up
     bubble_up(parent) unless parent.zero?
-  end
-
-  # Input: Integer, the index of an element in @heap
-  def min_child_index(index)
-    left_child_index = left_child_index(index)
-    # Return nil if it has no left child
-    return nil if left_child_index.nil?
-
-    right_child_index = right_child_index(index)
-    # If it has only a left child, return that
-    return left_child_index if right_child_index.nil?
-
-    # If it has two children, return the index of the child with smaller value
-    @heap[left_child_index] < @heap[right_child_index] ? left_child_index : right_child_index
   end
 
   # Input: Integer, the index of the element to start with
