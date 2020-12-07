@@ -22,9 +22,15 @@ class MinHeap
   # Input: Object
   # Deletes the first element found in the heap matching the given object
   def delete(value)
+    # Find the element to delete
     index = index(value)
-
-    index = @heap.length - 1 ? @heap.delete_at(index) : @heap.delete_at(index)
+    not_final = index < @heap.length - 1
+    # Unless it's the final leaf, replace the value to be deleted with the final leaf
+    @heap[index] = @heap[-1] if not_final
+    # Delete the final leaf (either what we want to delete, or a duplicate now)
+    @heap.pop
+    # If necessary, bubble down
+    bubble_down(index) if not_final
   end
 
   private
@@ -67,5 +73,8 @@ class MinHeap
 
     swap(index, parent)
     bubble_up(parent) unless parent.zero?
+  end
+
+  def bubble_down(index)
   end
 end
