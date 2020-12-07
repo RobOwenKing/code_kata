@@ -370,7 +370,7 @@ class BinarySearchTree
   end
 
   # NOTE: This is a Binary Tree algorithm - it will break many other methods
-  def invert
+  def invert!
     @root.swap unless @root.nil?
   end
 
