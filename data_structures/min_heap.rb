@@ -41,10 +41,9 @@ class MinHeap
   # If a swap has taken place, recursively bubble
   def bubble_up(index)
     parent = parent_index(index)
+    return unless @heap[parent] > @heap[index]
 
-    if @heap[parent] > @heap[index]
-      swap(index, parent)
-      bubble_up(parent) unless parent.zero?
-    end
+    swap(index, parent)
+    bubble_up(parent) unless parent.zero?
   end
 end
