@@ -36,10 +36,15 @@ class MinHeap
     @heap[index2] = hold
   end
 
+  # Input: Integer, index of an element in @heap
+  # Swaps that element with its parent if it is smaller than its parent
+  # If a swap has taken place, recursively bubble
   def bubble_up(index)
     parent = parent_index(index)
 
-    swap(index, parent) if @heap[parent] > @heap[index]
-    bubble_up(parent) unless parent.zero?
+    if @heap[parent] > @heap[index]
+      swap(index, parent)
+      bubble_up(parent) unless parent.zero?
+    end
   end
 end
