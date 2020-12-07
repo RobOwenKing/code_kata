@@ -526,4 +526,25 @@ RSpec.describe BinarySearchTree do
       expect(symmetric_tree.symmetric?).to eql(true)
     end
   end
+  describe '#invert!' do
+    invertable_tree = BinarySearchTree.new
+    inverted_tree = BinarySearchTree.new
+    [10, 1, 19, 8, 12, 9, 11, 5].each do |num|
+      invertable_tree.insert(num)
+      inverted_tree.insert(num)
+    end
+    inverted_tree.invert!
+    it 'should have the same root node' do
+      expect(invertable_tree.root.value).to eql(inverted_tree.root.value)
+    end
+    it 'should reverse the order of the nodes' do
+      expect(invertable_tree.in_order.reverse).to eql(inverted_tree.in_order)
+    end
+    it "should make root's old left node its new right node" do
+      expect(invertable_tree.root.left.value).to eql(inverted_tree.root.right.value)
+    end
+    it 'should swap lower nodes correctly too' do
+      expect(invertable_tree.root.right.left.value).to eql(inverted_tree.root.left.right.value)
+    end
+  end
 end
