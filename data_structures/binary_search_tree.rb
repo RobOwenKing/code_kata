@@ -1,5 +1,5 @@
 # Import the Node class we'll use
-require_relative 'binary_search_node'
+require_relative 'binary_tree_node'
 # We'll use a queue for the breadth-first ordering
 require_relative 'queue'
 
