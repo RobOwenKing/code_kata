@@ -1,4 +1,4 @@
-class Heap
+class MinHeap
   def initialize
     @heap = []
   end

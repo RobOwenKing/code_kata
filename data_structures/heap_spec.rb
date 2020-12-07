@@ -1,9 +1,9 @@
 require 'rspec'
-require_relative 'heap'
+require_relative 'min_heap'
 
-RSpec.describe Heap do
+RSpec.describe MinHeap do
   describe '#insert' do
-    insert_heap = Heap.new
+    insert_heap = MinHeap.new
     it 'should insert a root when the heap is empty' do
       insert_heap.insert(2)
       expect(insert_heap.root).to eql(2)
