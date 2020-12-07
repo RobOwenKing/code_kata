@@ -51,13 +51,13 @@ class MinHeap
   def left_child_index(parent_index)
     option = (parent_index * 2) + 1
 
-    option < @heap.length? ? option : nil
+    option < @heap.length ? option : nil
   end
 
   def right_child_index(parent_index)
     option = (parent_index * 2) + 2
 
-    option < @heap.length? ? option : nil
+    option < @heap.length ? option : nil
   end
 
   # Input: (Integer, Integer), indexes of elements in @heap
@@ -79,14 +79,25 @@ class MinHeap
     bubble_up(parent) unless parent.zero?
   end
 
-  def min_child(index)
+  def min_child_index(index)
     left_child_index = left_child_index(index)
-    return if left_child_index.nil?
+    return nil if left_child_index.nil?
 
     right_child_index = right_child_index(index)
-    right_child_index.nil? ? @heap[left_child_index] : [@heap[left_child_index], @heap[right_child_index]].min
+    return left_child_index if right_child_index.nil?
+
+    @heap[left_child_index] < @heap[right_child_index] ? left_child_index : right_child_index
   end
 
   def bubble_down(index)
+    min_child_index = min_child_index(index)
+    return if min_child_index.nil?
+
+    current = @heap[index]
+    min_child = @heap[min_child_index]
+    return unless current > min_child
+
+    swap(index, min_child_index)
+    bubble_down(min_child_index)
   end
 end
