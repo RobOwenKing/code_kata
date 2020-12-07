@@ -28,6 +28,14 @@ class MinHeap
     (child_index - 1) / 2
   end
 
+  def left_child_index(parent_index)
+    (parent_index * 2) + 1
+  end
+
+  def right_child_index(parent_index)
+    (parent_index * 2) + 2
+  end
+
   # Input: (Integer, Integer), indexes of elements in @heap
   # Swaps the values in the heap at the two given indexes
   def swap(index1, index2)

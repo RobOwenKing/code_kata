@@ -21,4 +21,24 @@ RSpec.describe MinHeap do
       expect(insert_heap.to_a).to eql([1, 2, 3, 6, 4, 5])
     end
   end
+  describe '#delete' do
+    delete_heap = MinHeap.new
+    [10, 11, 12, 13, 14, 15, 16, 17, 18].each { |num| delete_heap.insert(num) }
+    it 'should correctly delete the final leaf' do
+      delete_heap.delete(18)
+      expect(delete_heap.to_a).to eql([10, 11, 12, 13, 14, 15, 16, 17])
+    end
+    it 'should correctly delete other leaves' do
+      delete_heap.delete(15)
+      expect(delete_heap.to_a).to eql([10, 11, 12, 13, 14, 17, 16])
+    end
+    it 'should correctly delete intermediate nodes' do
+      delete_heap.delete(11)
+      expect(delete_heap.to_a).to eql([10, 13, 12, 16, 14, 17])
+    end
+    it 'should correctly delete the root' do
+      delete_heap.delete(10)
+      expect(delete_heap.to_a).to eql([12, 13, 17, 16, 14])
+    end
+  end
 end
