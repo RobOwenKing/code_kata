@@ -11,6 +11,8 @@ class MinHeap
     @heap[0]
   end
 
+  # Input: Integer
+  # Adds the element to the end of @heap, then bubbles if necessary to preserve heapness
   def insert(value)
     @heap << value
 
@@ -33,6 +35,8 @@ class MinHeap
     (child_index - 1) / 2
   end
 
+  # Input: (Integer, Integer), indexes of elements in @heap
+  # Swaps the values in the heap at the two given indexes
   def swap(index1, index2)
     hold = @heap[index1]
     @heap[index1] = @heap[index2]
