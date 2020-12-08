@@ -115,8 +115,8 @@ class LinkedList
     count
   end
 
-  # Return the value of the node at the given index
-  def fetch(index)
+  # Returns the node at the given index
+  def fetch_node(index)
     # Return nil if there's no such index
     return nil if index > length - 1
     # Handle negative indexes
@@ -128,20 +128,17 @@ class LinkedList
       index -= 1
       current_node = current_node.next
     end
-    current_node.value
+    current_node
   end
 
-  # Same as #fetch, but returning the node, not its value
-  def fetch_node(index)
+  # Returns the value of the node at the given index
+  def fetch(index)
+    # Return nil if there's no such index
     return nil if index > length - 1
+    # Handle negative indexes
     return fetch(length + index) if index.negative?
 
-    current_node = head
-    until index.zero?
-      index -= 1
-      current_node = current_node.next
-    end
-    current_node
+    fetch_node(index).value
   end
 
   def find_index(value)
