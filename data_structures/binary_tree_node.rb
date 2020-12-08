@@ -38,14 +38,14 @@ class Node
 
   # Input: A Hash of Procs to be called on the node depending on how many of its children are nil
   def iterate(methods)
-    # Call Proc :both when both children are nil
-    return methods[:both].call if @left.nil? && @right.nil?
-    # Call Proc :neither when neither child is nil
-    return methods[:neither].call(@left, @right) unless @left.nil? || @right.nil?
+    # Call Proc :none when the node has no children
+    return methods[:none].call if @left.nil? && @right.nil?
+    # Call Proc :two when the node has two children
+    return methods[:two].call(@left, @right) unless @left.nil? || @right.nil?
 
-    # When here precisely one child will be nil
-    # We call :left when the left child is nil, else :right
-    @left.nil? ? methods[:left].call(@left, @right) : methods[:right].call(@left, @right)
+    # When here it will have precisely one child
+    # Call :right or :left to match which child is not nil
+    @left.nil? ? methods[:right].call(@left, @right) : methods[:left].call(@left, @right)
   end
 
   # This is a helper method for BinaryTree#invert
