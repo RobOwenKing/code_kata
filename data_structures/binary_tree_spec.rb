@@ -1,17 +1,17 @@
 require 'rspec'
-require_relative 'binary_search_tree'
+require_relative 'binary_tree'
 
-RSpec.describe BinarySearchTree do
+RSpec.describe BinaryTree do
   describe '#initialize' do
     it 'should work when passed no value' do
-      expect(BinarySearchTree.new.root).to eql(nil)
+      expect(BinaryTree.new.root).to eql(nil)
     end
     it 'should work when passed a value' do
-      expect(BinarySearchTree.new('Hi').root.value).to eql('Hi')
+      expect(BinaryTree.new('Hi').root.value).to eql('Hi')
     end
   end
   describe '#insert' do
-    insert_tree = BinarySearchTree.new
+    insert_tree = BinaryTree.new
     it "should give a tree a root when it doesn't have one" do
       insert_tree.insert(10)
       expect(insert_tree.root.value).to eql(10)
@@ -44,7 +44,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#delete' do
-    delete_tree = BinarySearchTree.new
+    delete_tree = BinaryTree.new
     nodes = [10, 5, 3, 7, 2, 4, 9, 8, 15, 12, 17, 16, 18]
     nodes.each { |num| delete_tree.insert(num) }
     it 'should return nil for a value not in the tree' do
@@ -100,7 +100,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#include?' do
-    include_tree = BinarySearchTree.new('r')
+    include_tree = BinaryTree.new('r')
     %w[o b e t].each { |letter| include_tree.insert(letter) }
     it 'should return true for a value in the tree' do
       expect(include_tree.include?('b')).to eql(true)
@@ -110,7 +110,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#count' do
-    count_tree = BinarySearchTree.new
+    count_tree = BinaryTree.new
     it 'should return 0 when root is nil' do
       expect(count_tree.count).to eql(0)
     end
@@ -123,13 +123,13 @@ RSpec.describe BinarySearchTree do
       expect(count_tree.count).to eql(7)
     end
     it 'should work when repeated values passed' do
-      repeat_tree = BinarySearchTree.new
+      repeat_tree = BinaryTree.new
       %w[h e e l o w l r d].each { |letter| repeat_tree.insert(letter) }
       expect(repeat_tree.count).to eql(7)
     end
   end
   describe '#min' do
-    min_tree = BinarySearchTree.new
+    min_tree = BinaryTree.new
     it 'should return nil when root is nil' do
       expect(min_tree.min).to eql(nil)
     end
@@ -146,7 +146,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#max' do
-    max_tree = BinarySearchTree.new
+    max_tree = BinaryTree.new
     it 'should return nil when root is nil' do
       expect(max_tree.max).to eql(nil)
     end
@@ -160,7 +160,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#find' do
-    find_tree = BinarySearchTree.new
+    find_tree = BinaryTree.new
     %w[m j k d l q r p].each { |letter| find_tree.insert(letter) }
     it 'should return a node when the value is in the tree' do
       expect(find_tree.find('k').class).to eql(Node)
@@ -176,14 +176,14 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#subtree' do
-    subtree_tree = BinarySearchTree.new
+    subtree_tree = BinaryTree.new
     [10, 6, 4, 8, 7, 9, 14, 12, 16].each { |num| subtree_tree.insert(num) }
     subtree1 = subtree_tree.subtree(6)
     it "should return nil when the value passed isn't found" do
       expect(subtree_tree.subtree(2)).to eql(nil)
     end
     it 'should return a tree if the value is found' do
-      expect(subtree1.class).to eql(BinarySearchTree)
+      expect(subtree1.class).to eql(BinaryTree)
     end
     it 'should have the correct size' do
       expect(subtree1.count).to eql(5)
@@ -196,7 +196,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#floor' do
-    floor_tree = BinarySearchTree.new
+    floor_tree = BinaryTree.new
     [10, 6, 4, 8, 14, 12, 16].each { |num| floor_tree.insert(num) }
     it 'should return the value when it matches the root' do
       expect(floor_tree.floor(10)).to eql(10)
@@ -218,7 +218,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#ceil' do
-    ceil_tree = BinarySearchTree.new
+    ceil_tree = BinaryTree.new
     [10, 6, 4, 8, 14, 12, 16].each { |num| ceil_tree.insert(num) }
     it 'should return the value when it matches the root' do
       expect(ceil_tree.ceil(10)).to eql(10)
@@ -240,7 +240,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#parent' do
-    parent_tree = BinarySearchTree.new
+    parent_tree = BinaryTree.new
     [10, 6, 4, 8, 14, 12, 16].each { |num| parent_tree.insert(num) }
     it 'should return nil for the root' do
       expect(parent_tree.parent(10)).to eql(nil)
@@ -256,7 +256,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#successor' do
-    successor_tree = BinarySearchTree.new
+    successor_tree = BinaryTree.new
     [10, 6, 4, 8, 7, 9, 14, 12, 16].each { |num| successor_tree.insert(num) }
     it 'should return nil when #max' do
       expect(successor_tree.successor(16)).to eql(nil)
@@ -278,7 +278,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#previous' do
-    previous_tree = BinarySearchTree.new
+    previous_tree = BinaryTree.new
     [10, 6, 4, 8, 7, 9, 14, 12, 16].each { |num| previous_tree.insert(num) }
     it 'should return nil when #max' do
       expect(previous_tree.previous(4)).to eql(nil)
@@ -300,7 +300,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#to_a' do
-    array_tree = BinarySearchTree.new
+    array_tree = BinaryTree.new
     it 'should return an empty array for an empty tree' do
       expect(array_tree.to_a).to eql([])
     end
@@ -311,7 +311,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#in_order' do
-    in_tree = BinarySearchTree.new
+    in_tree = BinaryTree.new
     it 'should return an empty array for an empty tree' do
       expect(in_tree.in_order).to eql([])
     end
@@ -322,13 +322,13 @@ RSpec.describe BinarySearchTree do
     end
     it 'should work for an example from Wikipedia in case I got mine wrong' do
       array = %w[F B G A D I C E H]
-      new_tree = BinarySearchTree.new
+      new_tree = BinaryTree.new
       array.each { |letter| new_tree.insert(letter) }
       expect(new_tree.in_order).to eql(%w[A B C D E F G H I])
     end
   end
   describe '#pre_order' do
-    pre_tree = BinarySearchTree.new
+    pre_tree = BinaryTree.new
     it 'should return an empty array for an empty tree' do
       expect(pre_tree.pre_order).to eql([])
     end
@@ -339,13 +339,13 @@ RSpec.describe BinarySearchTree do
     end
     it 'should work for an example from Wikipedia in case I got mine wrong' do
       array = %w[F B G A D I C E H]
-      new_tree = BinarySearchTree.new
+      new_tree = BinaryTree.new
       array.each { |letter| new_tree.insert(letter) }
       expect(new_tree.pre_order).to eql(%w[F B A D C E G I H])
     end
   end
   describe '#post_order' do
-    post_tree = BinarySearchTree.new
+    post_tree = BinaryTree.new
     it 'should return an empty array for an empty tree' do
       expect(post_tree.post_order).to eql([])
     end
@@ -356,13 +356,13 @@ RSpec.describe BinarySearchTree do
     end
     it 'should work for an example from Wikipedia in case I got mine wrong' do
       array = %w[F B G A D I C E H]
-      new_tree = BinarySearchTree.new
+      new_tree = BinaryTree.new
       array.each { |letter| new_tree.insert(letter) }
       expect(new_tree.post_order).to eql(%w[A C E D B H I G F])
     end
   end
   describe '#bf_order' do
-    bf_tree = BinarySearchTree.new
+    bf_tree = BinaryTree.new
     it 'should return an empty array for an empty tree' do
       expect(bf_tree.bf_order).to eql([])
     end
@@ -373,7 +373,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#leaves' do
-    in_tree = BinarySearchTree.new
+    in_tree = BinaryTree.new
     it 'should return an empty array for an empty tree' do
       expect(in_tree.leaves).to eql([])
     end
@@ -384,7 +384,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#full?' do
-    full_tree = BinarySearchTree.new
+    full_tree = BinaryTree.new
     it 'should return true for an empty tree' do
       expect(full_tree.full?).to eql(true)
     end
@@ -402,7 +402,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#height' do
-    height_tree = BinarySearchTree.new
+    height_tree = BinaryTree.new
     it 'should return 0 for an empty tree' do
       expect(height_tree.height).to eql(0)
     end
@@ -416,7 +416,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#level' do
-    level_tree = BinarySearchTree.new
+    level_tree = BinaryTree.new
     [10, 5, 15, 6, 7].each { |num| level_tree.insert(num) }
     it 'should return 1 for the root' do
       expect(level_tree.level(10)).to eql(1)
@@ -429,7 +429,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#complete?' do
-    complete_tree = BinarySearchTree.new
+    complete_tree = BinaryTree.new
     it 'should return true for an empty tree' do
       expect(complete_tree.complete?).to eql(true)
     end
@@ -447,7 +447,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#perfect?' do
-    perfect_tree = BinarySearchTree.new
+    perfect_tree = BinaryTree.new
     it 'should return true for an empty tree' do
       expect(perfect_tree.perfect?).to eql(true)
     end
@@ -465,7 +465,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#balanced?' do
-    balanced_tree = BinarySearchTree.new
+    balanced_tree = BinaryTree.new
     it 'should return true for an empty tree' do
       expect(balanced_tree.balanced?).to eql(true)
     end
@@ -483,7 +483,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#degenerate?' do
-    degenerate_tree = BinarySearchTree.new
+    degenerate_tree = BinaryTree.new
     it 'should return true for an empty tree' do
       expect(degenerate_tree.degenerate?).to eql(true)
     end
@@ -501,7 +501,7 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#symmetric?' do
-    symmetric_tree = BinarySearchTree.new
+    symmetric_tree = BinaryTree.new
     it 'should return true for an empty tree' do
       expect(symmetric_tree.symmetric?).to eql(true)
     end
@@ -527,8 +527,8 @@ RSpec.describe BinarySearchTree do
     end
   end
   describe '#invert!' do
-    invertable_tree = BinarySearchTree.new
-    inverted_tree = BinarySearchTree.new
+    invertable_tree = BinaryTree.new
+    inverted_tree = BinaryTree.new
     [10, 1, 19, 8, 12, 9, 11, 5].each do |num|
       invertable_tree.insert(num)
       inverted_tree.insert(num)

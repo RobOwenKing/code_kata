@@ -6,7 +6,7 @@ require_relative 'binary_tree_constants'
 require_relative 'queue'
 
 # Binary Search Tree class
-class BinarySearchTree
+class BinaryTree
   attr_accessor :root
 
   def initialize(value = nil)
@@ -172,7 +172,7 @@ class BinarySearchTree
     if node.nil?
       nil
     else
-      tree = BinarySearchTree.new
+      tree = BinaryTree.new
       tree.root = node
       tree
     end
