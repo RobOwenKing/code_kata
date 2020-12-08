@@ -1,7 +1,22 @@
 # A Binary Tree class implemented in Ruby
 # Contents
 # class Binary Tree
-# - #initialize
+# - Binary Tree
+# - - - #initialize
+# - - Printing
+# - - - #to_a
+# - - - #in_order
+# - - - #pre_order
+# - - - #post_order
+# - - - #leaves
+# - - - #bf_order
+# - - Properties (Structure)
+# - - - #full?
+# - - - #complete?
+# - - - #perfect?
+# - - - #balanced?
+# - - - #degenerate?
+# - - - #symmetric?
 # - Searchable
 # - - Searchable Basic CRUD
 # - - - #s_insert(value)
@@ -25,6 +40,110 @@ class BinaryTree
 
   def initialize(value = nil)
     @root = value.nil? ? nil : Node.new(value)
+  end
+
+  # Printing
+
+  # Returns a array of the values of the tree's nodes
+  def to_a
+    order = %w[left root right]
+    action = proc { |node, returnable| returnable << node.value }
+    root.nil? ? [] : traverse(@root, order, [], action)
+  end
+
+  # Alias of #to_a
+  def in_order
+    to_a
+  end
+
+  # Returns a pre-ordered array of the values of the tree's nodes
+  def pre_order
+    order = %w[root left right]
+    action = proc { |node, returnable| returnable << node.value }
+    root.nil? ? [] : traverse(@root, order, [], action)
+  end
+
+  # Returns a post-ordered array of the values of the tree's nodes
+  def post_order
+    order = %w[left right root]
+    action = proc { |node, returnable| returnable << node.value }
+    root.nil? ? [] : traverse(@root, order, [], action)
+  end
+
+  # Returns a array of the values of the tree's leaves (from left to right)
+  def leaves
+    order = %w[left root right]
+    action = proc { |node, returnable| returnable << node.value if node.left.nil? && node.right.nil? }
+    root.nil? ? [] : traverse(@root, order, [], action)
+  end
+
+  # Returns an array of the values of the tree's nodes (breadth-first order)
+  def bf_order
+    order = []
+    queue = MyQueue.new
+    @root.nil? ? order : queue.enqueue(@root)
+
+    until queue.empty?
+      current = queue.dequeue
+      queue.enqueue(current.left) unless current.left.nil?
+      queue.enqueue(current.right) unless current.right.nil?
+      order << current.value
+    end
+
+    order
+  end
+
+  # Properties (Structure)
+
+  # Tests whether the tree is full
+  # eg: Whether every node has either 0 or 2 children
+  def full?
+    # Define as true if tree empty, else start iterating
+    # @root.nil? ? true : @root.full?
+    @root.nil? ? true : @root.iterate(FULL)
+  end
+
+  # Tests whether the tree is complete
+  # eg: Whether every level is complete except possibly the last level...
+  # ... and all nodes in the last level are as far left as possible
+  def complete?
+    return true if @root.nil?
+
+    queue = MyQueue.new
+    current = @root
+
+    until current.nil?
+      queue.enqueue(current.left)
+      queue.enqueue(current.right)
+      current = queue.dequeue
+    end
+
+    return false unless queue.dequeue.nil? until queue.empty?
+
+    true
+  end
+
+  # Tests whether the tree is perfect
+  # eg: Whether every non-leaf node has precisely two children
+  def perfect?
+    return true if @root.nil?
+    return false unless complete?
+
+    (count + 1).to_s(2).count('1') == 1
+  end
+
+  def balanced?
+    @root.nil? ? true : @root.iterate(BALANCED)
+  end
+
+  def degenerate?
+    @root.nil? ? true : @root.iterate(DEGENERATE)
+  end
+
+  def symmetric?
+    return true if @root.nil?
+
+    mirror?(@root.left, @root.right)
   end
 
   # Searchable
@@ -101,6 +220,12 @@ class BinaryTree
     current_node.value
   end
 
+
+
+
+
+  # Unsorted
+
   # Returns the value of the parent node of the node with the passed value
   # Returns nil if the value matches the root
   # Returns false if there is no node with the given value
@@ -129,55 +254,6 @@ class BinaryTree
     best_find < value ? nil : best_find
   end
 
-  # Returns a sorted array of the values of the tree's nodes
-  def to_a
-    order = %w[left root right]
-    action = proc { |node, returnable| returnable << node.value }
-    root.nil? ? [] : traverse(@root, order, [], action)
-  end
-
-  # Alias of #to_a
-  def in_order
-    to_a
-  end
-
-  # Returns a pre-ordered array of the values of the tree's nodes
-  def pre_order
-    order = %w[root left right]
-    action = proc { |node, returnable| returnable << node.value }
-    root.nil? ? [] : traverse(@root, order, [], action)
-  end
-
-  # Returns a post-ordered array of the values of the tree's nodes
-  def post_order
-    order = %w[left right root]
-    action = proc { |node, returnable| returnable << node.value }
-    root.nil? ? [] : traverse(@root, order, [], action)
-  end
-
-  # Returns a sorted array of the values of the tree's leaves
-  def leaves
-    order = %w[left root right]
-    action = proc { |node, returnable| returnable << node.value if node.left.nil? && node.right.nil? }
-    root.nil? ? [] : traverse(@root, order, [], action)
-  end
-
-  # Returns an array of the values of the tree's nodes (breadth-first order)
-  def bf_order
-    order = []
-    queue = MyQueue.new
-    @root.nil? ? order : queue.enqueue(@root)
-
-    until queue.empty?
-      current = queue.dequeue
-      queue.enqueue(current.left) unless current.left.nil?
-      queue.enqueue(current.right) unless current.right.nil?
-      order << current.value
-    end
-
-    order
-  end
-
   # Returns the number of nodes in the tree (integer)
   def count
     # Quick fix
@@ -185,7 +261,8 @@ class BinaryTree
     to_a.count
   end
 
-  # Returns a new Binary Search Tree
+  # Returns a new Binary Tree but the nodes are the same
+  # This means altering the subtree will affect (and may break) the original
   # New tree's root node is the node of original tree with passed value
   def subtree(value)
     node = s_find(value)
@@ -256,57 +333,6 @@ class BinaryTree
     end
 
     current_node.nil? ? nil : tracker
-  end
-
-  # Tests whether the tree is full
-  # eg: Whether every node has either 0 or 2 children
-  def full?
-    # Define as true if tree empty, else start iterating
-    # @root.nil? ? true : @root.full?
-    @root.nil? ? true : @root.iterate(FULL)
-  end
-
-  # Tests whether the tree is complete
-  # eg: Whether every level is complete except possibly the last level...
-  # ... and all nodes in the last level are as far left as possible
-  def complete?
-    return true if @root.nil?
-
-    queue = MyQueue.new
-    current = @root
-
-    until current.nil?
-      queue.enqueue(current.left)
-      queue.enqueue(current.right)
-      current = queue.dequeue
-    end
-
-    return false unless queue.dequeue.nil? until queue.empty?
-
-    true
-  end
-
-  # Tests whether the tree is perfect
-  # eg: Whether every non-leaf node has precisely two children
-  def perfect?
-    return true if @root.nil?
-    return false unless complete?
-
-    (count + 1).to_s(2).count('1') == 1
-  end
-
-  def balanced?
-    @root.nil? ? true : @root.iterate(BALANCED)
-  end
-
-  def degenerate?
-    @root.nil? ? true : @root.iterate(DEGENERATE)
-  end
-
-  def symmetric?
-    return true if @root.nil?
-
-    mirror?(@root.left, @root.right)
   end
 
   # NOTE: This is a Binary Tree algorithm - it will break many other methods
