@@ -18,7 +18,7 @@ class BinaryTree
   # Repeat values not added, return nil
   def insert(value)
     # Find where the given value would go in the tree
-    parent_node = @root.nil? ? nil : @root.find_node(value)
+    parent_node = @root.nil? ? nil : @root.sfind_node(value)
     # If that would repeat a value, return nil
     return nil if !parent_node.nil? && parent_node.value == value
 
@@ -36,7 +36,7 @@ class BinaryTree
   def include?(value)
     return false if @root.nil?
 
-    found_node = @root.find_node(value)
+    found_node = @root.sfind_node(value)
     found_node.value == value
   end
 
@@ -63,7 +63,7 @@ class BinaryTree
   # Returns the node from the tree with the given value
   # Returns nil if no such node in the tree
   def find(value)
-    found_node = @root.find_node(value)
+    found_node = @root.sfind_node(value)
     found_node.value == value ? found_node : nil
   end
 
@@ -73,7 +73,7 @@ class BinaryTree
   def parent(value)
     return nil if @root.value == value
 
-    found_node = @root.find_parent(value)
+    found_node = @root.sfind_parent(value)
     !found_node ? false : found_node.value
   end
 
