@@ -4,9 +4,12 @@
 # - #initialize
 # - Searchable
 # - - Searchable Basic CRUD
-# - - - #s_insert
-# - - - #s_include?
+# - - - #s_insert(value)
+# - - - #s_find(value)
+# - - - #s_include?(value)
 # - - Searchable Finding Values
+# - - - #s_min
+# - - - #s_max
 
 
 # Import the Node class we'll use
@@ -46,6 +49,13 @@ class BinaryTree
     value < parent_node.value ? parent_node.left = new_node : parent_node.right = new_node
   end
 
+  # Returns the node from the tree with the given value
+  # Returns nil if no such node in the tree
+  def s_find(value)
+    found_node = @root.s_find_node(value)
+    found_node.value == value ? found_node : nil
+  end
+
   # Test whether a given value is in the tree
   # Returns boolean
   def s_include?(value)
@@ -59,7 +69,7 @@ class BinaryTree
   # If no such node, returns nil
   # The algorithm maintains tree connectedness and sortedness (if sorted)
   def delete(value)
-    node = find(value)
+    node = s_find(value)
     return nil if node.nil?
 
     if node.left.nil? && node.right.nil?
@@ -89,13 +99,6 @@ class BinaryTree
     current_node = @root
     current_node = current_node.right until current_node.right.nil?
     current_node.value
-  end
-
-  # Returns the node from the tree with the given value
-  # Returns nil if no such node in the tree
-  def find(value)
-    found_node = @root.s_find_node(value)
-    found_node.value == value ? found_node : nil
   end
 
   # Returns the value of the parent node of the node with the passed value
@@ -185,7 +188,7 @@ class BinaryTree
   # Returns a new Binary Search Tree
   # New tree's root node is the node of original tree with passed value
   def subtree(value)
-    node = find(value)
+    node = s_find(value)
     if node.nil?
       nil
     else
@@ -199,15 +202,15 @@ class BinaryTree
   # Returns nil if no larger value found
   # Returns false if no node found with the passed value
   def successor(value)
-    node = find(value)
+    node = s_find(value)
     return false if node.nil?
 
     # If the node has a right subtree, its minimum value will be next largest
     return subtree(node.right.value).s_min unless node.right.nil?
 
     current_parent = parent(node.value)
-    until find(current_parent).left.value == node.value
-      node = find(current_parent)
+    until s_find(current_parent).left.value == node.value
+      node = s_find(current_parent)
       current_parent = parent(node.value)
       return nil if current_parent.nil?
     end
@@ -218,15 +221,15 @@ class BinaryTree
   # Returns nil if no smaller value found
   # Returns false if no node found with the passed value
   def previous(value)
-    node = find(value)
+    node = s_find(value)
     return false if node.nil?
 
     # If the node has a left subtree, its maximum value will be next smallest
     return subtree(node.left.value).s_max unless node.left.nil?
 
     current_parent = parent(node.value)
-    until find(current_parent).right.value == node.value
-      node = find(current_parent)
+    until s_find(current_parent).right.value == node.value
+      node = s_find(current_parent)
       current_parent = parent(node.value)
       return nil if current_parent.nil?
     end
@@ -358,7 +361,7 @@ class BinaryTree
       @root = nil
     else
       # Find parent of node to be deleted and set relevant child node to nil
-      parent_node = find(parent(node.value))
+      parent_node = s_find(parent(node.value))
       parent_node.left = nil if parent_node.left == node
       parent_node.right = nil if parent_node.right == node
     end

@@ -54,46 +54,46 @@ RSpec.describe BinaryTree do
       expect(delete_tree.delete(4)).to eql(4)
     end
     it 'should delete a leaf' do
-      expect(delete_tree.find(4)).to eql(nil)
+      expect(delete_tree.s_find(4)).to eql(nil)
     end
     it 'should reduce the size of the tree by 1' do
       expect(delete_tree.count).to eql(nodes.size - 1)
     end
     it 'should delete a node with just a left child' do
       delete_tree.delete(3)
-      expect(delete_tree.find(3)).to eql(nil)
+      expect(delete_tree.s_find(3)).to eql(nil)
     end
     it 'should reduce the size of the tree by 1' do
       expect(delete_tree.count).to eql(nodes.size - 2)
     end
     it "shouldn't disconnect the child" do
-      expect(delete_tree.find(2).class).to eql(Node)
+      expect(delete_tree.s_find(2).class).to eql(Node)
     end
     it 'should delete a node with just a right child' do
       delete_tree.delete(7)
-      expect(delete_tree.find(7)).to eql(nil)
+      expect(delete_tree.s_find(7)).to eql(nil)
     end
     it 'should reduce the size of the tree by 1' do
       expect(delete_tree.count).to eql(nodes.size - 3)
     end
     it "shouldn't disconnect the child" do
-      expect(delete_tree.find(9).class).to eql(Node)
+      expect(delete_tree.s_find(9).class).to eql(Node)
     end
     it 'should leave the tree in sorted order' do
       expect(delete_tree.to_a.sort).to eql(delete_tree.to_a)
     end
     it 'should delete a node with just a right child' do
       delete_tree.delete(15)
-      expect(delete_tree.find(15)).to eql(nil)
+      expect(delete_tree.s_find(15)).to eql(nil)
     end
     it 'should reduce the size of the tree by 1' do
       expect(delete_tree.count).to eql(nodes.size - 4)
     end
     it "shouldn't disconnect children" do
-      expect(delete_tree.find(12).class).to eql(Node)
+      expect(delete_tree.s_find(12).class).to eql(Node)
     end
     it "shouldn't disconnect children" do
-      expect(delete_tree.find(18).class).to eql(Node)
+      expect(delete_tree.s_find(18).class).to eql(Node)
     end
     it 'should leave the tree in sorted order' do
       expect(delete_tree.to_a.sort).to eql(delete_tree.to_a)
@@ -159,20 +159,20 @@ RSpec.describe BinaryTree do
       expect(s_max_tree.s_max).to eql('z')
     end
   end
-  describe '#find' do
-    find_tree = BinaryTree.new
-    %w[m j k d l q r p].each { |letter| find_tree.s_insert(letter) }
+  describe '#s_find' do
+    s_find_tree = BinaryTree.new
+    %w[m j k d l q r p].each { |letter| s_find_tree.s_insert(letter) }
     it 'should return a node when the value is in the tree' do
-      expect(find_tree.find('k').class).to eql(Node)
+      expect(s_find_tree.s_find('k').class).to eql(Node)
     end
     it 'should return a node with the right value' do
-      expect(find_tree.find('k').value).to eql('k')
+      expect(s_find_tree.s_find('k').value).to eql('k')
     end
     it 'should return nil for a value not in the tree (within range)' do
-      expect(find_tree.find('h')).to eql(nil)
+      expect(s_find_tree.s_find('h')).to eql(nil)
     end
     it 'should return nil for a value not in the tree (outside range)' do
-      expect(find_tree.find('a')).to eql(nil)
+      expect(s_find_tree.s_find('a')).to eql(nil)
     end
   end
   describe '#subtree' do
@@ -189,10 +189,10 @@ RSpec.describe BinaryTree do
       expect(subtree1.count).to eql(5)
     end
     it 'should include appropriate nodes' do
-      expect(subtree1.find(7)).to be_truthy
+      expect(subtree1.s_find(7)).to be_truthy
     end
     it 'should not include other nodes from the original' do
-      expect(subtree1.find(14)).to be_falsy
+      expect(subtree1.s_find(14)).to be_falsy
     end
   end
   describe '#floor' do
