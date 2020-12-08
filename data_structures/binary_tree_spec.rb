@@ -128,35 +128,35 @@ RSpec.describe BinaryTree do
       expect(repeat_tree.count).to eql(7)
     end
   end
-  describe '#min' do
-    min_tree = BinaryTree.new
+  describe '#s_min' do
+    s_min_tree = BinaryTree.new
     it 'should return nil when root is nil' do
-      expect(min_tree.min).to eql(nil)
+      expect(s_min_tree.s_min).to eql(nil)
     end
     it 'should return root when root.left is nil' do
-      min_tree.s_insert('m')
-      min_tree.s_insert('t')
-      expect(min_tree.min).to eql('m')
+      s_min_tree.s_insert('m')
+      s_min_tree.s_insert('t')
+      expect(s_min_tree.s_min).to eql('m')
     end
     it 'should return correct value for more complex cases' do
-      min_tree.s_insert('j')
-      min_tree.s_insert('l')
-      min_tree.s_insert('d')
-      expect(min_tree.min).to eql('d')
+      s_min_tree.s_insert('j')
+      s_min_tree.s_insert('l')
+      s_min_tree.s_insert('d')
+      expect(s_min_tree.s_min).to eql('d')
     end
   end
-  describe '#max' do
-    max_tree = BinaryTree.new
+  describe '#s_max' do
+    s_max_tree = BinaryTree.new
     it 'should return nil when root is nil' do
-      expect(max_tree.max).to eql(nil)
+      expect(s_max_tree.s_max).to eql(nil)
     end
     it 'should return root when root.right is nil' do
-      max_tree.s_insert('m')
-      expect(max_tree.max).to eql('m')
+      s_max_tree.s_insert('m')
+      expect(s_max_tree.s_max).to eql('m')
     end
     it 'should return correct value for more complex cases' do
-      %w[w o e i f n z y].each { |letter| max_tree.s_insert(letter) }
-      expect(max_tree.max).to eql('z')
+      %w[w o e i f n z y].each { |letter| s_max_tree.s_insert(letter) }
+      expect(s_max_tree.s_max).to eql('z')
     end
   end
   describe '#find' do
@@ -258,7 +258,7 @@ RSpec.describe BinaryTree do
   describe '#successor' do
     successor_tree = BinaryTree.new
     [10, 6, 4, 8, 7, 9, 14, 12, 16].each { |num| successor_tree.s_insert(num) }
-    it 'should return nil when #max' do
+    it 'should return nil when max' do
       expect(successor_tree.successor(16)).to eql(nil)
     end
     it 'should return false for a value not in the tree' do
@@ -280,7 +280,7 @@ RSpec.describe BinaryTree do
   describe '#previous' do
     previous_tree = BinaryTree.new
     [10, 6, 4, 8, 7, 9, 14, 12, 16].each { |num| previous_tree.s_insert(num) }
-    it 'should return nil when #max' do
+    it 'should return nil when max' do
       expect(previous_tree.previous(4)).to eql(nil)
     end
     it 'should return false for a value not in the tree' do
