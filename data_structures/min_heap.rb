@@ -1,20 +1,21 @@
 # A Minimum Binary Heap class in Ruby
 # Contents
 # class MinHeap
-# - #initialize
-# - #to_a
-# - #root
-# - #insert
-# - #delete
-# - private
-# - #index
-# - #parent_index
-# - #left_child_index
-# - #right_child_index
-# - #min_child_index
-# - #swap
-# - #bubble_up
-# - #bubble_down
+# - Open Methods
+# - - #initialize
+# - - #to_a
+# - - #root
+# - - #insert
+# - - #delete
+# - Private Methods
+# - - #index
+# - - #parent_index
+# - - #left_child_index
+# - - #right_child_index
+# - - #min_child_index
+# - - #swap
+# - - #bubble_up
+# - - #bubble_down
 
 class MinHeap
   def initialize

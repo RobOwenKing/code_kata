@@ -2,6 +2,31 @@
 # As such, it will be singly-linked and only keep track of the head
 # In a real-life application, keeping track of size/tail might well pay off
 
+# Contents
+# class Node
+# - #initialize
+# class LinkedList
+# - Open Methods
+# - - #initialize
+# - - #first
+# - - #tail
+# - - #last
+# - - #unshift(value)
+# - - #shift
+# - - #push(value)
+# - - #pop
+# - - #length
+# - - #fetch_node(index)
+# - - #fetch(index)
+# - - #find_index(value)
+# - - #find_node(value)
+# - - #insert(index, value)
+# - - #delete_at(index)
+# - - #loops?
+# - - #reverse
+# - - #reverse!
+
+
 # Used for #reverse
 require_relative 'stack'
 
@@ -28,11 +53,12 @@ class LinkedList
     @head = value.nil? ? nil : Node.new(value)
   end
 
+  # Return the value of the head, #head returns the node
   def first
-    # Return the value of the head, #head returns the node
     @head.value
   end
 
+  # Returns the last node, #last returns its value
   def tail
     return nil if @head.nil?
     # A list with a loop in has no tail
@@ -44,26 +70,29 @@ class LinkedList
     current_node
   end
 
+  # Return the value of the tail, #tail returns the node
   def last
-    # Return the value of the tail, #tail returns the node
     tail.nil? ? nil : tail.value
   end
 
+  # Add a new value to the start of the list
   def unshift(value)
-    # Create a new head for the list with the given value
     current_head = @head
+    # Create a new head for the list with the given value pointing to existing head
     @head = Node.new(value, current_head)
   end
 
+  # Remove the head of the list and return its value
   def shift
     return nil if head.nil?
 
-    # If there's a head, delete it and returns its value
+    # If there's a head, set the list's head to its #next and return its value
     current_head = @head
     @head = current_head.next
     current_head.value
   end
 
+  # Add a new value to the end of the list
   def push(value)
     # Can't append to a list that loops
     return nil if loops?
@@ -73,18 +102,18 @@ class LinkedList
     @head.nil? ? @head = Node.new(value) : tail.next = Node.new(value)
   end
 
+  # Remove the list's tail and return its value
   def pop
     return nil if tail.nil?
 
-    # Delete the current tail and return its value
     current_tail = tail
     fetch_node(length - 2).next = nil
     current_tail.value
   end
 
+  # Return the number of nodes in the list
+  # Will have issues if the list loops
   def length
-    # Will have issues if list loops
-
     count = 0
     current_node = @head
     # Count through nodes until next is nil (which tests to false)
@@ -95,26 +124,14 @@ class LinkedList
     count
   end
 
-  def fetch(index)
+  # Returns the node at the given index
+  def fetch_node(index)
     # Return nil if there's no such index
     return nil if index > length - 1
     # Handle negative indexes
-    return fetch(length + index) if index.negative?
+    return fetch_node(length + index) if index.negative?
 
     # Step through nodes until we reach the given index
-    current_node = head
-    until index.zero?
-      index -= 1
-      current_node = current_node.next
-    end
-    current_node.value
-  end
-
-  def fetch_node(index)
-    # Same as #fetch, but returning the node, not its value
-    return nil if index > length - 1
-    return fetch(length + index) if index.negative?
-
     current_node = head
     until index.zero?
       index -= 1
@@ -123,8 +140,14 @@ class LinkedList
     current_node
   end
 
+  # Returns the value of the node at the given index
+  def fetch(index)
+    node = fetch_node(index)
+    node.nil? ? nil : node.value
+  end
+
+  # Find the index of the first node with the given value
   def find_index(value)
-    # Find the index of the first node with the given value
     return nil if head.nil?
 
     current_node = head
@@ -138,8 +161,8 @@ class LinkedList
     nil
   end
 
+  # Like #find_index, but return the node, not its index
   def find_node(value)
-    # Like #find_index, but return the node, not its index
     return nil if head.nil?
 
     current_node = head
@@ -151,8 +174,8 @@ class LinkedList
     nil
   end
 
+  # Create a node with given value at the given index
   def insert(index, value)
-    # Create a node with given value at the given index
     # Handle negative indexes
     return insert(length + index, value) if index.negative?
     # If index is 0, equivalent to adding a new head
@@ -168,17 +191,21 @@ class LinkedList
     prev_node.next = new_node
   end
 
+  # Delete the node at the given index and return its value
   def delete_at(index)
-    # Delete the node at the given index and return its value
     return nil if index > length - 1
+    # Handle negative indexes
     return delete_at(length + index) if index.negative?
 
+    # We will point the parent's next to the child of the element to be deleted
     prev_node = fetch_node(index - 1)
     to_delete = prev_node.next
     prev_node.next = to_delete.next
+    # Return the value of the deleted node
     to_delete.value
   end
 
+  # Check whether the list includes a loop
   def loops?
     # Guard clause needed for loop to not give false positive
     return false if @head.nil? || @head.next.nil?
@@ -199,6 +226,7 @@ class LinkedList
     false
   end
 
+  # Return a new LinkedList, the reverse of the current one
   def reverse
     new_list = LinkedList.new
     current_node = @head
@@ -211,21 +239,27 @@ class LinkedList
     new_list
   end
 
+  # Reverse the order of the elements of the LinkedList in place
   def reverse!
     # Could just use reverse and reassign @head
     # But let's do something different
     return @head if @head.next.nil?
 
+    # We will use two pointers
     prev_node = nil
     current_node = @head
 
     until current_node.nil?
+      # Store the next node before we overwrite it
       next_node = current_node.next
+      # Flip the current node to point to its former parent as its child
       current_node.next = prev_node
+      # Update our pointers
       prev_node = current_node
       current_node = next_node
     end
 
+    # Change the head of the list
     @head = prev_node
   end
 end

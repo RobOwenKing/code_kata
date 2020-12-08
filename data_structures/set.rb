@@ -1,6 +1,19 @@
 # Note, Ruby's standard libraries include a Set class
 # Also, this is built using Arrays as an exercise
 # In a real use case, a Hash might be preferable for speed
+
+# Contents
+# - class Set
+# - - #initialize
+# - - #length
+# - - #add(val)
+# - - #include?(val)
+# - - #delete(val)
+# - - #union(other_set)
+# - - #intersection(other_set)
+# - - #difference(other_set)
+# - - #subset?(other_set)
+
 class Set
   attr_reader :set
 
