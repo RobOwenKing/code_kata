@@ -16,7 +16,7 @@ class BinaryTree
   # Add a value to the tree
   # Returns new Node
   # Repeat values not added, return nil
-  def insert(value)
+  def sinsert(value)
     # Find where the given value would go in the tree
     parent_node = @root.nil? ? nil : @root.sfind_node(value)
     # If that would repeat a value, return nil
