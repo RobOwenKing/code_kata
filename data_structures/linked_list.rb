@@ -16,6 +16,15 @@
 # - - #push(value)
 # - - #pop
 # - - #length
+# - - #fetch_node(index)
+# - - #fetch(index)
+# - - #find_index(value)
+# - - #find_node(value)
+# - - #insert(index, value)
+# - - #delete_at(index)
+# - - #loops?
+# - - #reverse
+# - - #reverse!
 
 
 # Used for #reverse
@@ -134,12 +143,11 @@ class LinkedList
   # Returns the value of the node at the given index
   def fetch(index)
     node = fetch_node(index)
-
     node.nil? ? nil : node.value
   end
 
+  # Find the index of the first node with the given value
   def find_index(value)
-    # Find the index of the first node with the given value
     return nil if head.nil?
 
     current_node = head
@@ -153,8 +161,8 @@ class LinkedList
     nil
   end
 
+  # Like #find_index, but return the node, not its index
   def find_node(value)
-    # Like #find_index, but return the node, not its index
     return nil if head.nil?
 
     current_node = head
@@ -166,8 +174,8 @@ class LinkedList
     nil
   end
 
+  # Create a node with given value at the given index
   def insert(index, value)
-    # Create a node with given value at the given index
     # Handle negative indexes
     return insert(length + index, value) if index.negative?
     # If index is 0, equivalent to adding a new head
@@ -183,17 +191,21 @@ class LinkedList
     prev_node.next = new_node
   end
 
+  # Delete the node at the given index and return its value
   def delete_at(index)
-    # Delete the node at the given index and return its value
     return nil if index > length - 1
+    # Handle negative indexes
     return delete_at(length + index) if index.negative?
 
+    # We will point the parent's next to the child of the element to be deleted
     prev_node = fetch_node(index - 1)
     to_delete = prev_node.next
     prev_node.next = to_delete.next
+    # Return the value of the deleted node
     to_delete.value
   end
 
+  # Check whether the list includes a loop
   def loops?
     # Guard clause needed for loop to not give false positive
     return false if @head.nil? || @head.next.nil?
@@ -214,6 +226,7 @@ class LinkedList
     false
   end
 
+  # Return a new LinkedList, the reverse of the current one
   def reverse
     new_list = LinkedList.new
     current_node = @head
@@ -226,21 +239,27 @@ class LinkedList
     new_list
   end
 
+  # Reverse the order of the elements of the LinkedList in place
   def reverse!
     # Could just use reverse and reassign @head
     # But let's do something different
     return @head if @head.next.nil?
 
+    # We will use two pointers
     prev_node = nil
     current_node = @head
 
     until current_node.nil?
+      # Store the next node before we overwrite it
       next_node = current_node.next
+      # Flip the current node to point to its former parent as its child
       current_node.next = prev_node
+      # Update our pointers
       prev_node = current_node
       current_node = next_node
     end
 
+    # Change the head of the list
     @head = prev_node
   end
 end
