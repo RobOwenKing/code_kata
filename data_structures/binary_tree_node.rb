@@ -9,30 +9,30 @@ class Node
     @right = nil
   end
 
-  def sfind_node(value)
+  def s_find_node(value)
     return self if value == @value
 
     if value < @value
       # If the value we're looking for is less than this node's value
       # If it has no left child, return itself, otherwise go recursive
-      @left.nil? ? self : @left.sfind_node(value)
+      @left.nil? ? self : @left.s_find_node(value)
     else
       # Same thing for larger values
-      @right.nil? ? self : @right.sfind_node(value)
+      @right.nil? ? self : @right.s_find_node(value)
     end
   end
 
-  def sfind_parent(value)
+  def s_find_parent(value)
     if value < @value
       return false if @left.nil?
       return self if @left.value == value
 
-      @left.sfind_parent(value)
+      @left.s_find_parent(value)
     else
       return false if @right.nil?
       return self if @right.value == value
 
-      @right.sfind_parent(value)
+      @right.s_find_parent(value)
     end
   end
 

@@ -10,43 +10,43 @@ RSpec.describe BinaryTree do
       expect(BinaryTree.new('Hi').root.value).to eql('Hi')
     end
   end
-  describe '#sinsert' do
-    sinsert_tree = BinaryTree.new
+  describe '#s_insert' do
+    s_insert_tree = BinaryTree.new
     it "should give a tree a root when it doesn't have one" do
-      sinsert_tree.sinsert(10)
-      expect(sinsert_tree.root.value).to eql(10)
+      s_insert_tree.s_insert(10)
+      expect(s_insert_tree.root.value).to eql(10)
     end
     it 'should give root node a left child when passed a smaller value' do
-      sinsert_tree.sinsert(1)
-      expect(sinsert_tree.root.left.value).to eql(1)
+      s_insert_tree.s_insert(1)
+      expect(s_insert_tree.root.left.value).to eql(1)
     end
     it 'should give root node a right child when passed a larger value' do
-      sinsert_tree.sinsert(100)
-      expect(sinsert_tree.root.right.value).to eql(100)
+      s_insert_tree.s_insert(100)
+      expect(s_insert_tree.root.right.value).to eql(100)
     end
     it 'should place values in the correct place further down the tree' do
-      sinsert_tree.sinsert(5)
-      expect(sinsert_tree.root.left.right.value).to eql(5)
+      s_insert_tree.s_insert(5)
+      expect(s_insert_tree.root.left.right.value).to eql(5)
     end
     it 'should not add repeat values to the tree' do
-      sinsert_tree.sinsert(100)
-      expect(sinsert_tree.root.right.left).to eql(nil)
-      expect(sinsert_tree.root.right.right).to eql(nil)
+      s_insert_tree.s_insert(100)
+      expect(s_insert_tree.root.right.left).to eql(nil)
+      expect(s_insert_tree.root.right.right).to eql(nil)
     end
     it 'should return nil when passed a repeated value' do
-      expect(sinsert_tree.sinsert(1)).to eql(nil)
+      expect(s_insert_tree.s_insert(1)).to eql(nil)
     end
     it 'should return a node otherwise' do
-      expect(sinsert_tree.sinsert(200).class).to eql(Node)
+      expect(s_insert_tree.s_insert(200).class).to eql(Node)
     end
     it 'should return a node with the value passed in' do
-      expect(sinsert_tree.sinsert(300).value).to eql(300)
+      expect(s_insert_tree.s_insert(300).value).to eql(300)
     end
   end
   describe '#delete' do
     delete_tree = BinaryTree.new
     nodes = [10, 5, 3, 7, 2, 4, 9, 8, 15, 12, 17, 16, 18]
-    nodes.each { |num| delete_tree.sinsert(num) }
+    nodes.each { |num| delete_tree.s_insert(num) }
     it 'should return nil for a value not in the tree' do
       expect(delete_tree.delete(100)).to eql(nil)
     end
@@ -99,14 +99,14 @@ RSpec.describe BinaryTree do
       expect(delete_tree.to_a.sort).to eql(delete_tree.to_a)
     end
   end
-  describe '#include?' do
+  describe '#s_include?' do
     include_tree = BinaryTree.new('r')
-    %w[o b e t].each { |letter| include_tree.sinsert(letter) }
+    %w[o b e t].each { |letter| include_tree.s_insert(letter) }
     it 'should return true for a value in the tree' do
-      expect(include_tree.include?('b')).to eql(true)
+      expect(include_tree.s_include?('b')).to eql(true)
     end
     it 'should return false for a value not in the tree' do
-      expect(include_tree.include?('c')).to eql(false)
+      expect(include_tree.s_include?('c')).to eql(false)
     end
   end
   describe '#count' do
@@ -115,16 +115,16 @@ RSpec.describe BinaryTree do
       expect(count_tree.count).to eql(0)
     end
     it 'should return 1 for a tree with just a root' do
-      count_tree.sinsert('h')
+      count_tree.s_insert('h')
       expect(count_tree.count).to eql(1)
     end
     it 'should work for larger trees' do
-      %w[e l o w r d].each { |letter| count_tree.sinsert(letter) }
+      %w[e l o w r d].each { |letter| count_tree.s_insert(letter) }
       expect(count_tree.count).to eql(7)
     end
     it 'should work when repeated values passed' do
       repeat_tree = BinaryTree.new
-      %w[h e e l o w l r d].each { |letter| repeat_tree.sinsert(letter) }
+      %w[h e e l o w l r d].each { |letter| repeat_tree.s_insert(letter) }
       expect(repeat_tree.count).to eql(7)
     end
   end
@@ -134,14 +134,14 @@ RSpec.describe BinaryTree do
       expect(min_tree.min).to eql(nil)
     end
     it 'should return root when root.left is nil' do
-      min_tree.sinsert('m')
-      min_tree.sinsert('t')
+      min_tree.s_insert('m')
+      min_tree.s_insert('t')
       expect(min_tree.min).to eql('m')
     end
     it 'should return correct value for more complex cases' do
-      min_tree.sinsert('j')
-      min_tree.sinsert('l')
-      min_tree.sinsert('d')
+      min_tree.s_insert('j')
+      min_tree.s_insert('l')
+      min_tree.s_insert('d')
       expect(min_tree.min).to eql('d')
     end
   end
@@ -151,17 +151,17 @@ RSpec.describe BinaryTree do
       expect(max_tree.max).to eql(nil)
     end
     it 'should return root when root.right is nil' do
-      max_tree.sinsert('m')
+      max_tree.s_insert('m')
       expect(max_tree.max).to eql('m')
     end
     it 'should return correct value for more complex cases' do
-      %w[w o e i f n z y].each { |letter| max_tree.sinsert(letter) }
+      %w[w o e i f n z y].each { |letter| max_tree.s_insert(letter) }
       expect(max_tree.max).to eql('z')
     end
   end
   describe '#find' do
     find_tree = BinaryTree.new
-    %w[m j k d l q r p].each { |letter| find_tree.sinsert(letter) }
+    %w[m j k d l q r p].each { |letter| find_tree.s_insert(letter) }
     it 'should return a node when the value is in the tree' do
       expect(find_tree.find('k').class).to eql(Node)
     end
@@ -177,7 +177,7 @@ RSpec.describe BinaryTree do
   end
   describe '#subtree' do
     subtree_tree = BinaryTree.new
-    [10, 6, 4, 8, 7, 9, 14, 12, 16].each { |num| subtree_tree.sinsert(num) }
+    [10, 6, 4, 8, 7, 9, 14, 12, 16].each { |num| subtree_tree.s_insert(num) }
     subtree1 = subtree_tree.subtree(6)
     it "should return nil when the value passed isn't found" do
       expect(subtree_tree.subtree(2)).to eql(nil)
@@ -197,7 +197,7 @@ RSpec.describe BinaryTree do
   end
   describe '#floor' do
     floor_tree = BinaryTree.new
-    [10, 6, 4, 8, 14, 12, 16].each { |num| floor_tree.sinsert(num) }
+    [10, 6, 4, 8, 14, 12, 16].each { |num| floor_tree.s_insert(num) }
     it 'should return the value when it matches the root' do
       expect(floor_tree.floor(10)).to eql(10)
     end
@@ -219,7 +219,7 @@ RSpec.describe BinaryTree do
   end
   describe '#ceil' do
     ceil_tree = BinaryTree.new
-    [10, 6, 4, 8, 14, 12, 16].each { |num| ceil_tree.sinsert(num) }
+    [10, 6, 4, 8, 14, 12, 16].each { |num| ceil_tree.s_insert(num) }
     it 'should return the value when it matches the root' do
       expect(ceil_tree.ceil(10)).to eql(10)
     end
@@ -241,7 +241,7 @@ RSpec.describe BinaryTree do
   end
   describe '#parent' do
     parent_tree = BinaryTree.new
-    [10, 6, 4, 8, 14, 12, 16].each { |num| parent_tree.sinsert(num) }
+    [10, 6, 4, 8, 14, 12, 16].each { |num| parent_tree.s_insert(num) }
     it 'should return nil for the root' do
       expect(parent_tree.parent(10)).to eql(nil)
     end
@@ -257,7 +257,7 @@ RSpec.describe BinaryTree do
   end
   describe '#successor' do
     successor_tree = BinaryTree.new
-    [10, 6, 4, 8, 7, 9, 14, 12, 16].each { |num| successor_tree.sinsert(num) }
+    [10, 6, 4, 8, 7, 9, 14, 12, 16].each { |num| successor_tree.s_insert(num) }
     it 'should return nil when #max' do
       expect(successor_tree.successor(16)).to eql(nil)
     end
@@ -279,7 +279,7 @@ RSpec.describe BinaryTree do
   end
   describe '#previous' do
     previous_tree = BinaryTree.new
-    [10, 6, 4, 8, 7, 9, 14, 12, 16].each { |num| previous_tree.sinsert(num) }
+    [10, 6, 4, 8, 7, 9, 14, 12, 16].each { |num| previous_tree.s_insert(num) }
     it 'should return nil when #max' do
       expect(previous_tree.previous(4)).to eql(nil)
     end
@@ -306,7 +306,7 @@ RSpec.describe BinaryTree do
     end
     it 'should return an array of the elements in sorted order' do
       array = [10, 6, 4, 8, 14, 5, 12, 16, 3, 20]
-      array.each { |num| array_tree.sinsert(num) }
+      array.each { |num| array_tree.s_insert(num) }
       expect(array_tree.to_a).to eql(array.sort)
     end
   end
@@ -317,13 +317,13 @@ RSpec.describe BinaryTree do
     end
     it 'should return an array of the elements in sorted order' do
       array = [10, 6, 4, 8, 14, 5, 12, 16, 3, 20]
-      array.each { |num| in_tree.sinsert(num) }
+      array.each { |num| in_tree.s_insert(num) }
       expect(in_tree.in_order).to eql(array.sort)
     end
     it 'should work for an example from Wikipedia in case I got mine wrong' do
       array = %w[F B G A D I C E H]
       new_tree = BinaryTree.new
-      array.each { |letter| new_tree.sinsert(letter) }
+      array.each { |letter| new_tree.s_insert(letter) }
       expect(new_tree.in_order).to eql(%w[A B C D E F G H I])
     end
   end
@@ -334,13 +334,13 @@ RSpec.describe BinaryTree do
     end
     it 'should return an array of the elements in the correct order' do
       array = [10, 6, 4, 8, 14, 5, 12, 16, 3, 20]
-      array.each { |num| pre_tree.sinsert(num) }
+      array.each { |num| pre_tree.s_insert(num) }
       expect(pre_tree.pre_order).to eql([10, 6, 4, 3, 5, 8, 14, 12, 16, 20])
     end
     it 'should work for an example from Wikipedia in case I got mine wrong' do
       array = %w[F B G A D I C E H]
       new_tree = BinaryTree.new
-      array.each { |letter| new_tree.sinsert(letter) }
+      array.each { |letter| new_tree.s_insert(letter) }
       expect(new_tree.pre_order).to eql(%w[F B A D C E G I H])
     end
   end
@@ -351,13 +351,13 @@ RSpec.describe BinaryTree do
     end
     it 'should return an array of the elements in the correct order' do
       array = [10, 6, 4, 8, 14, 5, 12, 16, 3, 20]
-      array.each { |num| post_tree.sinsert(num) }
+      array.each { |num| post_tree.s_insert(num) }
       expect(post_tree.post_order).to eql([3, 5, 4, 8, 6, 12, 20, 16, 14, 10])
     end
     it 'should work for an example from Wikipedia in case I got mine wrong' do
       array = %w[F B G A D I C E H]
       new_tree = BinaryTree.new
-      array.each { |letter| new_tree.sinsert(letter) }
+      array.each { |letter| new_tree.s_insert(letter) }
       expect(new_tree.post_order).to eql(%w[A C E D B H I G F])
     end
   end
@@ -368,7 +368,7 @@ RSpec.describe BinaryTree do
     end
     it 'should return an array of the elements in sorted order' do
       array = [10, 6, 4, 8, 14, 5, 12, 16, 3, 20]
-      array.each { |num| bf_tree.sinsert(num) }
+      array.each { |num| bf_tree.s_insert(num) }
       expect(bf_tree.bf_order).to eql([10, 6, 14, 4, 8, 12, 16, 3, 5, 20])
     end
   end
@@ -379,7 +379,7 @@ RSpec.describe BinaryTree do
     end
     it 'should return an array of the leaf elements in sorted order' do
       array = [10, 6, 4, 8, 14, 5, 12, 16, 3, 20]
-      array.each { |num| in_tree.sinsert(num) }
+      array.each { |num| in_tree.s_insert(num) }
       expect(in_tree.leaves).to eql([3, 5, 8, 12, 20])
     end
   end
@@ -389,15 +389,15 @@ RSpec.describe BinaryTree do
       expect(full_tree.full?).to eql(true)
     end
     it 'should return true for a tree with just a root' do
-      full_tree.sinsert(10)
+      full_tree.s_insert(10)
       expect(full_tree.full?).to eql(true)
     end
     it 'should return false when appropriate in complex cases' do
-      [5, 15, 2, 7, 6].each { |num| full_tree.sinsert(num) }
+      [5, 15, 2, 7, 6].each { |num| full_tree.s_insert(num) }
       expect(full_tree.full?).to eql(false)
     end
     it 'should return true when appropriate in complex cases' do
-      full_tree.sinsert(8)
+      full_tree.s_insert(8)
       expect(full_tree.full?).to eql(true)
     end
   end
@@ -407,17 +407,17 @@ RSpec.describe BinaryTree do
       expect(height_tree.height).to eql(0)
     end
     it 'should return 1 for a tree with just a root' do
-      height_tree.sinsert(10)
+      height_tree.s_insert(10)
       expect(height_tree.height).to eql(1)
     end
     it 'should return the correct value for a larger tree' do
-      [5, 2, 7, 8, 15].each { |num| height_tree.sinsert(num) }
+      [5, 2, 7, 8, 15].each { |num| height_tree.s_insert(num) }
       expect(height_tree.height).to eql(4)
     end
   end
   describe '#level' do
     level_tree = BinaryTree.new
-    [10, 5, 15, 6, 7].each { |num| level_tree.sinsert(num) }
+    [10, 5, 15, 6, 7].each { |num| level_tree.s_insert(num) }
     it 'should return 1 for the root' do
       expect(level_tree.level(10)).to eql(1)
     end
@@ -434,15 +434,15 @@ RSpec.describe BinaryTree do
       expect(complete_tree.complete?).to eql(true)
     end
     it 'should return true for a tree with only a root' do
-      complete_tree.sinsert(10)
+      complete_tree.s_insert(10)
       expect(complete_tree.complete?).to eql(true)
     end
     it 'should return false when appropriate for a complex case' do
-      [5, 7, 15].each { |num| complete_tree.sinsert(num) }
+      [5, 7, 15].each { |num| complete_tree.s_insert(num) }
       expect(complete_tree.complete?).to eql(false)
     end
     it 'should return true when appropriate for a complex case' do
-      complete_tree.sinsert(2)
+      complete_tree.s_insert(2)
       expect(complete_tree.complete?).to eql(true)
     end
   end
@@ -452,15 +452,15 @@ RSpec.describe BinaryTree do
       expect(perfect_tree.perfect?).to eql(true)
     end
     it 'should return true for a tree with only a root' do
-      perfect_tree.sinsert(10)
+      perfect_tree.s_insert(10)
       expect(perfect_tree.perfect?).to eql(true)
     end
     it 'should return false when appropriate for a complex case' do
-      [5, 7, 15].each { |num| perfect_tree.sinsert(num) }
+      [5, 7, 15].each { |num| perfect_tree.s_insert(num) }
       expect(perfect_tree.perfect?).to eql(false)
     end
     it 'should return true when appropriate for a complex case' do
-      [2, 12, 17].each { |num| perfect_tree.sinsert(num) }
+      [2, 12, 17].each { |num| perfect_tree.s_insert(num) }
       expect(perfect_tree.perfect?).to eql(true)
     end
   end
@@ -470,15 +470,15 @@ RSpec.describe BinaryTree do
       expect(balanced_tree.balanced?).to eql(true)
     end
     it 'should return true for a tree with just a root' do
-      balanced_tree.sinsert(10)
+      balanced_tree.s_insert(10)
       expect(balanced_tree.balanced?).to eql(true)
     end
     it 'should return true for a balanced tree' do
-      [5, 3, 15].each { |num| balanced_tree.sinsert(num) }
+      [5, 3, 15].each { |num| balanced_tree.s_insert(num) }
       expect(balanced_tree.balanced?).to eql(true)
     end
     it 'should return false for a non-balanced tree' do
-      balanced_tree.sinsert(4)
+      balanced_tree.s_insert(4)
       expect(balanced_tree.balanced?).to eql(false)
     end
   end
@@ -488,15 +488,15 @@ RSpec.describe BinaryTree do
       expect(degenerate_tree.degenerate?).to eql(true)
     end
     it 'should return true for a tree with just a root' do
-      degenerate_tree.sinsert(10)
+      degenerate_tree.s_insert(10)
       expect(degenerate_tree.degenerate?).to eql(true)
     end
     it 'should return true when appropriate in complex cases' do
-      [5, 6, 7].each { |num| degenerate_tree.sinsert(num) }
+      [5, 6, 7].each { |num| degenerate_tree.s_insert(num) }
       expect(degenerate_tree.degenerate?).to eql(true)
     end
     it 'should return false when appropriate in complex cases' do
-      degenerate_tree.sinsert(4)
+      degenerate_tree.s_insert(4)
       expect(degenerate_tree.degenerate?).to eql(false)
     end
   end
@@ -506,23 +506,23 @@ RSpec.describe BinaryTree do
       expect(symmetric_tree.symmetric?).to eql(true)
     end
     it 'should return true for a tree with just a root' do
-      symmetric_tree.sinsert(10)
+      symmetric_tree.s_insert(10)
       expect(symmetric_tree.symmetric?).to eql(true)
     end
     it 'should return false for a tree with a root with one child' do
-      symmetric_tree.sinsert(3)
+      symmetric_tree.s_insert(3)
       expect(symmetric_tree.symmetric?).to eql(false)
     end
     it 'should return true for a tree with a root with two children' do
-      symmetric_tree.sinsert(17)
+      symmetric_tree.s_insert(17)
       expect(symmetric_tree.symmetric?).to eql(true)
     end
     it 'should return false when appropriate in complex cases' do
-      [1, 19, 8, 12, 9, 11, 5].each { |num| symmetric_tree.sinsert(num) }
+      [1, 19, 8, 12, 9, 11, 5].each { |num| symmetric_tree.s_insert(num) }
       expect(symmetric_tree.symmetric?).to eql(false)
     end
     it 'should return true when appropriate in complex cases' do
-      symmetric_tree.sinsert(15)
+      symmetric_tree.s_insert(15)
       expect(symmetric_tree.symmetric?).to eql(true)
     end
   end
@@ -530,8 +530,8 @@ RSpec.describe BinaryTree do
     invertable_tree = BinaryTree.new
     inverted_tree = BinaryTree.new
     [10, 1, 19, 8, 12, 9, 11, 5].each do |num|
-      invertable_tree.sinsert(num)
-      inverted_tree.sinsert(num)
+      invertable_tree.s_insert(num)
+      inverted_tree.s_insert(num)
     end
     inverted_tree.invert!
     it 'should have the same root node' do
