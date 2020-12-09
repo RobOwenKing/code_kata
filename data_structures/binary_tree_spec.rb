@@ -10,6 +10,21 @@ RSpec.describe BinaryTree do
       expect(BinaryTree.new('Hi').root.value).to eql('Hi')
     end
   end
+  describe '#insert' do
+    insert_tree = BinaryTree.new
+    it 'should create a root node if the tree is empty' do
+      insert_tree.insert(10)
+      expect(insert_tree.root.value).to eql(10)
+    end
+    it "should make the second insertion the root's left child" do
+      insert_tree.insert(5)
+      expect(insert_tree.root.left.value).to eql(5)
+    end
+    it "should make the third insertion the root's right child" do
+      insert_tree.insert(15)
+      expect(insert_tree.root.right.value).to eql(15)
+    end
+  end
   describe '#s_insert' do
     s_insert_tree = BinaryTree.new
     it "should give a tree a root when it doesn't have one" do

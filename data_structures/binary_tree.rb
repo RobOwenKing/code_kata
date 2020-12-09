@@ -3,6 +3,8 @@
 # class Binary Tree
 # - Binary Tree
 # - - - #initialize
+# - - Basic Crud
+# - - - #insert(value)
 # - - Printing
 # - - - #to_a
 # - - - #in_order
@@ -26,6 +28,9 @@
 # - - - #s_min
 # - - - #s_max
 
+# Note: Methods prefixed s_ are for a Binary Search Tree
+# They will as such often be faster than the regular methods
+# But won't work correctly and/or will break if the tree is not #searchable?
 
 # Import the Node class we'll use
 require_relative 'binary_tree_node'
@@ -40,6 +45,30 @@ class BinaryTree
 
   def initialize(value = nil)
     @root = value.nil? ? nil : Node.new(value)
+  end
+
+  # Basic CRUD
+
+  # Insert the value in the next free space (breadth-first order)
+  # Note: Allows for insertion of duplicate values
+  def insert(value)
+    # Create the node, then work out where it goes
+    new_node = Node.new(value)
+    # If there's no root, it should be the root
+    @root = new_node if @root.nil?
+
+    # As in BF order (below), we'll use a queue to iterate through the tree
+    queue = MyQueue.new
+    queue.enqueue(@root)
+
+    until queue.empty?
+      current = queue.dequeue
+      return current.left = new_node if current.left.nil?
+      return current.right = new_node if current.right.nil?
+
+      queue.enqueue(current.left)
+      queue.enqueue(current.right)
+    end
   end
 
   # Printing
