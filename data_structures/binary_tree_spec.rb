@@ -24,6 +24,15 @@ RSpec.describe BinaryTree do
       insert_tree.insert(15)
       expect(insert_tree.root.right.value).to eql(15)
     end
+    it 'should work on lower levels of the tree' do
+      [8, 2].each { |num| insert_tree.insert(num) }
+      expect(insert_tree.root.left.right.value).to eql(2)
+    end
+    it 'should fill in spaces higher in the tree left by deletions' do
+      insert_tree.delete(15)
+      insert_tree.insert(20)
+      expect(insert_tree.root.right.value).to eql(20)
+    end
   end
   describe '#s_insert' do
     s_insert_tree = BinaryTree.new
