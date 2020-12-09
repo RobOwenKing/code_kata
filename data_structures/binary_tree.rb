@@ -55,7 +55,7 @@ class BinaryTree
     # Create the node, then work out where it goes
     new_node = Node.new(value)
     # If there's no root, it should be the root
-    @root = new_node if @root.nil?
+    return @root = new_node if @root.nil?
 
     # As in BF order (below), we'll use a queue to iterate through the tree
     queue = MyQueue.new
