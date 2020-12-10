@@ -104,6 +104,14 @@ class BinaryTree
     @root.swap unless @root.nil?
   end
 
+  # Maintains the tree's structure but puts the values into order
+  def to_searchable!
+    values = to_a.sort
+    order = %w[left root right]
+    action = proc { |node, returnable| node.value = returnable.shift }
+    root.nil? ? [] : traverse(@root, order, values, action)
+  end
+
   # Printing
 
   # Returns a array of the values of the tree's nodes

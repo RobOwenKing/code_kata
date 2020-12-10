@@ -626,21 +626,34 @@ RSpec.describe BinaryTree do
     end
     it 'should return false in simple cases' do
       [5, 6].each { |num| searchable_tree.insert(num) }
-      expect(searchable_tree.searchable?).to eql(false)
+      nodes = searchable_tree.to_a
+      expect(searchable_tree.searchable?).to eql(nodes == nodes.sort)
     end
     it 'should return true in simple cases' do
       searchable_tree.root.right.value = 15
-      expect(searchable_tree.searchable?).to eql(true)
+      nodes = searchable_tree.to_a
+      expect(searchable_tree.searchable?).to eql(nodes == nodes.sort)
     end
     it 'should return false in complex cases' do
       [2, 12].each { |num| searchable_tree.insert(num) }
-      expect(searchable_tree.searchable?).to eql(false)
+      nodes = searchable_tree.to_a
+      expect(searchable_tree.searchable?).to eql(nodes == nodes.sort)
     end
     it 'should return true in complex cases' do
       node = searchable_tree.find(12)
       node.value = 8
       [7, 9].each { |num| searchable_tree.s_insert(num) }
-      expect(searchable_tree.searchable?).to eql(true)
+      nodes = searchable_tree.to_a
+      expect(searchable_tree.searchable?).to eql(nodes == nodes.sort)
+    end
+  end
+  describe '#to_searchable!' do
+    to_searchable_tree = BinaryTree.new
+    it 'should order the values in a tree' do
+      [10, 5, 15, 2, 12].each { |num| to_searchable_tree.insert(num) }
+      to_searchable_tree.to_searchable!
+      nodes = to_searchable_tree.to_a
+      expect(to_searchable_tree.searchable?).to eql(nodes == nodes.sort)
     end
   end
 end
