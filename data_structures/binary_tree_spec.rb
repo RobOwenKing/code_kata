@@ -647,4 +647,13 @@ RSpec.describe BinaryTree do
       expect(searchable_tree.searchable?).to eql(nodes == nodes.sort)
     end
   end
+  describe '#to_searchable!' do
+    to_searchable_tree = BinaryTree.new
+    it 'should order the values in a tree' do
+      [10, 5, 15, 2, 12].each { |num| to_searchable_tree.insert(num) }
+      to_searchable_tree.to_searchable!
+      nodes = to_searchable_tree.to_a
+      expect(to_searchable_tree.searchable?).to eql(nodes == nodes.sort)
+    end
+  end
 end
