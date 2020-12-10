@@ -573,6 +573,7 @@ RSpec.describe BinaryTree do
   end
   describe '#sum?' do
     sum_tree = BinaryTree.new
+    sum_tree2 = BinaryTree.new
     it 'should return true for the empty tree' do
       expect(sum_tree.sum?).to eql(true)
     end
@@ -588,6 +589,14 @@ RSpec.describe BinaryTree do
       node = Node.new(16)
       sum_tree.root.right = node
       expect(sum_tree.sum?).to eql(true)
+    end
+    it 'should return false in complex false cases' do
+      [30, 5, 10, 2, 1, 6, 4].each { |num| sum_tree2.insert(num) }
+      expect(sum_tree2.sum?).to eql(false)
+    end
+    it 'should return true in complex true cases' do
+      sum_tree2.insert(2)
+      expect(sum_tree2.sum?).to eql(true)
     end
   end
 end
