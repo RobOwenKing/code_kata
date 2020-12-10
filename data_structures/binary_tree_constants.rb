@@ -27,3 +27,7 @@ BALANCED = {
     left.iterate(BALANCED) && right.iterate(BALANCED) && (left.iterate(HEIGHT) - right.iterate(HEIGHT)).abs <= 1
   end
 }
+
+SUM = {
+  none: proc {true}
+}
