@@ -29,7 +29,7 @@ BALANCED = {
 }
 
 SUM = {
-  none: lambda { |_left, _right, value| value },
+  none: proc { |_left, _right, value| value },
   left: lambda do |left, _right, value|
     left_sum = left.iterate(SUM)
     return false if !left_sum || left_sum != value
@@ -48,5 +48,30 @@ SUM = {
     return false if !left_sum || !right_sum || right_sum + left_sum != value
 
     return right_sum + left_sum + value
+  end
+}
+
+SEARCHABLE = {
+  none: proc { |_left, _right, value| [value] },
+  left: lambda do |left, _right, value|
+    left_nodes = left.iterate(SEARCHABLE)
+    return false if !left_nodes || left_nodes.any? { |node| node > value }
+
+    return left_nodes << value
+  end,
+  right: lambda do |_left, right, value|
+    right_nodes = right.iterate(SEARCHABLE)
+    return false if !right_nodes || right_nodes.any? { |node| node < value }
+
+    return right_nodes << value
+  end,
+  two: lambda do |left, right, value|
+    left_nodes = left.iterate(SEARCHABLE)
+    right_nodes = right.iterate(SEARCHABLE)
+    nodes = left_nodes + right_nodes
+    return false if !left_nodes || left_nodes.any? { |node| node > value }
+    return false if !right_nodes || right_nodes.any? { |node| node < value }
+
+    return nodes << value
   end
 }

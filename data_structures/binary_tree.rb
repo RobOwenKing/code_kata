@@ -15,6 +15,7 @@
 # - - - #bf_order
 # - - Properties (Values)
 # - - - #sum?
+# - - - #searchable?
 # - - Properties (Structure)
 # - - - #full?
 # - - - #complete?
@@ -145,11 +146,19 @@ class BinaryTree
   # Properties (Values)
 
   # Returns whether the tree is a Sum Tree or not
-  # ie. Whether its value equals the sum of the values in its left and right subtrees
+  # i.e. Whether its value equals the sum of the values in its left and right subtrees
   def sum?
     return true if @root.nil?
 
     !!@root.iterate(SUM)
+  end
+
+  # Returns whether its a Binary Search Tree or not
+  # i.e. Whether for each node, every node in its left subtree is smaller & vice-vice for right
+  def searchable?
+    return true if @root.nil?
+
+    !!@root.iterate(SEARCHABLE)
   end
 
   # Properties (Structure)
