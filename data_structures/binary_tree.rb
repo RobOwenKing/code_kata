@@ -1,195 +1,112 @@
+# A Binary Tree class implemented in Ruby
+# Contents
+# class Binary Tree
+# - Binary Tree
+# - - - #initialize
+# - - Basic Crud
+# - - - #insert(value)
+# - - - #find(value)
+# - - Tree Manipulation
+# - - - #invert!
+# - - Printing
+# - - - #to_a
+# - - - #in_order
+# - - - #pre_order
+# - - - #post_order
+# - - - #leaves
+# - - - #bf_order
+# - - Properties (Values)
+# - - - #sum?
+# - - - #searchable?
+# - - Properties (Structure)
+# - - - #full?
+# - - - #complete?
+# - - - #perfect?
+# - - - #balanced?
+# - - - #degenerate?
+# - - - #symmetric?
+# - Binary Search Tree
+# - - Searchable Basic CRUD
+# - - - #s_insert(value)
+# - - - #s_find(value)
+# - - - #s_include?(value)
+# - - Searchable Finding Values
+# - - - #s_min
+# - - - #s_max
+
+# Note: Methods prefixed s_ are for a Binary Search Tree
+# They will as such often be faster than the regular methods
+# But won't work correctly and/or will break if the tree is not #searchable?
+
+# Methods after #Unsorted are not updated since this stopped being purely a Binary Search Tree class
+# As such they should be used with great care on trees that aren't #searchable?
+
+# Import the Node class we'll use
+require_relative 'binary_tree_node'
+# Import constants (holding functions to call upon traversal)
+require_relative 'binary_tree_constants'
 # We'll use a queue for the breadth-first ordering
 require_relative 'queue'
 
-FULL = {
-  both: proc { true },
-  neither: proc { |left, right| left.iterate(FULL) && right.iterate(FULL) },
-  left: proc { false },
-  right: proc { false }
-}
-
-DEGENERATE = {
-  both: proc { true },
-  neither: proc { false },
-  left: proc { |_left, right| right.iterate(DEGENERATE) },
-  right: proc { |left, _right| left.iterate(DEGENERATE) }
-}
-
-HEIGHT = {
-  both: proc { 1 },
-  neither: proc { |left, right| [left.iterate(HEIGHT), right.iterate(HEIGHT)].max + 1 },
-  left: proc { |_left, right| right.iterate(HEIGHT) + 1 },
-  right: proc { |left, _right| left.iterate(HEIGHT) + 1 }
-}
-
-BALANCED = {
-  both: proc { true },
-  neither: proc do |left, right|
-    left.iterate(BALANCED) && right.iterate(BALANCED) && (left.iterate(HEIGHT) - right.iterate(HEIGHT)).abs <= 1
-  end,
-  left: proc { |_left, right| right.left.nil? && right.right.nil? },
-  right: proc { |left, _right| left.left.nil? && left.right.nil? }
-}
-
-# Node class for our Binary Search Tree
-class Node
-  attr_accessor :value, :left, :right
-
-  def initialize(value)
-    @value = value
-    @left = nil
-    @right = nil
-  end
-
-  def find_node(value)
-    return self if value == @value
-
-    if value < @value
-      # If the value we're looking for is less than this node's value
-      # If it has no left child, return itself, otherwise go recursive
-      @left.nil? ? self : @left.find_node(value)
-    else
-      # Same thing for larger values
-      @right.nil? ? self : @right.find_node(value)
-    end
-  end
-
-  def find_parent(value)
-    if value < @value
-      return false if @left.nil?
-      return self if @left.value == value
-
-      @left.find_parent(value)
-    else
-      return false if @right.nil?
-      return self if @right.value == value
-
-      @right.find_parent(value)
-    end
-  end
-
-  def iterate(methods)
-    return methods[:both].call if @left.nil? && @right.nil?
-
-    return methods[:neither].call(@left, @right) unless @left.nil? || @right.nil?
-
-    @left.nil? ? methods[:left].call(@left, @right) : methods[:right].call(@left, @right)
-  end
-
-  def swap
-    holding = @left.nil? ? nil : @left.swap
-    @left = @right.nil? ? nil : @right.swap
-    @right = holding
-
-    self
-  end
-end
-
-# Binary Search Tree class itself
-class BinarySearchTree
+# Binary Tree class
+class BinaryTree
   attr_accessor :root
 
   def initialize(value = nil)
     @root = value.nil? ? nil : Node.new(value)
   end
 
-  # Add a value to the tree
-  # Returns new Node
-  # Repeat values not added, return nil
-  def insert(value)
-    # Find where the given value would go in the tree
-    parent_node = @root.nil? ? nil : @root.find_node(value)
-    # If that would repeat a value, return nil
-    return nil if !parent_node.nil? && parent_node.value == value
+  # Basic CRUD
 
-    # Else, we're adding a node
+  # Insert the value in the next free space (breadth-first order)
+  # Note: Allows for insertion of duplicate values
+  def insert(value)
+    # Create the node, then work out where it goes
     new_node = Node.new(value)
-    # If no root, put the new node there
+    # If there's no root, it should be the root
     return @root = new_node if @root.nil?
 
-    # Else place the node in the relevant child position
-    value < parent_node.value ? parent_node.left = new_node : parent_node.right = new_node
-  end
+    # As in BF order (below), we'll use a queue to iterate through the tree
+    queue = MyQueue.new
+    queue.enqueue(@root)
 
-  # Test whether a given value is in the tree
-  # Returns boolean
-  def include?(value)
-    return false if @root.nil?
+    until queue.empty?
+      current = queue.dequeue
+      return current.left = new_node if current.left.nil?
+      return current.right = new_node if current.right.nil?
 
-    found_node = @root.find_node(value)
-    found_node.value == value
-  end
-
-  # Return the minimum value of any node in the tree
-  # Returns nil for an empty tree
-  def min
-    return nil if @root.nil?
-
-    current_node = @root
-    current_node = current_node.left until current_node.left.nil?
-    current_node.value
-  end
-
-  # Return the maximum value of any node in the tree
-  # Returns nil for an empty tree
-  def max
-    return nil if @root.nil?
-
-    current_node = @root
-    current_node = current_node.right until current_node.right.nil?
-    current_node.value
-  end
-
-  # Returns the node from the tree with the given value
-  # Returns nil if no such node in the tree
-  def find(value)
-    found_node = @root.find_node(value)
-    found_node.value == value ? found_node : nil
-  end
-
-  # Returns the value of the parent node of the node with the passed value
-  # Returns nil if the value matches the root
-  # Returns false if there is no node with the given value
-  def parent(value)
-    return nil if @root.value == value
-
-    found_node = @root.find_parent(value)
-    !found_node ? false : found_node.value
-  end
-
-  # Deletes node with given value and returns that value
-  # If no such node, returns nil
-  # The algorithm maintains tree connectedness and sortedness
-  def delete(value)
-    node = find(value)
-    return nil if node.nil?
-
-    if node.left.nil? && node.right.nil?
-      delete_leaf(node)
-    else
-      delete_with_child(node)
+      queue.enqueue(current.left)
+      queue.enqueue(current.right)
     end
   end
 
-  # Returns the largest value in the tree smaller than the passed value
-  # Returns nil if no such value found
-  def floor(value)
-    # We're going to use a private method which also takes a node as input
-    # This allows us to use recursion
-    # We evaluate here to avoid bringing nil into comparisons in #find_floor
-    best_find = find_floor(value, @root)
-    best_find > value ? nil : best_find
+  def find(value)
+    return nil if @root.nil?
+
+    queue = MyQueue.new
+    queue.enqueue(@root)
+
+    until queue.empty?
+      current = queue.dequeue
+      return current if current.value == value
+
+      queue.enqueue(current.left) unless current.left.nil?
+      queue.enqueue(current.right) unless current.right.nil?
+    end
+
+    nil
   end
 
-  # Returns the smallest value in the tree larger than the passed value
-  # Returns nil if no such value found
-  def ceil(value)
-    # Based on #floor
-    best_find = find_ceil(value, @root)
-    best_find < value ? nil : best_find
+  # Tree Manipulation
+
+  # Replaces the tree with its mirror image
+  def invert!
+    @root.swap unless @root.nil?
   end
 
-  # Returns a sorted array of the values of the tree's nodes
+  # Printing
+
+  # Returns a array of the values of the tree's nodes
   def to_a
     order = %w[left root right]
     action = proc { |node, returnable| returnable << node.value }
@@ -215,7 +132,7 @@ class BinarySearchTree
     root.nil? ? [] : traverse(@root, order, [], action)
   end
 
-  # Returns a sorted array of the values of the tree's leaves
+  # Returns a array of the values of the tree's leaves (from left to right)
   def leaves
     order = %w[left root right]
     action = proc { |node, returnable| returnable << node.value if node.left.nil? && node.right.nil? }
@@ -238,85 +155,25 @@ class BinarySearchTree
     order
   end
 
-  # Returns the number of nodes in the tree (integer)
-  def count
-    # Quick fix
-    # Would be better to count while traversing rather than building array then counting that
-    to_a.count
+  # Properties (Values)
+
+  # Returns whether the tree is a Sum Tree or not
+  # i.e. Whether its value equals the sum of the values in its left and right subtrees
+  def sum?
+    return true if @root.nil?
+
+    !!@root.iterate(SUM)
   end
 
-  # Returns a new Binary Search Tree
-  # New tree's root node is the node of original tree with passed value
-  def subtree(value)
-    node = find(value)
-    if node.nil?
-      nil
-    else
-      tree = BinarySearchTree.new
-      tree.root = node
-      tree
-    end
+  # Returns whether its a Binary Search Tree or not
+  # i.e. Whether for each node, every node in its left subtree is smaller & vice-vice for right
+  def searchable?
+    return true if @root.nil?
+
+    !!@root.iterate(SEARCHABLE)
   end
 
-  # Returns the next value in the tree larger than the passed value
-  # Returns nil if no larger value found
-  # Returns false if no node found with the passed value
-  def successor(value)
-    node = find(value)
-    return false if node.nil?
-
-    # If the node has a right subtree, its minimum value will be next largest
-    return subtree(node.right.value).min unless node.right.nil?
-
-    current_parent = parent(node.value)
-    until find(current_parent).left.value == node.value
-      node = find(current_parent)
-      current_parent = parent(node.value)
-      return nil if current_parent.nil?
-    end
-    current_parent
-  end
-
-  # Returns the next value in the tree smaller than the passed value
-  # Returns nil if no smaller value found
-  # Returns false if no node found with the passed value
-  def previous(value)
-    node = find(value)
-    return false if node.nil?
-
-    # If the node has a left subtree, its maximum value will be next smallest
-    return subtree(node.left.value).max unless node.left.nil?
-
-    current_parent = parent(node.value)
-    until find(current_parent).right.value == node.value
-      node = find(current_parent)
-      current_parent = parent(node.value)
-      return nil if current_parent.nil?
-    end
-    current_parent
-  end
-
-  # Returns the number of levels in the tree with any nodes (integer)
-  # eg: 1 for a tree with just a root, 2 if only the root has children, etc
-  def height
-    # @root.nil? ? 0 : @root.height
-    @root.nil? ? 0 : @root.iterate(HEIGHT)
-  end
-
-  # Returns the level in the tree where the node with the passed value is (integer)
-  # eg: Returns 1 if passed the root's value, 2 if passed one of its children's values, etc
-  # Returns nil if there is no node with passed value
-  def level(value)
-    current_node = @root
-    tracker = 1
-
-    until current_node.nil? || current_node.value == value
-      tracker += 1
-      current_node = current_node.value < value ? current_node.right : current_node.left
-    end
-
-    current_node.nil? ? nil : tracker
-  end
+  # Properties (Structure)
 
   # Tests whether the tree is full
   # eg: Whether every node has either 0 or 2 children
@@ -369,9 +226,193 @@ class BinarySearchTree
     mirror?(@root.left, @root.right)
   end
 
-  # NOTE: This is a Binary Tree algorithm - it will break many other methods
-  def invert!
-    @root.swap unless @root.nil?
+  # Binary Search Tree
+
+  # Searchable Basic CRUD
+
+  # Add a value to the tree
+  # Returns new Node
+  # Repeat values not added, return nil
+  def s_insert(value)
+    # Find where the given value would go in the tree
+    parent_node = @root.nil? ? nil : @root.s_find_node(value)
+    # If that would repeat a value, return nil
+    return nil if !parent_node.nil? && parent_node.value == value
+
+    # Else, we're adding a node
+    new_node = Node.new(value)
+    # If no root, put the new node there
+    return @root = new_node if @root.nil?
+
+    # Else place the node in the relevant child position
+    value < parent_node.value ? parent_node.left = new_node : parent_node.right = new_node
+  end
+
+  # Returns the node from the tree with the given value
+  # Returns nil if no such node in the tree
+  def s_find(value)
+    found_node = @root.s_find_node(value)
+    found_node.value == value ? found_node : nil
+  end
+
+  # Test whether a given value is in the tree
+  # Returns boolean
+  def s_include?(value)
+    return false if @root.nil?
+
+    found_node = @root.s_find_node(value)
+    found_node.value == value
+  end
+
+  # Deletes node with given value and returns that value
+  # If no such node, returns nil
+  # The algorithm maintains tree connectedness and sortedness (if sorted)
+  def delete(value)
+    node = s_find(value)
+    return nil if node.nil?
+
+    if node.left.nil? && node.right.nil?
+      delete_leaf(node)
+    else
+      delete_with_child(node)
+    end
+  end
+
+  # Searchable Finding Values
+
+  # Return the minimum value of any node in the tree
+  # Returns nil for an empty tree
+  def s_min
+    return nil if @root.nil?
+
+    current_node = @root
+    current_node = current_node.left until current_node.left.nil?
+    current_node.value
+  end
+
+  # Return the maximum value of any node in the tree
+  # Returns nil for an empty tree
+  def s_max
+    return nil if @root.nil?
+
+    current_node = @root
+    current_node = current_node.right until current_node.right.nil?
+    current_node.value
+  end
+
+
+
+
+
+  # Unsorted
+
+  # Returns the value of the parent node of the node with the passed value
+  # Returns nil if the value matches the root
+  # Returns false if there is no node with the given value
+  def parent(value)
+    return nil if @root.value == value
+
+    found_node = @root.s_find_parent(value)
+    !found_node ? false : found_node.value
+  end
+
+  # Returns the largest value in the tree smaller than the passed value
+  # Returns nil if no such value found
+  def floor(value)
+    # We're going to use a private method which also takes a node as input
+    # This allows us to use recursion
+    # We evaluate here to avoid bringing nil into comparisons in #find_floor
+    best_find = find_floor(value, @root)
+    best_find > value ? nil : best_find
+  end
+
+  # Returns the smallest value in the tree larger than the passed value
+  # Returns nil if no such value found
+  def ceil(value)
+    # Based on #floor
+    best_find = find_ceil(value, @root)
+    best_find < value ? nil : best_find
+  end
+
+  # Returns the number of nodes in the tree (integer)
+  def count
+    # Quick fix
+    # Would be better to count while traversing rather than building array then counting that
+    to_a.count
+  end
+
+  # Returns a new Binary Tree but the nodes are the same
+  # This means altering the subtree will affect (and may break) the original
+  # New tree's root node is the node of original tree with passed value
+  def subtree(value)
+    node = s_find(value)
+    if node.nil?
+      nil
+    else
+      tree = BinaryTree.new
+      tree.root = node
+      tree
+    end
+  end
+
+  # Returns the next value in the tree larger than the passed value
+  # Returns nil if no larger value found
+  # Returns false if no node found with the passed value
+  def successor(value)
+    node = s_find(value)
+    return false if node.nil?
+
+    # If the node has a right subtree, its minimum value will be next largest
+    return subtree(node.right.value).s_min unless node.right.nil?
+
+    current_parent = parent(node.value)
+    until s_find(current_parent).left.value == node.value
+      node = s_find(current_parent)
+      current_parent = parent(node.value)
+      return nil if current_parent.nil?
+    end
+    current_parent
+  end
+
+  # Returns the next value in the tree smaller than the passed value
+  # Returns nil if no smaller value found
+  # Returns false if no node found with the passed value
+  def previous(value)
+    node = s_find(value)
+    return false if node.nil?
+
+    # If the node has a left subtree, its maximum value will be next smallest
+    return subtree(node.left.value).s_max unless node.left.nil?
+
+    current_parent = parent(node.value)
+    until s_find(current_parent).right.value == node.value
+      node = s_find(current_parent)
+      current_parent = parent(node.value)
+      return nil if current_parent.nil?
+    end
+    current_parent
+  end
+
+  # Returns the number of levels in the tree with any nodes (integer)
+  # eg: 1 for a tree with just a root, 2 if only the root has children, etc
+  def height
+    # @root.nil? ? 0 : @root.height
+    @root.nil? ? 0 : @root.iterate(HEIGHT)
+  end
+
+  # Returns the level in the tree where the node with the passed value is (integer)
+  # eg: Returns 1 if passed the root's value, 2 if passed one of its children's values, etc
+  # Returns nil if there is no node with passed value
+  def level(value)
+    current_node = @root
+    tracker = 1
+
+    until current_node.nil? || current_node.value == value
+      tracker += 1
+      current_node = current_node.value < value ? current_node.right : current_node.left
+    end
+
+    current_node.nil? ? nil : tracker
   end
 
   private
@@ -421,7 +462,7 @@ class BinarySearchTree
       @root = nil
     else
       # Find parent of node to be deleted and set relevant child node to nil
-      parent_node = find(parent(node.value))
+      parent_node = s_find(parent(node.value))
       parent_node.left = nil if parent_node.left == node
       parent_node.right = nil if parent_node.right == node
     end
