@@ -625,12 +625,21 @@ RSpec.describe BinaryTree do
       expect(searchable_tree.searchable?).to eql(true)
     end
     it 'should return false in simple cases' do
-      searchable_tree.insert(5)
-      searchable_tree.insert(6)
+      [5, 6].each { |num| searchable_tree.insert(num) }
       expect(searchable_tree.searchable?).to eql(false)
     end
     it 'should return true in simple cases' do
       searchable_tree.root.right.value = 15
+      expect(searchable_tree.searchable?).to eql(true)
+    end
+    it 'should return false in complex cases' do
+      [2, 12].each { |num| searchable_tree.insert(num) }
+      expect(searchable_tree.searchable?).to eql(false)
+    end
+    it 'should return true in complex cases' do
+      node = searchable_tree.find(12)
+      node.value = 8
+      [7, 9].each { |num| searchable_tree.s_insert(num) }
       expect(searchable_tree.searchable?).to eql(true)
     end
   end
