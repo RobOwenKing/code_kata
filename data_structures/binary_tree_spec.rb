@@ -599,7 +599,7 @@ RSpec.describe BinaryTree do
       expect(sum_tree2.sum?).to eql(true)
     end
   end
-    describe '#find' do
+  describe '#find' do
     find_tree = BinaryTree.new
     %w[m j k d l q r p].each { |letter| find_tree.insert(letter) }
     it 'should return a node when the value is in the tree' do

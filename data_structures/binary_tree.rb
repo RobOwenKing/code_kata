@@ -5,6 +5,7 @@
 # - - - #initialize
 # - - Basic Crud
 # - - - #insert(value)
+# - - - #find(value)
 # - - Printing
 # - - - #to_a
 # - - - #in_order
@@ -12,6 +13,8 @@
 # - - - #post_order
 # - - - #leaves
 # - - - #bf_order
+# - - Properties (Values)
+# - - - #sum?
 # - - Properties (Structure)
 # - - - #full?
 # - - - #complete?
@@ -71,6 +74,23 @@ class BinaryTree
     end
   end
 
+  def find(value)
+    return nil if @root.nil?
+
+    queue = MyQueue.new
+    queue.enqueue(@root)
+
+    until queue.empty?
+      current = queue.dequeue
+      return current if current.value == value
+
+      queue.enqueue(current.left) unless current.left.nil?
+      queue.enqueue(current.right) unless current.right.nil?
+    end
+
+    nil
+  end
+
   # Printing
 
   # Returns a array of the values of the tree's nodes
@@ -123,6 +143,9 @@ class BinaryTree
   end
 
   # Properties (Values)
+
+  # Returns whether the tree is a Sum Tree or not
+  # ie. Whether its value equals the sum of the values in its left and right subtrees
   def sum?
     return true if @root.nil?
 
