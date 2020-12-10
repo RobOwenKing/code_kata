@@ -124,7 +124,9 @@ class BinaryTree
 
   # Properties (Values)
   def sum?
-    @root.nil? ? true : @root.iterate(SUM)
+    return true if @root.nil?
+
+    !!@root.iterate(SUM)
   end
 
   # Properties (Structure)
