@@ -6,6 +6,8 @@
 # - - Basic Crud
 # - - - #insert(value)
 # - - - #find(value)
+# - - Tree Manipulation
+# - - - #invert!
 # - - Printing
 # - - - #to_a
 # - - - #in_order
@@ -23,7 +25,7 @@
 # - - - #balanced?
 # - - - #degenerate?
 # - - - #symmetric?
-# - Searchable
+# - Binary Search Tree
 # - - Searchable Basic CRUD
 # - - - #s_insert(value)
 # - - - #s_find(value)
@@ -35,6 +37,9 @@
 # Note: Methods prefixed s_ are for a Binary Search Tree
 # They will as such often be faster than the regular methods
 # But won't work correctly and/or will break if the tree is not #searchable?
+
+# Methods after #Unsorted are not updated since this stopped being purely a Binary Search Tree class
+# As such they should be used with great care on trees that aren't #searchable?
 
 # Import the Node class we'll use
 require_relative 'binary_tree_node'
@@ -90,6 +95,13 @@ class BinaryTree
     end
 
     nil
+  end
+
+  # Tree Manipulation
+
+  # Replaces the tree with its mirror image
+  def invert!
+    @root.swap unless @root.nil?
   end
 
   # Printing
@@ -214,7 +226,7 @@ class BinaryTree
     mirror?(@root.left, @root.right)
   end
 
-  # Searchable
+  # Binary Search Tree
 
   # Searchable Basic CRUD
 
@@ -401,11 +413,6 @@ class BinaryTree
     end
 
     current_node.nil? ? nil : tracker
-  end
-
-  # NOTE: This is a Binary Tree algorithm - it will break many other methods
-  def invert!
-    @root.swap unless @root.nil?
   end
 
   private
