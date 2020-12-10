@@ -615,4 +615,23 @@ RSpec.describe BinaryTree do
       expect(find_tree.find('h')).to eql(nil)
     end
   end
+  describe '#searchable?' do
+    searchable_tree = BinaryTree.new
+    it 'should return true for an empty tree' do
+      expect(searchable_tree.searchable?).to eql(true)
+    end
+    it 'should return true for a tree with just a root' do
+      searchable_tree.insert(10)
+      expect(searchable_tree.searchable?).to eql(true)
+    end
+    it 'should return false in simple cases' do
+      searchable_tree.insert(5)
+      searchable_tree.insert(6)
+      expect(searchable_tree.searchable?).to eql(false)
+    end
+    it 'should return true in simple cases' do
+      searchable_tree.root.right.value = 15
+      expect(searchable_tree.searchable?).to eql(true)
+    end
+  end
 end
