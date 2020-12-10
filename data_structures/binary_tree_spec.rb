@@ -571,4 +571,23 @@ RSpec.describe BinaryTree do
       expect(invertable_tree.root.right.left.value).to eql(inverted_tree.root.left.right.value)
     end
   end
+  describe '#sum?' do
+    sum_tree = BinaryTree.new
+    it 'should return true for the empty tree' do
+      expect(sum_tree.sum?).to eql(true)
+    end
+    it 'should return true for a tree with just a root' do
+      sum_tree.insert(21)
+      expect(sum_tree.sum?).to eql(true)
+    end
+    it 'should return false in simple false cases' do
+      [5, 15].each { |num| sum_tree.insert(num) }
+      expect(sum_tree.sum?).to eql(false)
+    end
+    it 'should return true in simple true cases' do
+      node = Node.new(16)
+      sum_tree.root.right = node
+      expect(sum_tree.sum?).to eql(true)
+    end
+  end
 end

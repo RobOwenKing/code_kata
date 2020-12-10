@@ -122,6 +122,11 @@ class BinaryTree
     order
   end
 
+  # Properties (Values)
+  def sum?
+
+  end
+
   # Properties (Structure)
 
   # Tests whether the tree is full
