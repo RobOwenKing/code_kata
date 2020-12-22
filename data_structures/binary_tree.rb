@@ -122,19 +122,6 @@ class BinaryTree
     @root = balance_insert(values)
   end
 
-  def balance_insert(values)
-    midpoint = values.length / 2
-    new_node = Node.new(values[midpoint])
-
-    first_half = values[0...midpoint]
-    second_half = values[midpoint + 1..]
-
-    new_node.left = balance_insert(first_half) unless first_half.nil? || first_half.empty?
-    new_node.right = balance_insert(second_half) unless second_half.nil? || second_half.empty?
-
-    new_node
-  end
-
   # Printing
 
   # Returns a array of the values of the tree's nodes
@@ -517,6 +504,19 @@ class BinaryTree
     return false if right.nil?
 
     mirror?(left.left, right.right) && mirror?(left.right, right.left)
+  end
+
+  def balance_insert(values)
+    midpoint = values.length / 2
+    new_node = Node.new(values[midpoint])
+
+    first_half = values[0...midpoint]
+    second_half = values[midpoint + 1..]
+
+    new_node.left = balance_insert(first_half) unless first_half.nil? || first_half.empty?
+    new_node.right = balance_insert(second_half) unless second_half.nil? || second_half.empty?
+
+    new_node
   end
 end
 
