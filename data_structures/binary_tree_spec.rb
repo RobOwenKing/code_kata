@@ -658,9 +658,9 @@ RSpec.describe BinaryTree do
   end
   describe '#balance!' do
     balance_tree = BinaryTree.new
-    elements = [3, 1, 2, 4, 5, 7, 6, 8, 9]
+    values = [3, 1, 2, 4, 5, 7, 6, 8, 9]
     it 'should turn a non-balanced tree into a balanced one' do
-      elements.each { |num| balance_tree.s_insert(num) }
+      values.each { |num| balance_tree.s_insert(num) }
       expect(balance_tree.balanced?).to eql(false)
       balance_tree.balance!
       expect(balance_tree.balanced?).to eql(true)
