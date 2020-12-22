@@ -656,4 +656,14 @@ RSpec.describe BinaryTree do
       expect(to_searchable_tree.searchable?).to eql(nodes == nodes.sort)
     end
   end
+  describe '#balance!' do
+    balance_tree = BinaryTree.new
+    elements = [3, 1, 2, 4, 5, 7, 6, 8, 9]
+    it 'should turn a non-balanced tree into a balanced one' do
+      elements.each { |num| balance_tree.s_insert(num) }
+      expect(balance_tree.balanced?).to eql(false)
+      balance_tree.balance!
+      expect(balance_tree.balanced?).to eql(true)
+    end
+  end
 end
