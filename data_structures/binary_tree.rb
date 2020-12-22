@@ -207,18 +207,16 @@ class BinaryTree
   def complete?
     return true if @root.nil?
 
-    queue = MyQueue.new
+    queue = []
     current = @root
 
     until current.nil?
-      queue.enqueue(current.left)
-      queue.enqueue(current.right)
-      current = queue.dequeue
+      queue.push(current.left)
+      queue.push(current.right)
+      current = queue.shift
     end
 
-    return false unless queue.dequeue.nil? until queue.empty?
-
-    true
+    queue.all?(&:nil?)
   end
 
   # Tests whether the tree is perfect
