@@ -8,6 +8,8 @@
 # - - - #find(value)
 # - - Tree Manipulation
 # - - - #invert!
+# - - - #to_searchable!
+# - - - #balance!
 # - - Printing
 # - - - #to_a
 # - - - #in_order
@@ -110,6 +112,14 @@ class BinaryTree
     order = %w[left root right]
     action = proc { |node, returnable| node.value = returnable.shift }
     root.nil? ? [] : traverse(@root, order, values, action)
+  end
+
+  def balance!
+    return nil if root.nil?
+
+    values = to_a
+
+    @root = balance_insert(values)
   end
 
   # Printing
@@ -494,6 +504,19 @@ class BinaryTree
     return false if right.nil?
 
     mirror?(left.left, right.right) && mirror?(left.right, right.left)
+  end
+
+  def balance_insert(values)
+    midpoint = values.length / 2
+    new_node = Node.new(values[midpoint])
+
+    first_half = values[0...midpoint]
+    second_half = values[midpoint + 1..]
+
+    new_node.left = balance_insert(first_half) unless first_half.nil? || first_half.empty?
+    new_node.right = balance_insert(second_half) unless second_half.nil? || second_half.empty?
+
+    new_node
   end
 end
 
