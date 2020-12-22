@@ -103,7 +103,7 @@ class BinaryTree
 
   # Replaces the tree with its mirror image
   def invert!
-    @root.swap unless @root.nil?
+    @root&.swap
   end
 
   # Maintains the tree's structure but puts the values into order
