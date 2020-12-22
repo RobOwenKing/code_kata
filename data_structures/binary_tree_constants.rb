@@ -68,10 +68,10 @@ SEARCHABLE = {
   two: lambda do |left, right, value|
     left_nodes = left.iterate(SEARCHABLE)
     right_nodes = right.iterate(SEARCHABLE)
-    nodes = left_nodes + right_nodes
     return false if !left_nodes || left_nodes.any? { |node| node > value }
     return false if !right_nodes || right_nodes.any? { |node| node < value }
 
+    nodes = left_nodes + right_nodes
     return nodes << value
   end
 }
