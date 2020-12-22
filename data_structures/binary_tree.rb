@@ -118,22 +118,21 @@ class BinaryTree
     return nil if root.nil?
 
     values = to_a
-    arrays = [values]
-    new_tree = BinaryTree.new
 
-    until arrays.empty?
-      current = arrays.shift
-      midpoint = current.length / 2
+    @root = balance_insert(values)
+  end
 
-      new_tree.insert(current[midpoint])
-      first_half = current[0...midpoint]
-      second_half = current[midpoint + 1..]
+  def balance_insert(values)
+    midpoint = values.length / 2
+    new_node = Node.new(values[midpoint])
 
-      arrays << first_half unless first_half.empty?
-      arrays << second_half unless second_half.empty?
-    end
+    first_half = values[0...midpoint]
+    second_half = values[midpoint + 1..]
 
-    @root = new_tree.root
+    new_node.left = balance_insert(first_half) unless first_half.nil? || first_half.empty?
+    new_node.right = balance_insert(second_half) unless second_half.nil? || second_half.empty?
+
+    new_node
   end
 
   # Printing
