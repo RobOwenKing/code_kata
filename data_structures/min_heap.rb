@@ -19,6 +19,7 @@
 # - - #bubble_up
 # - - #bubble_down
 
+# Minimum Binary Heap class
 class MinHeap
   def initialize
     @heap = []
