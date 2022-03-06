@@ -11,6 +11,7 @@
 # - - #position(value)
 # - - #change_priority(value, priority)
 
+# Priority Queue class (compare ordinary Queue class in ./queue.rb)
 class PriorityQueue
   def initialize
     # I'll use an array to store the elements
