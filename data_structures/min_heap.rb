@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A Minimum Binary Heap class in Ruby
 # Contents
 # class MinHeap
@@ -17,6 +19,7 @@
 # - - #bubble_up
 # - - #bubble_down
 
+# Minimum Binary Heap class
 class MinHeap
   def initialize
     @heap = []

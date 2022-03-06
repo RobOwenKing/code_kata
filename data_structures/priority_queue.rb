@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A Priority Queue class in Ruby with some basic operations
 # Contents
 # - class PriorityQueue
@@ -9,6 +11,7 @@
 # - - #position(value)
 # - - #change_priority(value, priority)
 
+# Priority Queue class (compare ordinary Queue class in ./queue.rb)
 class PriorityQueue
   def initialize
     # I'll use an array to store the elements

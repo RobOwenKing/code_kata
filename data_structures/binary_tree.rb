@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 # A Binary Tree class implemented in Ruby
+
 # Contents
 # class Binary Tree
 # - Binary Tree
@@ -103,7 +106,7 @@ class BinaryTree
 
   # Replaces the tree with its mirror image
   def invert!
-    @root.swap unless @root.nil?
+    @root&.swap
   end
 
   # Maintains the tree's structure but puts the values into order
@@ -207,18 +210,16 @@ class BinaryTree
   def complete?
     return true if @root.nil?
 
-    queue = MyQueue.new
+    queue = []
     current = @root
 
     until current.nil?
-      queue.enqueue(current.left)
-      queue.enqueue(current.right)
-      current = queue.dequeue
+      queue.push(current.left)
+      queue.push(current.right)
+      current = queue.shift
     end
 
-    return false unless queue.dequeue.nil? until queue.empty?
-
-    true
+    queue.all?(&:nil?)
   end
 
   # Tests whether the tree is perfect

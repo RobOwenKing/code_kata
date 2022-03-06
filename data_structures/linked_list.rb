@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # I want to implement the most generic linked list possible
 # As such, it will be singly-linked and only keep track of the head
 # In a real-life application, keeping track of size/tail might well pay off
@@ -26,7 +28,6 @@
 # - - #reverse
 # - - #reverse!
 
-
 # Used for #reverse
 require_relative 'stack'
 
@@ -35,9 +36,7 @@ class Node
   attr_accessor :value, :next
 
   def initialize(value, next_node = nil)
-    if !next_node.nil? && next_node.class != Node
-      raise ArgumentError, 'next_node must be a Node or nil'
-    end
+    raise ArgumentError, 'next_node must be a Node or nil' if !next_node.nil? && next_node.class != Node
 
     @value = value
     @next = next_node

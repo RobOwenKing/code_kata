@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Data structures practice, first exercise
 # Ruby port of Traversy Media JS example (https://www.youtube.com/watch?v=wtynhUwS5hI)
 

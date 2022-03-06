@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Node class for our Binary Tree
 # Methods with the prefix s are for Search Trees
 class Node
