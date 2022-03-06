@@ -28,7 +28,6 @@
 # - - #reverse
 # - - #reverse!
 
-
 # Used for #reverse
 require_relative 'stack'
 
@@ -37,9 +36,7 @@ class Node
   attr_accessor :value, :next
 
   def initialize(value, next_node = nil)
-    if !next_node.nil? && next_node.class != Node
-      raise ArgumentError, 'next_node must be a Node or nil'
-    end
+    raise ArgumentError, 'next_node must be a Node or nil' if !next_node.nil? && next_node.class != Node
 
     @value = value
     @next = next_node
