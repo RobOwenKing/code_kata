@@ -16,6 +16,7 @@
 # - - #difference(other_set)
 # - - #subset?(other_set)
 
+# Set class
 class Set
   attr_reader :set
 
