@@ -16,5 +16,7 @@ end
 # Compare: [1, 2, 2] - [1, 2] #=> []
 #          subtract([1, 2, 2], [1, 2]) #=> [2]
 def subtract(arr1, arr2)
-  arr1
+  arr1_copy = arr1.dup
+  arr2.each { |x| arr1_copy.slice!(arr1_copy.index(x)) if arr1_copy.include?(x) }
+  arr1_copy
 end
