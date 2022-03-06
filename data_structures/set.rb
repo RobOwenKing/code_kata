@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Note, Ruby's standard libraries include a Set class
 # Also, this is built using Arrays as an exercise
 # In a real use case, a Hash might be preferable for speed

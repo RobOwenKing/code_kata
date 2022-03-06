@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FULL = {
   none: proc { true },
   left: proc { false },

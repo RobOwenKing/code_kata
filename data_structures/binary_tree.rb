@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 # A Binary Tree class implemented in Ruby
+
 # Contents
 # class Binary Tree
 # - Binary Tree

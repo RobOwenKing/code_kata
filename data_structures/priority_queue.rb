@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A Priority Queue class in Ruby with some basic operations
 # Contents
 # - class PriorityQueue

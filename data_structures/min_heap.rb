@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A Minimum Binary Heap class in Ruby
 # Contents
 # class MinHeap
