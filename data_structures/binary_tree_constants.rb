@@ -5,21 +5,21 @@ FULL = {
   left: proc { false },
   right: proc { false },
   two: proc { |left, right, _value| left.iterate(FULL) && right.iterate(FULL) }
-}
+}.freeze
 
 DEGENERATE = {
   none: proc { true },
   left: proc { |left, _right, _value| left.iterate(DEGENERATE) },
   right: proc { |_left, right, _value| right.iterate(DEGENERATE) },
   two: proc { false }
-}
+}.freeze
 
 HEIGHT = {
   none: proc { 1 },
   left: proc { |left, _right, _value| left.iterate(HEIGHT) + 1 },
   right: proc { |_left, right, _value| right.iterate(HEIGHT) + 1 },
   two: proc { |left, right, _value| [left.iterate(HEIGHT), right.iterate(HEIGHT)].max + 1 }
-}
+}.freeze
 
 BALANCED = {
   none: proc { true },
@@ -28,7 +28,7 @@ BALANCED = {
   two: proc do |left, right, _value|
     left.iterate(BALANCED) && right.iterate(BALANCED) && (left.iterate(HEIGHT) - right.iterate(HEIGHT)).abs <= 1
   end
-}
+}.freeze
 
 SUM = {
   none: proc { |_left, _right, value| value },
@@ -51,7 +51,7 @@ SUM = {
 
     return right_sum + left_sum + value
   end
-}
+}.freeze
 
 SEARCHABLE = {
   none: proc { |_left, _right, value| [value] },
@@ -76,4 +76,4 @@ SEARCHABLE = {
     nodes = left_nodes + right_nodes
     return nodes << value
   end
-}
+}.freeze
