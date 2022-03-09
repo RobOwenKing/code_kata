@@ -26,7 +26,7 @@ def insert_id!(arr, insertable)
   insertable
 end
 
-def insert_next_id!(arr, step = 1, start = 0)
+def insert_next_id!(arr, step = 1, start = 0, max = Float::INFINITY)
   sorted_array = arr.sort
   arr_length = arr.length
   i = 0
@@ -36,6 +36,8 @@ def insert_next_id!(arr, step = 1, start = 0)
     return insert_id!(arr, insertable) if insertable < sorted_array[i]
 
     insertable += step if insertable == sorted_array[i]
+    return nil if insertable > max
+
     i += 1 if insertable > sorted_array[i]
   end
 
