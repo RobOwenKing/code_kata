@@ -20,3 +20,21 @@ def subtract(arr1, arr2)
   arr2.each { |x| arr1_dup.slice!(arr1_dup.index(x)) if arr1_dup.include?(x) }
   arr1_dup
 end
+
+def insert_id!(arr, insertable)
+  arr << insertable
+  insertable
+end
+
+def insert_next_id!(arr)
+  sorted_array = arr.sort
+  arr_length = arr.length
+  i = 0
+  insertable = 0
+
+  while i < arr_length
+    return insert_id!(arr, insertable) if insertable < sorted_array[i]
+
+    i += 1
+  end
+end
