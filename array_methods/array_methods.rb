@@ -26,11 +26,11 @@ def insert_id!(arr, insertable)
   insertable
 end
 
-def insert_next_id!(arr, step = 1)
+def insert_next_id!(arr, step = 1, start = 0)
   sorted_array = arr.sort
   arr_length = arr.length
   i = 0
-  insertable = 0
+  insertable = start
 
   while i < arr_length
     return insert_id!(arr, insertable) if insertable < sorted_array[i]
