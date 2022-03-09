@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Returns a boolean value, whether the arrays have same element in same order
+# Returns a boolean value, whether the arrays have the same elements in the same order
 def deep_equals?(arr1, arr2)
   return false if arr1.length != arr2.length
 
@@ -16,7 +16,7 @@ end
 # Compare: [1, 2, 2] - [1, 2] #=> []
 #          subtract([1, 2, 2], [1, 2]) #=> [2]
 def subtract(arr1, arr2)
-  arr1_copy = arr1.dup
-  arr2.each { |x| arr1_copy.slice!(arr1_copy.index(x)) if arr1_copy.include?(x) }
-  arr1_copy
+  arr1_dup = arr1.dup
+  arr2.each { |x| arr1_dup.slice!(arr1_dup.index(x)) if arr1_dup.include?(x) }
+  arr1_dup
 end

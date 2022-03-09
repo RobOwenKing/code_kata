@@ -50,3 +50,58 @@ RSpec.describe '#subtract' do
     expect(deep_equals?(ans, [1, 3])).to be true
   end
 end
+
+RSpec.describe '#insert_next_id!' do
+  it 'should make the array 1 element longer' do
+    arr = [0, 1, 2, 4, 5]
+    original_length = arr.length
+    insert_next_id!(arr)
+    expect(arr.length).to be(original_length + 1)
+  end
+  it 'should insert the next integer not in the array and return that digit' do
+    arr = [0, 1, 2, 3, 4]
+    expect(arr.include?(5)).to be false
+    ret = insert_next_id!(arr)
+    expect(arr.include?(5)).to be true
+    expect(ret).to be(5)
+  end
+  it 'should not delete any elements of the original array' do
+    arr = [0, 1, 2, 3, 4]
+    insert_next_id!(arr)
+    (0..4).each { |i| expect(arr.include?(i)).to be true }
+  end
+  it 'should work if there are gaps in the digits in the array' do
+    arr = [0, 1, 2, 4, 5]
+    expect(arr.include?(3)).to be false
+    insert_next_id!(arr)
+    expect(arr.include?(3)).to be true
+  end
+  it 'should work if the digits are not in sorted order' do
+    arr = [2, 4, 1, 5, 0]
+    expect(arr.include?(3)).to be false
+    insert_next_id!(arr)
+    expect(arr.include?(3)).to be true
+  end
+  it 'should start counting from 0 by default' do
+    arr = [1, 2, 3, 4, 5]
+    expect(arr.include?(0)).to be false
+    insert_next_id!(arr)
+    expect(arr.include?(0)).to be true
+  end
+  it 'should allow users to set a different step size' do
+    arr = [0, 0.5, 1, 2]
+    insert_next_id!(arr, 0.5)
+    expect(arr.include?(1.5)).to be true
+  end
+  it 'should allow users to set a different starting value' do
+    arr = [1, 2, 3]
+    insert_next_id!(arr, 1, 1)
+    expect(arr.include?(4)).to be true
+  end
+  it 'should allow users to set an end value, returning nil if no option for insert' do
+    arr = [0, 1, 2, 3]
+    original_length = arr.length
+    expect(insert_next_id!(arr, 1, 0, 3)).to be nil
+    expect(arr.length).to be(original_length)
+  end
+end
