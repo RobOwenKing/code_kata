@@ -21,11 +21,14 @@ def subtract(arr1, arr2)
   arr1_dup
 end
 
+# Helper method for #insert_next_id!
 def insert_id!(arr, insertable)
   arr << insertable
   insertable
 end
 
+# Counts from start in steps up to max, inserting first candidate not in arr
+# Returns inserted candidate, else nil
 def insert_next_id!(arr, step = 1, start = 0, max = Float::INFINITY)
   sorted_array = arr.sort
   arr_length = arr.length
