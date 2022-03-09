@@ -65,10 +65,10 @@ RSpec.describe '#insert_next_id!' do
     expect(arr.include?(5)).to be true
     expect(ret).to be(5)
   end
-  it 'should not delete any elements of the original array' do
-    arr = [0, 1, 2, 3, 4]
+  it 'should not alter any elements of the original array' do
+    arr = [4, 3, 2, 1, 0]
     insert_next_id!(arr)
-    (0..4).each { |i| expect(arr.include?(i)).to be true }
+    (0..4).each { |i| expect(arr[i]).to be(4 - i) }
   end
   it 'should work if there are gaps in the digits in the array' do
     arr = [0, 1, 2, 4, 5]
