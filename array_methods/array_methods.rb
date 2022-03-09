@@ -38,4 +38,6 @@ def insert_next_id!(arr)
     insertable += 1 if insertable == sorted_array[i]
     i += 1 if insertable > sorted_array[i]
   end
+
+  insert_id!(arr, insertable)
 end
