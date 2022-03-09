@@ -35,6 +35,7 @@ def insert_next_id!(arr)
   while i < arr_length
     return insert_id!(arr, insertable) if insertable < sorted_array[i]
 
-    i += 1
+    insertable += 1 if insertable == sorted_array[i]
+    i += 1 if insertable > sorted_array[i]
   end
 end
