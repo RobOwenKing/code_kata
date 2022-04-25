@@ -18,9 +18,17 @@ class Graph
     vertices.each { |v| add_vertex(v) }
   end
 
-  def add_vertex(vertex)
-    return false if graph[vertex]
+  def add_vertex(value)
+    return nil if @graph[value]
 
-    @graph[vertex] = @weighted ? { neighbours: [], weights: [] } : { neighbours: [] }
+    @graph[value] = @weighted ? { neighbours: [], weights: [] } : { neighbours: [] }
+    value
+  end
+
+  def delete_vertex(value)
+    return nil unless @graph[value]
+
+    @graph[value] = nil
+    value
   end
 end
