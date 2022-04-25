@@ -31,4 +31,8 @@ class Graph
     @graph[value] = nil
     value
   end
+
+  def vertices
+    @graph.keys
+  end
 end

@@ -66,7 +66,7 @@ RSpec.describe Graph do
       graph = Graph.new
 
       expect(graph.vertices.class).to eq(Array)
-      expect(graph.vertices.length).to eq(1)
+      expect(graph.vertices.length).to eq(0)
     end
     it 'works correctly for a larger graph' do
       graph = Graph.new
@@ -85,7 +85,7 @@ RSpec.describe Graph do
     it 'works correctly for a larger graph'
   end
 
-  describes '#neighbours' do
+  describe '#neighbours' do
     it 'works correctly for an isolated vertex'
     it 'works correctly for non-isolated vertices'
     it 'returns nil if no such vertex exists'
