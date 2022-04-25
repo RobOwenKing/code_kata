@@ -28,7 +28,7 @@ class Graph
   def delete_vertex(value)
     return nil unless @graph[value]
 
-    @graph[value] = nil
+    @graph.delete(value)
     value
   end
 
