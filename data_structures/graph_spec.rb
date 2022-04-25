@@ -3,6 +3,9 @@
 require 'rspec'
 require_relative 'graph'
 
+# Gives us a deep_equals? function
+require_relative '../array_methods/array_methods'
+
 RSpec.describe Graph do
   describe '#initialize' do
     it 'creates a Graph object' do
@@ -59,8 +62,22 @@ RSpec.describe Graph do
   end
 
   describe '#vertices' do
-    it 'works correctly for an empty graph'
-    it 'works correctly for a larger graph'
+    it 'works correctly for an empty graph' do
+      graph = Graph.new
+
+      expect(graph.vertices.class).to eq(Array)
+      expect(graph.vertices.length).to eq(1)
+    end
+    it 'works correctly for a larger graph' do
+      graph = Graph.new
+
+      graph.add_vertex(1)
+      graph.add_vertex(2)
+      graph.add_vertex(3)
+      graph.delete_vertex(2)
+
+      expect(deep_equals?(graph.vertices, [1, 3])).to eq(true)
+    end
   end
 
   describe '#edges' do
