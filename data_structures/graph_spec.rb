@@ -180,8 +180,38 @@ RSpec.describe Graph do
   end
 
   describe '#neighbours' do
-    it 'works correctly for an isolated vertex'
-    it 'works correctly for non-isolated vertices'
-    it 'returns nil if no such vertex exists'
+    it 'works correctly for an isolated vertex' do
+      @graph = Graph.new
+
+      @graph.add_vertex(1)
+      @graph.add_vertex(2)
+      @graph.add_vertex(3)
+      @graph.add_edge(1, 2)
+
+      expect(deep_equals?(@graph.neighbours(3), [])).to eq(true)
+    end
+
+    it 'works correctly for non-isolated vertices' do
+      @graph = Graph.new
+
+      @graph.add_vertex(1)
+      @graph.add_vertex(2)
+      @graph.add_vertex(3)
+      @graph.add_edge(1, 2)
+
+      expect(deep_equals?(@graph.neighbours(1), [2])).to eq(true)
+      expect(deep_equals?(@graph.neighbours(2), [1])).to eq(true)
+    end
+
+    it 'returns nil if no such vertex exists' do
+      @graph = Graph.new
+
+      @graph.add_vertex(1)
+      @graph.add_vertex(2)
+      @graph.add_vertex(3)
+      @graph.add_edge(1, 2)
+
+      expect(@graph.neighbours(4)).to eq(nil)
+    end
   end
 end
