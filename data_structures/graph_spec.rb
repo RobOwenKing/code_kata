@@ -211,6 +211,7 @@ RSpec.describe Graph do
       expect(@graph.edges.class).to eq(Array)
       expect(@graph.edges.length).to eq(0)
     end
+
     it 'works correctly for a larger graph' do
       @graph = Graph.new
 

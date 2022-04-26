@@ -63,6 +63,18 @@ class Graph
     @graph[vertex][:neighbours]
   end
 
+  def edges
+    returnable = []
+
+    vertices.each do |vtx|
+      @graph[vtx][:neighbours].each do |nbr|
+        returnable << [vtx, nbr] unless returnable.any? { |e| e[0] == nbr && e[1] == vtx }
+      end
+    end
+
+    returnable
+  end
+
   private
 
   def add_directed_edge(vertex1, vertex2)
