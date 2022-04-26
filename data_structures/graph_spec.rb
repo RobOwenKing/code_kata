@@ -199,8 +199,30 @@ RSpec.describe Graph do
   end
 
   describe '#edges' do
-    it 'works correctly for an empty graph'
-    it 'works correctly for a larger graph'
+    it 'works correctly for an empty graph' do
+      @graph = Graph.new
+
+      expect(@graph.edges.class).to eq(Array)
+      expect(@graph.edges.length).to eq(0)
+
+      @graph.add_vertex(1)
+      @graph.add_vertex(2)
+
+      expect(@graph.edges.class).to eq(Array)
+      expect(@graph.edges.length).to eq(0)
+    end
+    it 'works correctly for a larger graph' do
+      @graph = Graph.new
+
+      @graph.add_vertex(1)
+      @graph.add_vertex(2)
+      @graph.add_vertex(3)
+
+      @graph.add_edge(1, 2)
+      @graph.add_edge(1, 3)
+
+      expect(deep_equals?(@graph.edges, [[1, 2], [1, 3]])).to eq(true)
+    end
   end
 
   describe '#neighbours' do
