@@ -28,6 +28,9 @@ class Graph
   def delete_vertex(value)
     return nil unless @graph[value]
 
+    neighbours = @graph[value][:neighbours]
+    neighbours.each { |n| delete_directed_edge(n, value) }
+
     @graph.delete(value)
     value
   end
