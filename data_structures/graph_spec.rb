@@ -31,8 +31,10 @@ RSpec.describe Graph do
     it 'returns expected values' do
       @graph = Graph.new
 
+      # Return value itself if new vertex created
       expect(@graph.add_vertex(1)).to eql(1)
       expect(@graph.add_vertex('a')).to eql('a')
+      # Return nil if value given is a duplicate
       expect(@graph.add_vertex(1)).to eql(nil)
     end
   end
@@ -47,7 +49,9 @@ RSpec.describe Graph do
     end
 
     it 'returns expected values' do
+      # Return value of deleted node
       expect(@graph.delete_vertex(1)).to eql(1)
+      # Return nil if no such node can be found for deletion
       expect(@graph.delete_vertex('a')).to eql(nil)
       expect(@graph.delete_vertex(1)).to eql(nil)
     end
@@ -95,6 +99,18 @@ RSpec.describe Graph do
       expect(@graph.neighbours(2).include?(1)).to eq(false)
     end
 
+    it 'returns true or false if both params exist' do
+      @graph = Graph.new
+
+      @graph.add_vertex(1)
+      @graph.add_vertex(2)
+
+      # Return true if an edge has been created
+      expect(@graph.add_edge(1, 2)).to eq(true)
+      # Return false if no edge was created (because duplicate)
+      expect(@graph.add_edge(1, 2)).to eq(false)
+    end
+
     it 'returns nil if one or both params does not exist' do
       @graph = Graph.new
 
@@ -136,6 +152,19 @@ RSpec.describe Graph do
 
       expect(@graph.neighbours(1).include?(2)).to eq(false)
       expect(@graph.neighbours(2).include?(1)).to eq(false)
+    end
+
+    it 'returns true or false if both params exist' do
+      @graph = Graph.new
+
+      @graph.add_vertex(1)
+      @graph.add_vertex(2)
+      @graph.add_edge(1, 2)
+
+      # Return true if an edge has been deleted
+      expect(@graph.delete_edge(1, 2)).to eq(true)
+      # Return false if no edge existed between given vertices
+      expect(@graph.delete_edge(1, 2)).to eq(false)
     end
 
     it 'returns nil if one or both params does not exist' do
