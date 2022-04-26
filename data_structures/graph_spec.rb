@@ -38,20 +38,21 @@ RSpec.describe Graph do
   end
 
   describe '#delete_vertex' do
-    it 'returns expected values' do
+    before do
       @graph = Graph.new
 
-      expect(@graph.add_vertex(1)).to eql(1)
+      @graph.add_vertex(1)
+      @graph.add_vertex(2)
+      @graph.add_vertex(3)
+    end
+
+    it 'returns expected values' do
       expect(@graph.delete_vertex(1)).to eql(1)
       expect(@graph.delete_vertex('a')).to eql(nil)
       expect(@graph.delete_vertex(1)).to eql(nil)
     end
 
     it 'deletes the given vertex' do
-      @graph = Graph.new
-
-      @graph.add_vertex(1)
-      @graph.add_vertex(2)
       @graph.delete_vertex(1)
 
       expect(@graph.vertices.include?(2)).to eq(true)
@@ -59,12 +60,6 @@ RSpec.describe Graph do
     end
 
     it 'deletes all adjacent edges in an undirected graph' do
-      @graph = Graph.new
-
-      @graph.add_vertex(1)
-      @graph.add_vertex(2)
-      @graph.add_vertex(3)
-
       @graph.add_edge(1, 2)
       @graph.add_edge(1, 3)
 
