@@ -37,7 +37,7 @@ class Graph
   end
 
   def add_edge(vertex1, vertex2)
-    return nil if !@graph[vertex1] || !@graph[vertex2]
+    return nil unless @graph[vertex1] && @graph[vertex2]
 
     returnable1 = add_directed_edge(vertex1, vertex2)
     returnable2 = @directed ? true : add_directed_edge(vertex2, vertex1)
@@ -46,7 +46,7 @@ class Graph
   end
 
   def neighbours(vertex)
-    return nil if !@graph[vertex]
+    return nil unless @graph[vertex]
 
     @graph[vertex][:neighbours]
   end
