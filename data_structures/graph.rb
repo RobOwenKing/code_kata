@@ -45,6 +45,15 @@ class Graph
     returnable1 && returnable2
   end
 
+  def delete_edge(vertex1, vertex2)
+    return nil unless @graph[vertex1] && @graph[vertex2]
+
+    returnable1 = delete_directed_edge(vertex1, vertex2)
+    returnable2 = @directed ? true : delete_directed_edge(vertex2, vertex1)
+
+    returnable1 && returnable2
+  end
+
   def neighbours(vertex)
     return nil unless @graph[vertex]
 
@@ -55,5 +64,9 @@ class Graph
 
   def add_directed_edge(vertex1, vertex2)
     @graph[vertex1][:neighbours] << vertex2
+  end
+
+  def delete_directed_edge(vertex1, vertex2)
+    @graph[vertex1][:neighbours].delete(vertex2)
   end
 end
