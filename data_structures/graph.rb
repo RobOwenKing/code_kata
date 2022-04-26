@@ -66,10 +66,16 @@ class Graph
   private
 
   def add_directed_edge(vertex1, vertex2)
+    return false if @graph[vertex1][:neighbours].include?(vertex2)
+
     @graph[vertex1][:neighbours] << vertex2
+    true
   end
 
   def delete_directed_edge(vertex1, vertex2)
+    return false unless @graph[vertex1][:neighbours].include?(vertex2)
+
     @graph[vertex1][:neighbours].delete(vertex2)
+    true
   end
 end
