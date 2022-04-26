@@ -45,6 +45,12 @@ class Graph
     returnable1 && returnable2
   end
 
+  def neighbours(vertex)
+    return nil if !@graph[vertex]
+
+    @graph[vertex][:neighbours]
+  end
+
   private
 
   def add_directed_edge(vertex1, vertex2)
