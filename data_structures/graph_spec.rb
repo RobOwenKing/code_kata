@@ -305,6 +305,80 @@ RSpec.describe Graph do
     end
   end
 
+  describe 'Graph Properties' do
+    describe '#max_degree' do
+      it 'returns nil for a graph with no vertices' do
+        @graph = Graph.new
+
+        expect(@graph.max_degree).to eq(nil)
+      end
+
+      it 'returns 0 for a graph with vertices but no edges' do
+        @graph = Graph.new
+
+        @graph.add_vertex(1)
+        @graph.add_vertex(2)
+
+        @graph.add_edge(1, 2)
+        @graph.delete_edge(1, 2)
+
+        expect(@graph.max_degree).to eq(0)
+      end
+
+      it 'returns correct value for larger graph' do
+        @graph = Graph.new
+
+        @graph.add_vertex(1)
+        @graph.add_vertex(2)
+        @graph.add_vertex(3)
+        @graph.add_vertex(4)
+
+        @graph.add_edge(1, 2)
+        @graph.add_edge(1, 3)
+        @graph.add_edge(1, 4)
+        @graph.add_edge(2, 3)
+
+        expect(@graph.max_degree).to eq(3)
+      end
+    end
+
+    describe '#min_degree' do
+      it 'returns nil for a graph with no vertices' do
+        @graph = Graph.new
+
+        expect(@graph.min_degree).to eq(nil)
+      end
+
+      it 'returns 0 for a graph with vertices but no edges' do
+        @graph = Graph.new
+
+        @graph.add_vertex(1)
+        @graph.add_vertex(2)
+
+        @graph.add_edge(1, 2)
+        @graph.delete_edge(1, 2)
+
+        expect(@graph.min_degree).to eq(0)
+      end
+
+      it 'returns correct value for larger graph' do
+        @graph = Graph.new
+
+        @graph.add_vertex(1)
+        @graph.add_vertex(2)
+        @graph.add_vertex(3)
+        @graph.add_vertex(4)
+
+        @graph.add_edge(1, 2)
+        @graph.add_edge(1, 3)
+        @graph.add_edge(1, 4)
+        @graph.add_edge(2, 3)
+
+        expect(@graph.min_degree).to eq(1)
+      end
+    end
+  end
+
   describe 'Vertex Properties' do
     describe '#adjacent?' do
       before do
