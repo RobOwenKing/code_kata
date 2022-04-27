@@ -2,7 +2,23 @@
 
 # Contents
 # - class Graph
-# - - #initialize
+# - - - #initialize
+# - - Vertex Crud
+# - - - #add_vertex
+# - - - #delete_vertex
+# - - - #vertices
+# - - - #order
+# - - Edge Crud
+# - - - #add_edge
+# - - - #delete_edge
+# - - - #edges
+# - - - #size
+# - - Vertex Properties
+# - - - #neighbours
+# - - - #adjacent?
+# - private
+# - - - #add_directed_edge
+# - - - #delete_directed_edge
 
 # Set class
 class Graph
@@ -17,6 +33,8 @@ class Graph
     @weighted = weighted
     vertices.each { |v| add_vertex(v) }
   end
+
+  # VERTEX CRUD
 
   def add_vertex(value)
     return nil if @graph[value]
@@ -42,6 +60,8 @@ class Graph
   def order
     vertices.length
   end
+
+  # EDGE CRUD
 
   def add_edge(vertex1, vertex2)
     return nil unless @graph[vertex1] && @graph[vertex2]
@@ -79,6 +99,8 @@ class Graph
 
     @directed ? count : count / 2
   end
+
+  # VERTEX PROPERTIES
 
   def neighbours(vertex)
     return nil unless @graph[vertex]

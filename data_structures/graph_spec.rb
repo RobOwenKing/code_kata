@@ -6,6 +6,13 @@ require_relative 'graph'
 # Gives us a deep_equals? function
 require_relative '../array_methods/array_methods'
 
+# TODO
+# - Refactoring
+# - - Reorder to match graph.rb
+# - - DRY up
+# - Directed graph tests for #neighbours, #adjacent?, #size
+# - :allow_loops?
+
 RSpec.describe Graph do
   describe '#initialize' do
     it 'creates a Graph object' do
