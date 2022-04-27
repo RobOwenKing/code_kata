@@ -12,13 +12,12 @@ require_relative '../array_methods/array_methods'
 # - Directed graph tests for #neighbours, #adjacent?, #size
 # - Consider loops and multiedges more carefully
 # - Methods
-# - - #bipartite?, #regular?, #connected?, #oriented?, #complete?, #planar?, #tree?, #acyclic?
+# - - #bipartite?, #connected?, #oriented?, #complete?, #planar?, #tree?, #acyclic?
 # - - #complement
 # - - #eulerian?, #hamiltonian?
 # - - #count_components
 # - - #dual https://en.wikipedia.org/wiki/Dual_graph
 # - - #conjugate https://en.wikipedia.org/wiki/Line_graph
-# - - #degree, #min_degree, #max_degree
 # https://en.wikipedia.org/wiki/Graph_property#Integer_invariants
 
 RSpec.describe Graph do
@@ -306,6 +305,51 @@ RSpec.describe Graph do
   end
 
   describe 'Graph Properties' do
+    describe '#regular?' do
+      it 'returns nil for an empty graph' do
+        @graph = Graph.new
+
+        expect(@graph.regular?).to eq(nil)
+      end
+
+      it 'returns false for a non-regular graph' do
+        @graph = Graph.new
+
+        @graph.add_vertex(1)
+        @graph.add_vertex(2)
+        @graph.add_vertex(3)
+
+        @graph.add_edge(1, 2)
+        @graph.add_edge(1, 3)
+
+        expect(graph.regular?).to eq(false)
+      end
+
+      it 'returns 0 for an empty graph' do
+        @graph = Graph.new
+
+        @graph.add_vertex(1)
+        @graph.add_vertex(2)
+        @graph.add_vertex(3)
+
+        expect(graph.regular?).to eq(0)
+      end
+
+      it 'returns correct r- value for a regular graph' do
+        @graph = Graph.new
+
+        @graph.add_vertex(1)
+        @graph.add_vertex(2)
+        @graph.add_vertex(3)
+
+        @graph.add_edge(1, 2)
+        @graph.add_edge(1, 3)
+        @graph.add_edge(2, 3)
+
+        expect(graph.regular?).to eq(2)
+      end
+    end
+
     describe '#max_degree' do
       it 'returns nil for a graph with no vertices' do
         @graph = Graph.new
