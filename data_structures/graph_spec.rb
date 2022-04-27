@@ -249,4 +249,29 @@ RSpec.describe Graph do
       expect(@graph.neighbours(4)).to eq(nil)
     end
   end
+
+  describes '#adjacent?' do
+    before do
+      @graph = Graph.new
+
+      @graph.add_vertex(1)
+      @graph.add_vertex(2)
+      @graph.add_vertex(3)
+
+      @graph.add_edge(1, 2)
+    end
+
+    it 'returns true if the vertices exist and are adjacent' do
+      expect(@graph.adjacent?(1, 2)).to eq(true)
+    end
+
+    it 'returns false if the vertices exist and are not adjacent' do
+      expect(@graph.adjacent?(1, 3)).to eq(false)
+    end
+
+    it 'returns nil if either vertex does not exit' do
+      expect(@graph.adjacent?(1, 4)).to eq(nil)
+      expect(@graph.adjacent?(4, 2)).to eq(nil)
+    end
+  end
 end
