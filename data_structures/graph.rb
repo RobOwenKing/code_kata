@@ -13,9 +13,13 @@
 # - - - #delete_edge
 # - - - #edges
 # - - - #size
+# - - Graph Properties
+# - - - #max_degree
+# - - - #min_degree
 # - - Vertex Properties
-# - - - #neighbours
 # - - - #adjacent?
+# - - - #degree
+# - - - #neighbours
 # - private
 # - - - #add_directed_edge
 # - - - #delete_directed_edge
@@ -100,6 +104,16 @@ class Graph
     @directed ? count : count / 2
   end
 
+  # GRAPH PROPERTIES
+
+  def max_degree
+    degrees.max
+  end
+
+  def min_degree
+    degrees.min
+  end
+
   # VERTEX PROPERTIES
 
   def adjacent?(vertex1, vertex2)
@@ -108,16 +122,16 @@ class Graph
     @graph[vertex1][:neighbours].include?(vertex2)
   end
 
-  def neighbours(vertex)
-    return nil unless @graph[vertex]
-
-    @graph[vertex][:neighbours]
-  end
-
   def degree(vertex)
     return nil unless @graph[vertex]
 
     @graph[vertex][:neighbours].length
+  end
+
+  def neighbours(vertex)
+    return nil unless @graph[vertex]
+
+    @graph[vertex][:neighbours]
   end
 
   private
@@ -134,5 +148,9 @@ class Graph
 
     @graph[vertex1][:neighbours].delete(vertex2)
     true
+  end
+
+  def degrees
+    @graph.values.collect { |k| k[:neighbours].length }
   end
 end
