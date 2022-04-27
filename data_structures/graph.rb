@@ -16,6 +16,7 @@
 # - - Graph Properties
 # - - - #max_degree
 # - - - #min_degree
+# - - - #regular?
 # - - Vertex Properties
 # - - - #adjacent?
 # - - - #degree
@@ -109,6 +110,13 @@ class Graph
 
   def min_degree
     degrees.min
+  end
+
+  def regular?
+    return nil if @graph.keys.length.zero?
+
+    uniqs = degrees.uniq
+    uniqs.length == 1 ? uniqs[0] : false
   end
 
   # VERTEX PROPERTIES
