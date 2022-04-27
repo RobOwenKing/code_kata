@@ -98,10 +98,7 @@ class Graph
   end
 
   def size
-    count = 0
-    @graph.each_value { |v| count += v[:neighbours].length }
-
-    @directed ? count : count / 2
+    @directed ? degrees.sum : degrees.sum / 2
   end
 
   # GRAPH PROPERTIES
