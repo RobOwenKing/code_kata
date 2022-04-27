@@ -75,6 +75,12 @@ class Graph
     returnable
   end
 
+  def adjacent?(vertex1, vertex2)
+    return nil unless @graph[vertex1] && @graph[vertex2]
+
+    @graph[vertex1][:neighbours].include?(vertex2)
+  end
+
   private
 
   def add_directed_edge(vertex1, vertex2)

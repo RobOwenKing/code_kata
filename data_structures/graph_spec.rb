@@ -250,7 +250,7 @@ RSpec.describe Graph do
     end
   end
 
-  describes '#adjacent?' do
+  describe '#adjacent?' do
     before do
       @graph = Graph.new
 
