@@ -274,4 +274,62 @@ RSpec.describe Graph do
       expect(@graph.adjacent?(4, 2)).to eq(nil)
     end
   end
+
+  describe '#order' do
+    it 'returns 0 for an empty graph' do
+      @graph = Graph.new
+
+      expect(@graph.order).to eq(0)
+    end
+
+    it 'returns the correct number for a larger graph' do
+      @graph = Graph.new
+
+      @graph.add_vertex(1)
+      @graph.add_vertex(2)
+      @graph.add_vertex(3)
+
+      @graph.add_edge(1, 2)
+      @graph.add_edge(1, 3)
+
+      @graph.delete_vertex(2)
+
+      expect(@graph.order).to eq(2)
+    end
+  end
+
+  describe '#size' do
+    it 'returns 0 for an empty graph' do
+      @graph = Graph.new
+
+      expect(@graph.size).to eq(0)
+    end
+
+    it 'returns 0 for a graph with vertices but no edges' do
+      @graph = Graph.new
+
+      @graph.add_vertex(1)
+      @graph.add_vertex(2)
+
+      @graph.add_edge(1, 2)
+      @graph.delete_edge(1, 2)
+
+      expect(@graph.size).to eq(0)
+    end
+
+    it 'returns the correct number for a more complex graph' do
+      @graph = Graph.new
+
+      @graph.add_vertex(1)
+      @graph.add_vertex(2)
+      @graph.add_vertex(3)
+
+      @graph.add_edge(1, 2)
+      @graph.add_edge(1, 3)
+
+      @graph.delete_vertex(2)
+
+      expect(@graph.size).to eq(1)
+    end
+  end
 end
