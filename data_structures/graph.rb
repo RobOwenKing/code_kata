@@ -61,12 +61,6 @@ class Graph
     returnable1 && returnable2
   end
 
-  def neighbours(vertex)
-    return nil unless @graph[vertex]
-
-    @graph[vertex][:neighbours]
-  end
-
   def edges
     returnable = []
 
@@ -77,6 +71,19 @@ class Graph
     end
 
     returnable
+  end
+
+  def size
+    count = 0
+    @graph.each_value { |v| count += v[:neighbours].length }
+
+    @directed ? count : count / 2
+  end
+
+  def neighbours(vertex)
+    return nil unless @graph[vertex]
+
+    @graph[vertex][:neighbours]
   end
 
   def adjacent?(vertex1, vertex2)
