@@ -8,10 +8,18 @@ require_relative '../array_methods/array_methods'
 
 # TODO
 # - Refactoring
-# - - Reorder to match graph.rb
 # - - DRY up
 # - Directed graph tests for #neighbours, #adjacent?, #size
-# - :allow_loops?
+# - Consider loops and multiedges more carefully
+# - Methods
+# - - #bipartite?, #regular?, #connected?, #oriented?, #complete?, #planar?, #tree?, #acyclic?
+# - - #complement
+# - - #eulerian?, #hamiltonian?
+# - - #count_components
+# - - #dual https://en.wikipedia.org/wiki/Dual_graph
+# - - #conjugate https://en.wikipedia.org/wiki/Line_graph
+# - - #degree, #min_degree, #max_degree
+# https://en.wikipedia.org/wiki/Graph_property#Integer_invariants
 
 RSpec.describe Graph do
   describe 'basics' do
@@ -298,6 +306,31 @@ RSpec.describe Graph do
   end
 
   describe 'Vertex Properties' do
+    describe '#adjacent?' do
+      before do
+        @graph = Graph.new
+
+        @graph.add_vertex(1)
+        @graph.add_vertex(2)
+        @graph.add_vertex(3)
+
+        @graph.add_edge(1, 2)
+      end
+
+      it 'returns true if the vertices exist and are adjacent' do
+        expect(@graph.adjacent?(1, 2)).to eq(true)
+      end
+
+      it 'returns false if the vertices exist and are not adjacent' do
+        expect(@graph.adjacent?(1, 3)).to eq(false)
+      end
+
+      it 'returns nil if either vertex does not exit' do
+        expect(@graph.adjacent?(1, 4)).to eq(nil)
+        expect(@graph.adjacent?(4, 2)).to eq(nil)
+      end
+    end
+
     describe '#neighbours' do
       before do
         @graph = Graph.new
@@ -322,28 +355,34 @@ RSpec.describe Graph do
       end
     end
 
-    describe '#adjacent?' do
-      before do
+    describe '#degree?' do
+      it 'returns correct value' do
         @graph = Graph.new
 
         @graph.add_vertex(1)
         @graph.add_vertex(2)
         @graph.add_vertex(3)
+        @graph.add_vertex(4)
+        @graph.add_vertex(5)
 
         @graph.add_edge(1, 2)
+        @graph.add_edge(1, 3)
+        @graph.add_edge(1, 4)
+        @graph.add_edge(1, 5)
+        @graph.add_edge(2, 3)
+
+        @graph.delete_edge(1, 4)
+        @graph.delete_vertex(2)
+
+        expect(@graph.degree?(1)).to eq(2)
+        expect(@graph.degree?(3)).to eq(1)
+        expect(@graph.degree?(4)).to eq(0)
       end
 
-      it 'returns true if the vertices exist and are adjacent' do
-        expect(@graph.adjacent?(1, 2)).to eq(true)
-      end
+      it 'returns nil if no such vertex exists' do
+        @graph = Graph.new
 
-      it 'returns false if the vertices exist and are not adjacent' do
-        expect(@graph.adjacent?(1, 3)).to eq(false)
-      end
-
-      it 'returns nil if either vertex does not exit' do
-        expect(@graph.adjacent?(1, 4)).to eq(nil)
-        expect(@graph.adjacent?(4, 2)).to eq(nil)
+        expect(@graph.degree?(1)).to eq(nil)
       end
     end
   end

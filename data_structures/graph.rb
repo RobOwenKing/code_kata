@@ -20,7 +20,7 @@
 # - - - #add_directed_edge
 # - - - #delete_directed_edge
 
-# Set class
+# Graph class
 class Graph
   attr_reader :directed, :weighted
 
@@ -102,16 +102,20 @@ class Graph
 
   # VERTEX PROPERTIES
 
+  def adjacent?(vertex1, vertex2)
+    return nil unless @graph[vertex1] && @graph[vertex2]
+
+    @graph[vertex1][:neighbours].include?(vertex2)
+  end
+
   def neighbours(vertex)
     return nil unless @graph[vertex]
 
     @graph[vertex][:neighbours]
   end
 
-  def adjacent?(vertex1, vertex2)
-    return nil unless @graph[vertex1] && @graph[vertex2]
-
-    @graph[vertex1][:neighbours].include?(vertex2)
+  def degree?(vertex)
+    false
   end
 
   private
