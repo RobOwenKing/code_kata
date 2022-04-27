@@ -355,7 +355,7 @@ RSpec.describe Graph do
       end
     end
 
-    describe '#degree?' do
+    describe '#degree' do
       it 'returns correct value' do
         @graph = Graph.new
 
@@ -374,15 +374,15 @@ RSpec.describe Graph do
         @graph.delete_edge(1, 4)
         @graph.delete_vertex(2)
 
-        expect(@graph.degree?(1)).to eq(2)
-        expect(@graph.degree?(3)).to eq(1)
-        expect(@graph.degree?(4)).to eq(0)
+        expect(@graph.degree(1)).to eq(2)
+        expect(@graph.degree(3)).to eq(1)
+        expect(@graph.degree(4)).to eq(0)
       end
 
       it 'returns nil if no such vertex exists' do
         @graph = Graph.new
 
-        expect(@graph.degree?(1)).to eq(nil)
+        expect(@graph.degree(1)).to eq(nil)
       end
     end
   end

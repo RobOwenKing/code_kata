@@ -114,8 +114,10 @@ class Graph
     @graph[vertex][:neighbours]
   end
 
-  def degree?(vertex)
-    false
+  def degree(vertex)
+    return nil unless @graph[vertex]
+
+    @graph[vertex][:neighbours].length
   end
 
   private
