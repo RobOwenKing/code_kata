@@ -39,6 +39,10 @@ class Graph
     @graph.keys
   end
 
+  def order
+    vertices.length
+  end
+
   def add_edge(vertex1, vertex2)
     return nil unless @graph[vertex1] && @graph[vertex2]
 
