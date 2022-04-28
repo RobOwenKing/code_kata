@@ -305,7 +305,6 @@ RSpec.describe Graph do
   end
 
   describe 'Graph Properties' do
-
     describe '#max_degree' do
       it 'returns nil for a graph with no vertices' do
         @graph = Graph.new
@@ -502,6 +501,61 @@ RSpec.describe Graph do
         @graph = Graph.new
 
         expect(@graph.degree(1)).to eq(nil)
+      end
+    end
+  end
+
+  describe 'Transformations' do
+    describe '#complement' do
+      it 'returns a new Graph object' do
+        @graph = Graph.new
+
+        expect(@graph.complement.class).to eq(Graph)
+        expect(@graph.complement == @graph).to eq(false)
+      end
+
+      it 'returns a complete graph when passed an empty graph' do
+        @graph = Graph.new
+
+        @graph.add_vertex(1)
+        @graph.add_vertex(2)
+
+        @complement = @graph.complement
+
+        expect(deep_equals?(@complement.vertices, [1, 2])).to eq(true)
+        expect(deep_equals?(@complement.neighbours(1), [2])).to eq(true)
+        expect(deep_equals?(@complement.neighbours(2), [1])).to eq(true)
+      end
+
+      it 'returns an empty graph when passed a complete graph' do
+        @graph = Graph.new
+
+        @graph.add_vertex(1)
+        @graph.add_vertex(2)
+
+        @graph.add_edge(1, 2)
+
+        @complement = @graph.complement
+
+        expect(@complement.order).to eq(2)
+        expect(@complement.size).to eq(0)
+      end
+
+      it 'works when passed a more complex graph' do
+        @graph = Graph.new
+
+        @graph.add_vertex(1)
+        @graph.add_vertex(2)
+
+        @graph.add_edge(1, 2)
+        @graph.add_edge(1, 3)
+        @graph.add_edge(2, 3)
+        @graph.delete_edge(2, 3)
+
+        @complement = @graph.complement
+
+        expect(@complement.order).to eq(3)
+        expect(@complement.size).to eq(1)
       end
     end
   end
