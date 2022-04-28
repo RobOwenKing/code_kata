@@ -21,6 +21,8 @@
 # - - - #adjacent?
 # - - - #degree
 # - - - #neighbours
+# - - Transformations
+# - - - #complement
 # - private
 # - - - #add_directed_edge
 # - - - #delete_directed_edge
@@ -137,6 +139,20 @@ class Graph
     return nil unless @graph[vertex]
 
     @graph[vertex][:neighbours]
+  end
+
+  # Transformations
+
+  def complement
+    @complement = Graph.new
+
+    vertices.each { |v| @complement.add_vertex(v) }
+
+    vertices.each do |v1|
+      vertices.each { |v2| @complement.add_edge(v1, v2) unless v1 == v2 || neighbours(v1).include?(v2) }
+    end
+
+    @complement
   end
 
   private
