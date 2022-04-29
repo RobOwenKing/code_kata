@@ -45,19 +45,24 @@ class Graph
   # VERTEX CRUD
 
   def add_vertex(value)
+    # Prevent multiple vertices from having the same value
     return nil if @graph[value]
 
     @graph[value] = @weighted ? { neighbours: [], weights: [] } : { neighbours: [] }
+    # Return value of vertex created
     value
   end
 
   def delete_vertex(value)
-    return nil unless @graph[value]
+    return nil unless @graph[value] # ie: If there's no vertex with that value to delete
 
+    # Delete all references to vertex to be deleted (incoming edges)
+    # @todo This is optimised for undirected graphs and will break if @directed == true
     neighbours = @graph[value][:neighbours]
     neighbours.each { |n| delete_directed_edge(n, value) }
 
     @graph.delete(value)
+    # Return value of vertex deleted
     value
   end
 
@@ -72,19 +77,21 @@ class Graph
   # EDGE CRUD
 
   def add_edge(vertex1, vertex2)
-    return nil unless @graph[vertex1] && @graph[vertex2]
-    return false if vertex1 == vertex2
+    return nil unless @graph[vertex1] && @graph[vertex2] # Both vertices must already exist
+    return false if vertex1 == vertex2 # Prevent loops
 
     returnable1 = add_directed_edge(vertex1, vertex2)
+    # Add inverse reference if the graph is undirected
     returnable2 = @directed ? true : add_directed_edge(vertex2, vertex1)
 
     returnable1 && returnable2
   end
 
   def delete_edge(vertex1, vertex2)
-    return nil unless @graph[vertex1] && @graph[vertex2]
+    return nil unless @graph[vertex1] && @graph[vertex2] # Both vertices must already exist
 
     returnable1 = delete_directed_edge(vertex1, vertex2)
+    # Delete inverse reference if the graph is undirected
     returnable2 = @directed ? true : delete_directed_edge(vertex2, vertex1)
 
     returnable1 && returnable2
@@ -95,6 +102,7 @@ class Graph
 
     vertices.each do |vtx|
       @graph[vtx][:neighbours].each do |nbr|
+        # @todo Implement for directed graphs too
         returnable << [vtx, nbr] unless returnable.any? { |e| e[0] == nbr && e[1] == vtx }
       end
     end
@@ -103,6 +111,8 @@ class Graph
   end
 
   def size
+    # In an undirected graph, the sum of the degrees will count each edge twice (once from each end)
+    # In a directed graph, each is counted only once (start vertex)
     @directed ? degrees.sum : degrees.sum / 2
   end
 
@@ -120,6 +130,8 @@ class Graph
     return nil if @graph.keys.length.zero?
 
     uniqs = degrees.uniq
+    # If the graph is r-regular (only one unique degree), return relevant r
+    # Else return false
     uniqs.length == 1 ? uniqs[0] : false
   end
 
@@ -176,6 +188,6 @@ class Graph
   end
 
   def degrees
-    @graph.values.collect { |k| k[:neighbours].length }
+    @graph.values.collect { |vtx| vtx[:neighbours].length }
   end
 end

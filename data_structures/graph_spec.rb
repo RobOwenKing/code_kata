@@ -8,7 +8,6 @@ require_relative '../array_methods/array_methods'
 
 # TODO
 # - Refactoring
-# - - DRY up spec
 # - - Comments in class Graph
 
 # - Directed graph tests for #neighbours, #adjacent?, #size
