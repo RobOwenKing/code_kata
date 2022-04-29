@@ -72,6 +72,7 @@ class Graph
 
   def add_edge(vertex1, vertex2)
     return nil unless @graph[vertex1] && @graph[vertex2]
+    return false if vertex1 == vertex2
 
     returnable1 = add_directed_edge(vertex1, vertex2)
     returnable2 = @directed ? true : add_directed_edge(vertex2, vertex1)
