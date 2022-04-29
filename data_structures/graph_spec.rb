@@ -81,8 +81,7 @@ RSpec.describe Graph do
       end
 
       it 'deletes all adjacent edges in an undirected graph' do
-        @graph.add_edge(1, 2)
-        @graph.add_edge(1, 3)
+        [[1, 2], [1, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
 
         @graph.delete_vertex(2)
 
@@ -120,9 +119,7 @@ RSpec.describe Graph do
         @graph = Graph.new
 
         [1, 2, 3].each { |i| @graph.add_vertex(i) }
-
-        @graph.add_edge(1, 2)
-        @graph.add_edge(1, 3)
+        [[1, 2], [1, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
 
         @graph.delete_vertex(2)
 
@@ -255,9 +252,7 @@ RSpec.describe Graph do
         @graph = Graph.new
 
         [1, 2, 3].each { |i| @graph.add_vertex(i) }
-
-        @graph.add_edge(1, 2)
-        @graph.add_edge(1, 3)
+        [[1, 2], [1, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
 
         expect(deep_equals?(@graph.edges, [[1, 2], [1, 3]])).to eq(true)
       end
@@ -285,9 +280,7 @@ RSpec.describe Graph do
         @graph = Graph.new
 
         [1, 2, 3].each { |i| @graph.add_vertex(i) }
-
-        @graph.add_edge(1, 2)
-        @graph.add_edge(1, 3)
+        [[1, 2], [1, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
 
         @graph.delete_vertex(2)
 
@@ -319,11 +312,7 @@ RSpec.describe Graph do
         @graph = Graph.new
 
         [1, 2, 3, 4].each { |i| @graph.add_vertex(i) }
-
-        @graph.add_edge(1, 2)
-        @graph.add_edge(1, 3)
-        @graph.add_edge(1, 4)
-        @graph.add_edge(2, 3)
+        [[1, 2], [1, 3], [1, 4], [2, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
 
         expect(@graph.max_degree).to eq(3)
       end
@@ -351,11 +340,7 @@ RSpec.describe Graph do
         @graph = Graph.new
 
         [1, 2, 3, 4].each { |i| @graph.add_vertex(i) }
-
-        @graph.add_edge(1, 2)
-        @graph.add_edge(1, 3)
-        @graph.add_edge(1, 4)
-        @graph.add_edge(2, 3)
+        [[1, 2], [1, 3], [1, 4], [2, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
 
         expect(@graph.min_degree).to eq(1)
       end
@@ -372,9 +357,7 @@ RSpec.describe Graph do
         @graph = Graph.new
 
         [1, 2, 3].each { |i| @graph.add_vertex(i) }
-
-        @graph.add_edge(1, 2)
-        @graph.add_edge(1, 3)
+        [[1, 2], [1, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
 
         expect(@graph.regular?).to eq(false)
       end
@@ -391,10 +374,7 @@ RSpec.describe Graph do
         @graph = Graph.new
 
         [1, 2, 3].each { |i| @graph.add_vertex(i) }
-
-        @graph.add_edge(1, 2)
-        @graph.add_edge(1, 3)
-        @graph.add_edge(2, 3)
+        [[1, 2], [1, 3], [2, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
 
         expect(@graph.regular?).to eq(2)
       end
@@ -452,12 +432,7 @@ RSpec.describe Graph do
         @graph = Graph.new
 
         [1, 2, 3, 4, 5].each { |i| @graph.add_vertex(i) }
-
-        @graph.add_edge(1, 2)
-        @graph.add_edge(1, 3)
-        @graph.add_edge(1, 4)
-        @graph.add_edge(1, 5)
-        @graph.add_edge(2, 3)
+        [[1, 2], [1, 3], [1, 4], [1, 5], [2, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
 
         @graph.delete_edge(1, 4)
         @graph.delete_vertex(2)
@@ -513,10 +488,8 @@ RSpec.describe Graph do
         @graph = Graph.new
 
         [1, 2, 3].each { |i| @graph.add_vertex(i) }
+        [[1, 2], [1, 3], [2, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
 
-        @graph.add_edge(1, 2)
-        @graph.add_edge(1, 3)
-        @graph.add_edge(2, 3)
         @graph.delete_edge(2, 3)
 
         @complement = @graph.complement
