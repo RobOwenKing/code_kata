@@ -62,9 +62,7 @@ RSpec.describe Graph do
       before do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
-        @graph.add_vertex(3)
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
       end
 
       it 'returns expected values' do
@@ -104,9 +102,7 @@ RSpec.describe Graph do
       it 'works correctly for a larger graph' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
-        @graph.add_vertex(3)
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
         @graph.delete_vertex(2)
 
         expect(deep_equals?(@graph.vertices, [1, 3])).to eq(true)
@@ -123,9 +119,7 @@ RSpec.describe Graph do
       it 'returns the correct number for a larger graph' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
-        @graph.add_vertex(3)
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
 
         @graph.add_edge(1, 2)
         @graph.add_edge(1, 3)
@@ -142,8 +136,7 @@ RSpec.describe Graph do
       it 'adds to both vertices in an undirected graph' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
+        [1, 2].each { |i| @graph.add_vertex(i) }
 
         @graph.add_edge(1, 2)
 
@@ -154,8 +147,7 @@ RSpec.describe Graph do
       it 'adds to only one vertex in a directed graph' do
         @graph = Graph.new(directed: true)
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
+        [1, 2].each { |i| @graph.add_vertex(i) }
 
         @graph.add_edge(1, 2)
 
@@ -166,8 +158,7 @@ RSpec.describe Graph do
       it 'returns true or false if both params exist' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
+        [1, 2].each { |i| @graph.add_vertex(i) }
 
         # Return true if an edge has been created
         expect(@graph.add_edge(1, 2)).to eq(true)
@@ -178,8 +169,7 @@ RSpec.describe Graph do
       it 'returns nil if one or both params does not exist' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
+        [1, 2].each { |i| @graph.add_vertex(i) }
 
         expect(@graph.add_edge(1, 3)).to eq(nil)
         expect(@graph.add_edge(4, 2)).to eq(nil)
@@ -200,8 +190,7 @@ RSpec.describe Graph do
       it 'works correctly in an undirected graph' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
+        [1, 2].each { |i| @graph.add_vertex(i) }
 
         @graph.add_edge(1, 2)
         @graph.delete_edge(2, 1)
@@ -213,8 +202,7 @@ RSpec.describe Graph do
       it 'works correctly in a directed graph' do
         @graph = Graph.new(directed: true)
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
+        [1, 2].each { |i| @graph.add_vertex(i) }
 
         @graph.add_edge(1, 2)
         @graph.delete_edge(2, 1)
@@ -231,8 +219,7 @@ RSpec.describe Graph do
       it 'returns true or false if both params exist' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
+        [1, 2].each { |i| @graph.add_vertex(i) }
         @graph.add_edge(1, 2)
 
         # Return true if an edge has been deleted
@@ -244,8 +231,7 @@ RSpec.describe Graph do
       it 'returns nil if one or both params does not exist' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
+        [1, 2].each { |i| @graph.add_vertex(i) }
 
         expect(@graph.delete_edge(1, 3)).to eq(nil)
         expect(@graph.delete_edge(4, 2)).to eq(nil)
@@ -259,8 +245,7 @@ RSpec.describe Graph do
         expect(@graph.edges.class).to eq(Array)
         expect(@graph.edges.length).to eq(0)
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
+        [1, 2].each { |i| @graph.add_vertex(i) }
 
         expect(@graph.edges.class).to eq(Array)
         expect(@graph.edges.length).to eq(0)
@@ -269,9 +254,7 @@ RSpec.describe Graph do
       it 'works correctly for a larger graph' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
-        @graph.add_vertex(3)
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
 
         @graph.add_edge(1, 2)
         @graph.add_edge(1, 3)
@@ -290,8 +273,7 @@ RSpec.describe Graph do
       it 'returns 0 for a graph with vertices but no edges' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
+        [1, 2].each { |i| @graph.add_vertex(i) }
 
         @graph.add_edge(1, 2)
         @graph.delete_edge(1, 2)
@@ -302,9 +284,7 @@ RSpec.describe Graph do
       it 'returns the correct number for a more complex graph' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
-        @graph.add_vertex(3)
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
 
         @graph.add_edge(1, 2)
         @graph.add_edge(1, 3)
@@ -327,8 +307,7 @@ RSpec.describe Graph do
       it 'returns 0 for a graph with vertices but no edges' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
+        [1, 2].each { |i| @graph.add_vertex(i) }
 
         @graph.add_edge(1, 2)
         @graph.delete_edge(1, 2)
@@ -339,10 +318,7 @@ RSpec.describe Graph do
       it 'returns correct value for larger graph' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
-        @graph.add_vertex(3)
-        @graph.add_vertex(4)
+        [1, 2, 3, 4].each { |i| @graph.add_vertex(i) }
 
         @graph.add_edge(1, 2)
         @graph.add_edge(1, 3)
@@ -363,8 +339,7 @@ RSpec.describe Graph do
       it 'returns 0 for a graph with vertices but no edges' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
+        [1, 2].each { |i| @graph.add_vertex(i) }
 
         @graph.add_edge(1, 2)
         @graph.delete_edge(1, 2)
@@ -375,10 +350,7 @@ RSpec.describe Graph do
       it 'returns correct value for larger graph' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
-        @graph.add_vertex(3)
-        @graph.add_vertex(4)
+        [1, 2, 3, 4].each { |i| @graph.add_vertex(i) }
 
         @graph.add_edge(1, 2)
         @graph.add_edge(1, 3)
@@ -399,9 +371,7 @@ RSpec.describe Graph do
       it 'returns false for a non-regular graph' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
-        @graph.add_vertex(3)
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
 
         @graph.add_edge(1, 2)
         @graph.add_edge(1, 3)
@@ -412,9 +382,7 @@ RSpec.describe Graph do
       it 'returns 0 for an empty graph' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
-        @graph.add_vertex(3)
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
 
         expect(@graph.regular?).to eq(0)
       end
@@ -422,9 +390,7 @@ RSpec.describe Graph do
       it 'returns correct r- value for a regular graph' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
-        @graph.add_vertex(3)
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
 
         @graph.add_edge(1, 2)
         @graph.add_edge(1, 3)
@@ -440,9 +406,7 @@ RSpec.describe Graph do
       before do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
-        @graph.add_vertex(3)
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
 
         @graph.add_edge(1, 2)
       end
@@ -465,9 +429,7 @@ RSpec.describe Graph do
       before do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
-        @graph.add_vertex(3)
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
         @graph.add_edge(1, 2)
       end
 
@@ -489,11 +451,7 @@ RSpec.describe Graph do
       it 'returns correct value' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
-        @graph.add_vertex(3)
-        @graph.add_vertex(4)
-        @graph.add_vertex(5)
+        [1, 2, 3, 4, 5].each { |i| @graph.add_vertex(i) }
 
         @graph.add_edge(1, 2)
         @graph.add_edge(1, 3)
@@ -529,8 +487,7 @@ RSpec.describe Graph do
       it 'returns a complete graph when passed an empty graph' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
+        [1, 2].each { |i| @graph.add_vertex(i) }
 
         @complement = @graph.complement
 
@@ -542,8 +499,7 @@ RSpec.describe Graph do
       it 'returns an empty graph when passed a complete graph' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
+        [1, 2].each { |i| @graph.add_vertex(i) }
 
         @graph.add_edge(1, 2)
 
@@ -556,9 +512,7 @@ RSpec.describe Graph do
       it 'works when passed a more complex graph' do
         @graph = Graph.new
 
-        @graph.add_vertex(1)
-        @graph.add_vertex(2)
-        @graph.add_vertex(3)
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
 
         @graph.add_edge(1, 2)
         @graph.add_edge(1, 3)

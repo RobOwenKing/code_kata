@@ -27,7 +27,8 @@
 # - - - #add_directed_edge
 # - - - #delete_directed_edge
 
-# Graph class
+# Class for simple graphs (ie: no loops or multiedges allowed)
+# NB: directed and weighted params are WIP
 class Graph
   attr_reader :directed, :weighted
 
