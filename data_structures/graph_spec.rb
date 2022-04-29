@@ -8,7 +8,9 @@ require_relative '../array_methods/array_methods'
 
 # TODO
 # - Refactoring
-# - - DRY up
+# - - DRY up spec
+# - - Comments in class Graph
+
 # - Directed graph tests for #neighbours, #adjacent?, #size
 # - Consider loops and multiedges more carefully
 # - Methods
@@ -181,6 +183,16 @@ RSpec.describe Graph do
 
         expect(@graph.add_edge(1, 3)).to eq(nil)
         expect(@graph.add_edge(4, 2)).to eq(nil)
+      end
+
+      it 'returns false and adds no edge if the given edge would be a loop' do
+        @graph = Graph.new
+
+        @graph.add_vertex(1)
+        @initial_degree = @graph.degree(1)
+
+        expect(@graph.add_edge(1, 1)).to eq(false)
+        expect(@graph.degree(1)).to eq(@initial_degree)
       end
     end
 

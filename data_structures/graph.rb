@@ -148,6 +148,8 @@ class Graph
 
     vertices.each { |v| @complement.add_vertex(v) }
 
+    # Cannot merge with above because we need all vertices created first
+    # Otherwise edges will not create (at least in directed graphs)
     vertices.each do |v1|
       vertices.each { |v2| @complement.add_edge(v1, v2) unless v1 == v2 || neighbours(v1).include?(v2) }
     end
