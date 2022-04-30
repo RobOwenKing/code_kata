@@ -3,12 +3,12 @@
 # Contents
 # - class Graph
 # - - - #initialize
-# - - Vertex Crud
+# - - Vertex CRUD
 # - - - #add_vertex
 # - - - #delete_vertex
 # - - - #vertices
 # - - - #order
-# - - Edge Crud
+# - - Edge CRUD
 # - - - #add_edge
 # - - - #delete_edge
 # - - - #edges

@@ -7,11 +7,7 @@ require_relative 'graph'
 require_relative '../array_methods/array_methods'
 
 # TODO
-# - Refactoring
-# - - Comments in class Graph
-
 # - Directed graph tests for #neighbours, #adjacent?, #size
-# - Consider loops and multiedges more carefully
 # - Methods
 # - - #bipartite?, #connected?, #oriented?, #complete?, #planar?, #tree?, #acyclic?
 # - - #complement
