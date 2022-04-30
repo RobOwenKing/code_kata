@@ -285,6 +285,41 @@ RSpec.describe Graph do
   end
 
   describe 'Graph Properties' do
+    describe '#connected?' do
+      it 'returns true for a graph with no vertices' do
+        @graph = Graph.new
+
+        expect(@graph.connected?).to eq(true)
+      end
+
+      it 'returns true for a graph with one vertices' do
+        @graph = Graph.new
+
+        @graph.add_vertex(1)
+
+        expect(@graph.connected?).to eq(true)
+      end
+
+      it 'returns false for an unconnected graph' do
+        @graph = Graph.new
+
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
+        @graph.add_edge(1, 2)
+
+        expect(@graph.connected?).to eq(false)
+      end
+
+      it 'returns true for a connected graph' do
+        @graph = Graph.new
+
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
+        @graph.add_edge(1, 2)
+        @graph.add_edge(1, 3)
+
+        expect(@graph.connected?).to eq(true)
+      end
+    end
+
     describe '#max_degree' do
       it 'returns nil for a graph with no vertices' do
         @graph = Graph.new
