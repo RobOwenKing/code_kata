@@ -318,6 +318,24 @@ RSpec.describe Graph do
 
         expect(@graph.connected?).to eq(true)
       end
+
+      it 'returns true for a connected graph needing iteration' do
+        @graph = Graph.new
+
+        [1, 2, 3, 4, 5].each { |i| @graph.add_vertex(i) }
+        [[1, 2], [2, 3], [3, 4], [3, 5]].each { |e| @graph.add_edge(e[0], e[1]) }
+
+        expect(@graph.connected?).to eq(true)
+      end
+
+      it 'returns false for an unconnected graph needing iteration' do
+        @graph = Graph.new
+
+        [1, 2, 3, 4, 5].each { |i| @graph.add_vertex(i) }
+        [[1, 2], [2, 3], [3, 4]].each { |e| @graph.add_edge(e[0], e[1]) }
+
+        expect(@graph.connected?).to eq(false)
+      end
     end
 
     describe '#max_degree' do
