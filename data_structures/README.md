@@ -28,6 +28,6 @@ I should note that all of them are learning experiments and, as such, contain th
     - Methods
         - Vertex CRUD: #add_vertex(value), #delete_vertex(value), #vertices, #order
         - Edge CRUD: #add_edge(vertex1, vertex2), #delete_edge(vertex1, vertex2), #edges, #size
-        - Graph Properties: #max_degree, #min_degree, #regular?
+        - Graph Properties: #connected?, #max_degree, #min_degree, #regular?
         - Vertex Properties: #adjacent?(vertex1, vertex2), #degree(vertex1), #neighbours(vertex2)
         - Transformations: #complement

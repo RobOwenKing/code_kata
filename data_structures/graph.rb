@@ -14,6 +14,7 @@
 # - - - #edges
 # - - - #size
 # - - Graph Properties
+# - - - #connected?
 # - - - #max_degree
 # - - - #min_degree
 # - - - #regular?
@@ -117,6 +118,25 @@ class Graph
   end
 
   # GRAPH PROPERTIES
+
+  def connected?
+    return true if order.zero?
+
+    to_visit = [vertices[0]] # Start with an arbitrary node
+    found = [vertices[0]]
+    target = order
+
+    until to_visit.empty? || found.length == target
+      neighbours(to_visit.shift).each do |n|
+        unless found.include?(n)
+          to_visit << n
+          found << n
+        end
+      end
+    end
+
+    found.length == target
+  end
 
   def max_degree
     degrees.max
