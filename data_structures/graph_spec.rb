@@ -9,8 +9,7 @@ require_relative '../array_methods/array_methods'
 # TODO
 # - Directed graph tests for #neighbours, #adjacent?, #size
 # - Methods
-# - - #bipartite?, #connected?, #oriented?, #complete?, #planar?, #tree?, #acyclic?
-# - - #complement
+# - - #bipartite?, #oriented?, #complete?, #planar?, #tree?, #acyclic?
 # - - #eulerian?, #hamiltonian?
 # - - #count_components
 # - - #dual https://en.wikipedia.org/wiki/Dual_graph
@@ -285,6 +284,58 @@ RSpec.describe Graph do
   end
 
   describe 'Graph Properties' do
+    describe '#complete?' do
+      it 'returns true for a graph with no vertices' do
+        @graph = Graph.new
+
+        expect(@graph.complete?).to eq(true)
+      end
+
+      it 'returns true for a graph with one vertex' do
+        @graph = Graph.new
+
+        @graph.add_vertex(1)
+
+        expect(@graph.complete?).to eq(true)
+      end
+
+      it 'returns true for a connected undirected graph' do
+        @graph = Graph.new
+
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
+        [[1, 2], [1, 3], [2, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
+
+        expect(@graph.complete?).to eq(true)
+      end
+
+      it 'returns false for an unconnected undirected graph' do
+        @graph = Graph.new
+
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
+        [[1, 2], [1, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
+
+        expect(@graph.complete?).to eq(false)
+      end
+
+      it 'returns true for a connected directed graph' do
+        @graph = Graph.new(directed: true)
+
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
+        [[1, 2], [2, 1], [1, 3], [3, 1], [2, 3], [3, 2]].each { |e| @graph.add_edge(e[0], e[1]) }
+
+        expect(@graph.complete?).to eq(true)
+      end
+
+      it 'returns false for an unconnected directed graph' do
+        @graph = Graph.new(directed: true)
+
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
+        [[1, 2], [2, 1], [1, 3], [3, 1], [2, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
+
+        expect(@graph.complete?).to eq(false)
+      end
+    end
+
     describe '#connected?' do
       it 'returns true for a graph with no vertices' do
         @graph = Graph.new
