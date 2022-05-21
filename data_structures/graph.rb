@@ -14,6 +14,7 @@
 # - - - #edges
 # - - - #size
 # - - Graph Properties
+# - - - #complete?
 # - - - #connected?
 # - - - #max_degree
 # - - - #min_degree
@@ -118,6 +119,11 @@ class Graph
   end
 
   # GRAPH PROPERTIES
+
+  def complete?
+    target = order - 1
+    vertices.all? { |v| degree(v) == target }
+  end
 
   def connected?
     return true if order.zero?
