@@ -658,14 +658,37 @@ RSpec.describe Graph do
     end
 
     describe '#undirect!' do
-      it 'makes an #directed? graph #undirected?' do
+      before do
         @graph = Graph.new(directed: true)
 
+        [1, 2, 3].each { |v| @graph.add_vertex(v) }
+        [[1, 2], [2, 1], [1, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
+      end
+
+      it 'makes an #directed? graph #undirected?' do
         expect(@graph.directed?).to eq(true)
 
         @graph.undirect!
 
         expect(@graph.undirected?).to eq(true)
+      end
+
+      it 'saves one-way edges when passed argument true' do
+        @graph.undirect!(true)
+
+        expect(deep_equals?(@graph.vertices, [1, 2, 3])).to eq(true)
+        expect(@graph.neighbours(1).length).to eq(2)
+        expect(@graph.neighbours(2).length).to eq(1)
+        expect(@graph.neighbours(3).length).to eq(1)
+      end
+
+      it 'deletes one-way edges when passed argument false' do
+        @graph.undirect!(false)
+
+        expect(deep_equals?(@graph.vertices, [1, 2, 3])).to eq(true)
+        expect(@graph.neighbours(1).length).to eq(1)
+        expect(@graph.neighbours(2).length).to eq(1)
+        expect(@graph.neighbours(3).length).to eq(0)
       end
     end
   end
