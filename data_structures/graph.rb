@@ -211,6 +211,10 @@ class Graph
     @directed = true
   end
 
+  def undirect!(save_edges = true)
+    @directed = false
+  end
+
   private
 
   def add_directed_edge(vertex1, vertex2)
