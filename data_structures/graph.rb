@@ -207,6 +207,10 @@ class Graph
     @complement
   end
 
+  def direct!
+    @directed = true
+  end
+
   private
 
   def add_directed_edge(vertex1, vertex2)

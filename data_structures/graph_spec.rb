@@ -652,8 +652,8 @@ RSpec.describe Graph do
 
         @graph.direct!
 
-        expect(@graph.vertices.deep_equals?(@control.vertices)).to eq(true)
-        expect(@graph.edges.deep_equals?(@control.edges)).to eq(true)
+        expect(deep_equals?(@graph.vertices, @control.vertices)).to eq(true)
+        expect(deep_equals?(@graph.edges, @control.edges)).to eq(true)
       end
     end
 
