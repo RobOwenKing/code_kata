@@ -625,5 +625,48 @@ RSpec.describe Graph do
         expect(@complement.size).to eq(1)
       end
     end
+
+    describe '#direct!' do
+      it 'makes an #undirected? graph #directed?' do
+        @graph = Graph.new(directed: false)
+
+        expect(@graph.undirected?).to eq(true)
+
+        @graph.direct!
+
+        expect(@graph.directed?).to eq(true)
+      end
+
+      it 'leaves the vertices and edges unchanged' do
+        @graph = Graph.new
+        @control = Graph.new
+
+        [1, 2, 3].each do |v|
+          @graph.add_vertex(v)
+          @control.add_vertex(v)
+        end
+        [[1, 2], [1, 3]].each do |e|
+          @graph.add_edge(e[0], e[1])
+          @control.add_edge(e[0], e[1])
+        end
+
+        @graph.direct!
+
+        expect(@graph.vertices.deep_equals?(@control.vertices)).to eq(true)
+        expect(@graph.edges.deep_equals?(@control.edges)).to eq(true)
+      end
+    end
+
+    describe '#undirect!' do
+      it 'makes an #directed? graph #undirected?' do
+        @graph = Graph.new(directed: true)
+
+        expect(@graph.directed?).to eq(true)
+
+        @graph.undirect!
+
+        expect(@graph.undirected?).to eq(true)
+      end
+    end
   end
 end
