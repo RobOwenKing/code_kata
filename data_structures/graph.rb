@@ -213,6 +213,13 @@ class Graph
 
   def undirect!(save_edges = true)
     @directed = false
+
+    vertices.each do |v|
+      @graph[v][:neighbours].each do |n|
+        add_edge(n, v) if save_edges && !adjacent?(n, v)
+        delete_edge(v, n) if !save_edges && !adjacent?(n, v)
+      end
+    end
   end
 
   private
