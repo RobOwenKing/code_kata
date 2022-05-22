@@ -9,7 +9,7 @@ require_relative '../array_methods/array_methods'
 # TODO
 # - Directed graph tests for #neighbours, #adjacent?, #size
 # - Methods
-# - - #bipartite?, #oriented?, #complete?, #planar?, #tree?, #acyclic?
+# - - #bipartite?, #oriented?, #planar?, #tree?, #acyclic?
 # - - #eulerian?, #hamiltonian?
 # - - #count_components
 # - - #dual https://en.wikipedia.org/wiki/Dual_graph
@@ -389,6 +389,20 @@ RSpec.describe Graph do
       end
     end
 
+    describe '#directed?' do
+      it 'returns true for a directed graph' do
+        @graph = Graph.new(directed: true)
+
+        expect(@graph.directed?).to eq(true)
+      end
+
+      it 'returns false for an undirected graph' do
+        @graph = Graph.new(directed: false)
+
+        expect(@graph.directed?).to eq(false)
+      end
+    end
+
     describe '#max_degree' do
       it 'returns nil for a graph with no vertices' do
         @graph = Graph.new
@@ -476,6 +490,20 @@ RSpec.describe Graph do
         [[1, 2], [1, 3], [2, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
 
         expect(@graph.regular?).to eq(2)
+      end
+    end
+
+    describe '#undirected?' do
+      it 'returns true for an undirected graph' do
+        @graph = Graph.new(directed: false)
+
+        expect(@graph.undirected?).to eq(true)
+      end
+
+      it 'returns false for an undirected graph' do
+        @graph = Graph.new(directed: true)
+
+        expect(@graph.undirected?).to eq(false)
       end
     end
   end
