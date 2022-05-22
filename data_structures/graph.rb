@@ -16,9 +16,11 @@
 # - - Graph Properties
 # - - - #complete?
 # - - - #connected?
+# - - - #directed?
 # - - - #max_degree
 # - - - #min_degree
 # - - - #regular?
+# - - - #undirected?
 # - - Vertex Properties
 # - - - #adjacent?
 # - - - #degree
@@ -144,6 +146,10 @@ class Graph
     found.length == target
   end
 
+  def directed?
+    @directed
+  end
+
   def max_degree
     degrees.max
   end
@@ -159,6 +165,10 @@ class Graph
     # If the graph is r-regular (only one unique degree), return relevant r
     # Else return false
     uniqs.length == 1 ? uniqs[0] : false
+  end
+
+  def undirected?
+    !@directed
   end
 
   # VERTEX PROPERTIES
