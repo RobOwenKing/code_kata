@@ -657,7 +657,7 @@ RSpec.describe Graph do
       end
     end
 
-    describe '#undirect!' do
+    describe '#lossless_undirect!' do
       before do
         @graph = Graph.new(directed: true)
 
@@ -668,22 +668,39 @@ RSpec.describe Graph do
       it 'makes an #directed? graph #undirected?' do
         expect(@graph.directed?).to eq(true)
 
-        @graph.undirect!
+        @graph.lossless_undirect!
 
         expect(@graph.undirected?).to eq(true)
       end
 
-      it 'saves one-way edges when passed argument true' do
-        @graph.undirect!(true)
+      it 'saves one-way edges' do
+        @graph.lossless_undirect!
 
         expect(deep_equals?(@graph.vertices, [1, 2, 3])).to eq(true)
         expect(@graph.neighbours(1).length).to eq(2)
         expect(@graph.neighbours(2).length).to eq(1)
         expect(@graph.neighbours(3).length).to eq(1)
       end
+    end
 
-      it 'deletes one-way edges when passed argument false' do
-        @graph.undirect!(false)
+    describe '#lossy_undirect!' do
+      before do
+        @graph = Graph.new(directed: true)
+
+        [1, 2, 3].each { |v| @graph.add_vertex(v) }
+        [[1, 2], [2, 1], [1, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
+      end
+
+      it 'makes an #directed? graph #undirected?' do
+        expect(@graph.directed?).to eq(true)
+
+        @graph.lossy_undirect!
+
+        expect(@graph.undirected?).to eq(true)
+      end
+
+      it 'deletes one-way edges' do
+        @graph.lossy_undirect!
 
         expect(deep_equals?(@graph.vertices, [1, 2, 3])).to eq(true)
         expect(@graph.neighbours(1).length).to eq(1)

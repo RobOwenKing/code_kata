@@ -27,6 +27,9 @@
 # - - - #neighbours
 # - - Transformations
 # - - - #complement
+# - - - #direct!
+# - - - #lossless_undirect!
+# - - - #lossy_undirect!
 # - private
 # - - - #add_directed_edge
 # - - - #delete_directed_edge
@@ -211,14 +214,19 @@ class Graph
     @directed = true
   end
 
-  def undirect!(save_edges = true)
+  def lossless_undirect!
     @directed = false
 
     vertices.each do |v|
-      @graph[v][:neighbours].each do |n|
-        add_edge(n, v) if save_edges && !adjacent?(n, v)
-        delete_edge(v, n) if !save_edges && !adjacent?(n, v)
-      end
+      @graph[v][:neighbours].each { |n| add_edge(n, v) unless adjacent?(n, v) }
+    end
+  end
+
+  def lossy_undirect!
+    @directed = false
+
+    vertices.each do |v|
+      @graph[v][:neighbours].each { |n| delete_edge(v, n) unless adjacent?(n, v) }
     end
   end
 
