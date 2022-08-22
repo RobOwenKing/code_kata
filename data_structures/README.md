@@ -6,7 +6,13 @@ In most cases, I've tried to follow test-driven design principles, that being an
 
 I should note that all of them are learning experiments and, as such, contain things I would do differently in real-life applications. For example, some times I've explicitly avoided using built-in Ruby methods to do things myself. There are also things like some simple methods (eg: #empty?) and ArgumentErrors which I've implemented only once or twice in some structure as a demonstration, but decided against spending time repeating endlessly each time.
 
+## Requirements
+
+ - `ruby 2.6.6` (Download: (https://www.ruby-lang.org/en/downloads/)[https://www.ruby-lang.org/en/downloads/])
+ - `rspec` for tests (Download: `gem install rspec`)
+
 ## Projects in order
+
 1. Stack
     - Methods: #push(element), #pop, #peek, #size, #empty?, #clear
     - I use it [here](https://github.com/RobOwenKing/code_kata/blob/master/string_methods/parentheses.rb) to solve the Matching Parentheses problem.
