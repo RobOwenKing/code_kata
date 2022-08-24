@@ -536,21 +536,22 @@ RSpec.describe Graph do
       before do
         @graph = Graph.new
 
-        [1, 2, 3].each { |i| @graph.add_vertex(i) }
+        [1, 2, 3, 4].each { |i| @graph.add_vertex(i) }
         @graph.add_edge(1, 2)
+        @graph.add_edge(1, 3)
       end
 
       it 'works correctly for an isolated vertex' do
-        expect(deep_equals?(@graph.neighbours(3), [])).to eq(true)
+        expect(deep_equals?(@graph.neighbours(4), [])).to eq(true)
       end
 
       it 'works correctly for non-isolated vertices' do
-        expect(deep_equals?(@graph.neighbours(1), [2])).to eq(true)
         expect(deep_equals?(@graph.neighbours(2), [1])).to eq(true)
+        expect(deep_equals?(@graph.neighbours(1), [2, 3])).to eq(true)
       end
 
       it 'returns nil if no such vertex exists' do
-        expect(@graph.neighbours(4)).to eq(nil)
+        expect(@graph.neighbours(5)).to eq(nil)
       end
     end
 
