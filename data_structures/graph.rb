@@ -14,15 +14,22 @@
 # - - - #edges
 # - - - #size
 # - - Graph Properties
+# - - - #complete?
+# - - - #connected?
+# - - - #directed?
 # - - - #max_degree
 # - - - #min_degree
 # - - - #regular?
+# - - - #undirected?
 # - - Vertex Properties
 # - - - #adjacent?
 # - - - #degree
 # - - - #neighbours
 # - - Transformations
 # - - - #complement
+# - - - #direct!
+# - - - #lossless_undirect!
+# - - - #lossy_undirect!
 # - private
 # - - - #add_directed_edge
 # - - - #delete_directed_edge
@@ -118,6 +125,34 @@ class Graph
 
   # GRAPH PROPERTIES
 
+  def complete?
+    target = order - 1
+    vertices.all? { |v| degree(v) == target }
+  end
+
+  def connected?
+    return true if order.zero?
+
+    to_visit = [vertices[0]] # Start with an arbitrary node
+    found = [vertices[0]]
+    target = order
+
+    until to_visit.empty? || found.length == target
+      neighbours(to_visit.shift).each do |n|
+        unless found.include?(n)
+          to_visit << n
+          found << n
+        end
+      end
+    end
+
+    found.length == target
+  end
+
+  def directed?
+    @directed
+  end
+
   def max_degree
     degrees.max
   end
@@ -133,6 +168,10 @@ class Graph
     # If the graph is r-regular (only one unique degree), return relevant r
     # Else return false
     uniqs.length == 1 ? uniqs[0] : false
+  end
+
+  def undirected?
+    !@directed
   end
 
   # VERTEX PROPERTIES
@@ -169,6 +208,26 @@ class Graph
     end
 
     @complement
+  end
+
+  def direct!
+    @directed = true
+  end
+
+  def lossless_undirect!
+    @directed = false
+
+    vertices.each do |v|
+      @graph[v][:neighbours].each { |n| add_edge(n, v) unless adjacent?(n, v) }
+    end
+  end
+
+  def lossy_undirect!
+    @directed = false
+
+    vertices.each do |v|
+      @graph[v][:neighbours].each { |n| delete_edge(v, n) unless adjacent?(n, v) }
+    end
   end
 
   private

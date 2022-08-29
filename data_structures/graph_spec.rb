@@ -9,8 +9,7 @@ require_relative '../array_methods/array_methods'
 # TODO
 # - Directed graph tests for #neighbours, #adjacent?, #size
 # - Methods
-# - - #bipartite?, #connected?, #oriented?, #complete?, #planar?, #tree?, #acyclic?
-# - - #complement
+# - - #bipartite?, #oriented?, #planar?, #tree?, #acyclic?
 # - - #eulerian?, #hamiltonian?
 # - - #count_components
 # - - #dual https://en.wikipedia.org/wiki/Dual_graph
@@ -285,6 +284,125 @@ RSpec.describe Graph do
   end
 
   describe 'Graph Properties' do
+    describe '#complete?' do
+      it 'returns true for a graph with no vertices' do
+        @graph = Graph.new
+
+        expect(@graph.complete?).to eq(true)
+      end
+
+      it 'returns true for a graph with one vertex' do
+        @graph = Graph.new
+
+        @graph.add_vertex(1)
+
+        expect(@graph.complete?).to eq(true)
+      end
+
+      it 'returns true for a connected undirected graph' do
+        @graph = Graph.new
+
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
+        [[1, 2], [1, 3], [2, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
+
+        expect(@graph.complete?).to eq(true)
+      end
+
+      it 'returns false for an unconnected undirected graph' do
+        @graph = Graph.new
+
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
+        [[1, 2], [1, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
+
+        expect(@graph.complete?).to eq(false)
+      end
+
+      it 'returns true for a connected directed graph' do
+        @graph = Graph.new(directed: true)
+
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
+        [[1, 2], [2, 1], [1, 3], [3, 1], [2, 3], [3, 2]].each { |e| @graph.add_edge(e[0], e[1]) }
+
+        expect(@graph.complete?).to eq(true)
+      end
+
+      it 'returns false for an unconnected directed graph' do
+        @graph = Graph.new(directed: true)
+
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
+        [[1, 2], [2, 1], [1, 3], [3, 1], [2, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
+
+        expect(@graph.complete?).to eq(false)
+      end
+    end
+
+    describe '#connected?' do
+      it 'returns true for a graph with no vertices' do
+        @graph = Graph.new
+
+        expect(@graph.connected?).to eq(true)
+      end
+
+      it 'returns true for a graph with one vertices' do
+        @graph = Graph.new
+
+        @graph.add_vertex(1)
+
+        expect(@graph.connected?).to eq(true)
+      end
+
+      it 'returns false for an unconnected graph' do
+        @graph = Graph.new
+
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
+        @graph.add_edge(1, 2)
+
+        expect(@graph.connected?).to eq(false)
+      end
+
+      it 'returns true for a connected graph' do
+        @graph = Graph.new
+
+        [1, 2, 3].each { |i| @graph.add_vertex(i) }
+        @graph.add_edge(1, 2)
+        @graph.add_edge(1, 3)
+
+        expect(@graph.connected?).to eq(true)
+      end
+
+      it 'returns true for a connected graph needing iteration' do
+        @graph = Graph.new
+
+        [1, 2, 3, 4, 5].each { |i| @graph.add_vertex(i) }
+        [[1, 2], [2, 3], [3, 4], [3, 5]].each { |e| @graph.add_edge(e[0], e[1]) }
+
+        expect(@graph.connected?).to eq(true)
+      end
+
+      it 'returns false for an unconnected graph needing iteration' do
+        @graph = Graph.new
+
+        [1, 2, 3, 4, 5].each { |i| @graph.add_vertex(i) }
+        [[1, 2], [2, 3], [3, 4]].each { |e| @graph.add_edge(e[0], e[1]) }
+
+        expect(@graph.connected?).to eq(false)
+      end
+    end
+
+    describe '#directed?' do
+      it 'returns true for a directed graph' do
+        @graph = Graph.new(directed: true)
+
+        expect(@graph.directed?).to eq(true)
+      end
+
+      it 'returns false for an undirected graph' do
+        @graph = Graph.new(directed: false)
+
+        expect(@graph.directed?).to eq(false)
+      end
+    end
+
     describe '#max_degree' do
       it 'returns nil for a graph with no vertices' do
         @graph = Graph.new
@@ -374,6 +492,20 @@ RSpec.describe Graph do
         expect(@graph.regular?).to eq(2)
       end
     end
+
+    describe '#undirected?' do
+      it 'returns true for an undirected graph' do
+        @graph = Graph.new(directed: false)
+
+        expect(@graph.undirected?).to eq(true)
+      end
+
+      it 'returns false for an undirected graph' do
+        @graph = Graph.new(directed: true)
+
+        expect(@graph.undirected?).to eq(false)
+      end
+    end
   end
 
   describe 'Vertex Properties' do
@@ -404,21 +536,22 @@ RSpec.describe Graph do
       before do
         @graph = Graph.new
 
-        [1, 2, 3].each { |i| @graph.add_vertex(i) }
+        [1, 2, 3, 4].each { |i| @graph.add_vertex(i) }
         @graph.add_edge(1, 2)
+        @graph.add_edge(1, 3)
       end
 
       it 'works correctly for an isolated vertex' do
-        expect(deep_equals?(@graph.neighbours(3), [])).to eq(true)
+        expect(deep_equals?(@graph.neighbours(4), [])).to eq(true)
       end
 
       it 'works correctly for non-isolated vertices' do
-        expect(deep_equals?(@graph.neighbours(1), [2])).to eq(true)
         expect(deep_equals?(@graph.neighbours(2), [1])).to eq(true)
+        expect(deep_equals?(@graph.neighbours(1), [2, 3])).to eq(true)
       end
 
       it 'returns nil if no such vertex exists' do
-        expect(@graph.neighbours(4)).to eq(nil)
+        expect(@graph.neighbours(5)).to eq(nil)
       end
     end
 
@@ -491,6 +624,89 @@ RSpec.describe Graph do
 
         expect(@complement.order).to eq(3)
         expect(@complement.size).to eq(1)
+      end
+    end
+
+    describe '#direct!' do
+      it 'makes an #undirected? graph #directed?' do
+        @graph = Graph.new(directed: false)
+
+        expect(@graph.undirected?).to eq(true)
+
+        @graph.direct!
+
+        expect(@graph.directed?).to eq(true)
+      end
+
+      it 'leaves the vertices and edges unchanged' do
+        @graph = Graph.new
+        @control = Graph.new
+
+        [1, 2, 3].each do |v|
+          @graph.add_vertex(v)
+          @control.add_vertex(v)
+        end
+        [[1, 2], [1, 3]].each do |e|
+          @graph.add_edge(e[0], e[1])
+          @control.add_edge(e[0], e[1])
+        end
+
+        @graph.direct!
+
+        expect(deep_equals?(@graph.vertices, @control.vertices)).to eq(true)
+        expect(deep_equals?(@graph.edges, @control.edges)).to eq(true)
+      end
+    end
+
+    describe '#lossless_undirect!' do
+      before do
+        @graph = Graph.new(directed: true)
+
+        [1, 2, 3].each { |v| @graph.add_vertex(v) }
+        [[1, 2], [2, 1], [1, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
+      end
+
+      it 'makes an #directed? graph #undirected?' do
+        expect(@graph.directed?).to eq(true)
+
+        @graph.lossless_undirect!
+
+        expect(@graph.undirected?).to eq(true)
+      end
+
+      it 'saves one-way edges' do
+        @graph.lossless_undirect!
+
+        expect(deep_equals?(@graph.vertices, [1, 2, 3])).to eq(true)
+        expect(@graph.neighbours(1).length).to eq(2)
+        expect(@graph.neighbours(2).length).to eq(1)
+        expect(@graph.neighbours(3).length).to eq(1)
+      end
+    end
+
+    describe '#lossy_undirect!' do
+      before do
+        @graph = Graph.new(directed: true)
+
+        [1, 2, 3].each { |v| @graph.add_vertex(v) }
+        [[1, 2], [2, 1], [1, 3]].each { |e| @graph.add_edge(e[0], e[1]) }
+      end
+
+      it 'makes an #directed? graph #undirected?' do
+        expect(@graph.directed?).to eq(true)
+
+        @graph.lossy_undirect!
+
+        expect(@graph.undirected?).to eq(true)
+      end
+
+      it 'deletes one-way edges' do
+        @graph.lossy_undirect!
+
+        expect(deep_equals?(@graph.vertices, [1, 2, 3])).to eq(true)
+        expect(@graph.neighbours(1).length).to eq(1)
+        expect(@graph.neighbours(2).length).to eq(1)
+        expect(@graph.neighbours(3).length).to eq(0)
       end
     end
   end
