@@ -10,7 +10,7 @@ RSpec.describe '#factorial' do
   it 'should return nil when passed a negative number' do
     expect(factorial(-1)).to be(nil)
   end
-  it 'should return nil when passed a fraction' do
+  it 'should return nil when passed a float' do
     expect(factorial(2.5)).to be(nil)
   end
   it 'should return the correct value for the factorial of positive integers' do

@@ -2,6 +2,7 @@
 
 def factorial(number)
   return nil if number.negative?
+  return nil if number.to_i != number
   return 1 if number.zero?
 
   (1..number).to_a.inject(:*)
