@@ -7,13 +7,6 @@ def factorial(number)
   (1..number).to_a.inject(:*)
 end
 
-# puts factorial(-1) # Should give nil
-# puts factorial(0)  # Should give 1
-# puts factorial(1)  # Should give 1
-# puts factorial(2)  # Should give 2
-# puts factorial(5)  # Should give 120
-# puts factorial(10) # Should give 3628800
-
 def choose(enn, kay)
   return nil if enn.negative? || kay.negative? || enn < kay
 
