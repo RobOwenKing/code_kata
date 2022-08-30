@@ -18,6 +18,13 @@ end
 # puts choose(4, 2) # Should give 6
 # puts choose(9, 6) # Should give 84
 
+# When iterating, we can skip some checks
+def iterate_semifactorial(number)
+  return 1 if number <= 1
+
+  return number * iterate_semifactorial(number-2)
+end
+
 # Wikipedia: "In mathematics, the double factorial or semifactorial
 #   of a number n (denoted by n!!) is the product of all the integers
 #   from 1 up to n that have the same parity (odd or even) as n."
@@ -25,8 +32,7 @@ def semifactorial(number)
   return nil if number.negative? || number.to_i != number
   return 1 if number.zero?
 
-  list = number.odd? ? (1..number).select { |n| n.odd? } : (1..number).select { |n| n.even? }
-  list.inject(:*)
+  return number * iterate_semifactorial(number-2)
 end
 
 # Old semifactorial
