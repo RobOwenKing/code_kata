@@ -1,8 +1,7 @@
 # https://www.youtube.com/watch?v=7eboFOkRHr4
 
 def factorial(number)
-  return nil if number.negative?
-  return nil if number.to_i != number
+  return nil if number.negative? || number.to_i != number
   return 1 if number.zero?
 
   (1..number).to_a.inject(:*)
@@ -23,10 +22,10 @@ end
 #   of a number n (denoted by n!!) is the product of all the integers
 #   from 1 up to n that have the same parity (odd or even) as n."
 def semifactorial(number)
-  return nil if number.negative?
+  return nil if number.negative? || number.to_i != number
   return 1 if number.zero?
 
-  list = num.odd? ? (1..num).select { |n| n.odd? } : (1..num).select { |n| n.even? }
+  list = number.odd? ? (1..number).select { |n| n.odd? } : (1..number).select { |n| n.even? }
   list.inject(:*)
 end
 
