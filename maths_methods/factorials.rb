@@ -1,3 +1,5 @@
+# https://www.youtube.com/watch?v=7eboFOkRHr4
+
 def factorial(number)
   return nil if number.negative?
   return 1 if number.zero?
