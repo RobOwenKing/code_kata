@@ -30,7 +30,6 @@ end
 #   from 1 up to n that have the same parity (odd or even) as n."
 def semifactorial(number)
   return nil if number.negative? || number.to_i != number
-  return 1 if number.zero?
 
   return iterate_semifactorial(number)
 end
