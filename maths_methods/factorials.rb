@@ -32,10 +32,5 @@ def semifactorial(number)
   return nil if number.negative? || number.to_i != number
   return 1 if number.zero?
 
-  return number * iterate_semifactorial(number-2)
+  return iterate_semifactorial(number)
 end
-
-# Old semifactorial
-  # all = (1..number).to_a
-  # parity = all.select { |current| current.odd? == number.odd? }
-  # parity.inject(:*)
