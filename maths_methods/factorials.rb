@@ -18,7 +18,8 @@ end
 # puts choose(4, 2) # Should give 6
 # puts choose(9, 6) # Should give 84
 
-# When iterating, we can skip some checks
+# Recursively calculate the semifactorial of a number
+# Called from #semifactorial so we can skip checking validity of argument
 def iterate_semifactorial(number)
   return 1 if number <= 1
 
