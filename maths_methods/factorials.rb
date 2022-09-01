@@ -1,3 +1,9 @@
+# CONTENTS
+# - #factorial
+# - #semifactorial
+# - #multifactorial
+
+# Reference:
 # https://www.youtube.com/watch?v=7eboFOkRHr4
 
 def factorial(number)
@@ -47,4 +53,22 @@ def multifactorial(number, step)
   return nil if number.negative? || number.to_i != number
 
   return iterate_multifactorial(number, step)
+end
+
+$is_prime = [false, false, true]
+
+def primes_less_than(enn)
+  return $is_prime if enn <= $is_prime.length
+
+  l = $is_prime.length
+  $is_prime += Array.new(enn - l + 1, true)
+  (2..Math.sqrt(enn)).each do |i|
+    next unless $is_prime[i]
+
+    j = i * i
+    while j <= enn
+      $is_prime[j] = false
+      j += i
+    end
+  end
 end
