@@ -73,3 +73,19 @@ RSpec.describe '#multifactorial' do
     expect(multifactorial(10, 5)).to be(50)
   end
 end
+
+RSpec.describe '#primorial' do
+  it 'should return 1 when passed 0 or 1' do
+    expect(primorial(0)).to be(1)
+    expect(primorial(0)).to be(1)
+  end
+  it 'should return the correct value for larger numbers' do
+    expect(primorial(2)).to be(2)
+    expect(primorial(3)).to be(6)
+    expect(primorial(4)).to be(6)
+    expect(primorial(5)).to be(30)
+    expect(primorial(6)).to be(30)
+    expect(primorial(7)).to be(210)
+    expect(primorial(10)).to be(210)
+  end
+end
