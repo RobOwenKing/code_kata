@@ -58,17 +58,15 @@ end
 $is_prime = [false, false, true]
 
 def primes_less_than(enn)
-  return $is_prime if enn < $is_prime.length
+  return if enn < $is_prime.length
 
   l = $is_prime.length
   $is_prime += Array.new(enn - l + 1, true)
   (2..Math.sqrt(enn)).each do |i|
     next unless $is_prime[i]
 
-    j = i * i
-    while j <= enn
+    (i * [i, l / i].max()..enn).step(i) do |j|
       $is_prime[j] = false
-      j += i
     end
   end
 end
