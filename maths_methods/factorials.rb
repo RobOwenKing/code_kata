@@ -34,3 +34,17 @@ def semifactorial(number)
 
   return iterate_semifactorial(number)
 end
+
+# Recursively calculate the multifactorial of a number
+# Called from #multifactorial so we can skip checking validity of argument
+def iterate_multifactorial(number, step)
+  return 1 if number <= 1
+
+  return number * iterate_multifactorial(number-step, step)
+end
+
+def multifactorial(number, step)
+  return nil if number.negative? || number.to_i != number
+
+  return iterate_multifactorial(number, step)
+end

@@ -45,9 +45,9 @@ RSpec.describe '#semifactorial' do
 end
 
 RSpec.describe '#multifactorial' do
-  it 'should return 1 when passed start 0' do
-    expect(multifactorial(0, 1).to be(1))
-    expect(multifactorial(0, 2).to be(1))
+  it 'should return 1 when passed number 0' do
+    expect(multifactorial(0, 1)).to be(1)
+    expect(multifactorial(0, 2)).to be(1)
   end
   it 'should be the same as #factorial when step = 1' do
     expect(multifactorial(1, 1)).to be(factorial(1))
