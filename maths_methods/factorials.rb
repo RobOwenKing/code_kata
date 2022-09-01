@@ -58,7 +58,7 @@ end
 $is_prime = [false, false, true]
 
 def primes_less_than(enn)
-  return $is_prime if enn <= $is_prime.length
+  return $is_prime if enn < $is_prime.length
 
   l = $is_prime.length
   $is_prime += Array.new(enn - l + 1, true)
@@ -71,4 +71,12 @@ def primes_less_than(enn)
       j += i
     end
   end
+end
+
+def primorial(number)
+  primes_less_than(number) # Make sure $is_prime has enough values
+
+  answer = 1
+  (0..number).each { |i| answer *= i if $is_prime[i] }
+  answer
 end
