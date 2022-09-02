@@ -47,7 +47,7 @@ end
 def iterate_multifactorial(number, step)
   return 1 if number <= 1
 
-  number * iterate_multifactorial(number-step, step)
+  number * iterate_multifactorial(number - step, step)
 end
 
 def multifactorial(number, step)
@@ -66,7 +66,7 @@ def primes_less_than(number)
   (2..Math.sqrt(number)).each do |i|
     next unless $is_prime[i]
 
-    (i * [i, l / i].max()..number).step(i) do |j|
+    (i * [i, l / i].max..number).step(i) do |j|
       $is_prime[j] = false
     end
   end
