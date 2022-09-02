@@ -2,6 +2,7 @@
 # - #factorial
 # - #semifactorial
 # - #multifactorial
+# - #primorial
 
 # Reference:
 # https://www.youtube.com/watch?v=7eboFOkRHr4

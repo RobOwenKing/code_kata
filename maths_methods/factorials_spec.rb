@@ -89,3 +89,18 @@ RSpec.describe '#primorial' do
     expect(primorial(10)).to eq(210)
   end
 end
+
+RSpec.describe '#hyperfactorial' do
+  it 'should return 1 when passed 0' do
+    expect(hyperfactorial(0)).to eq(1)
+  end
+  it 'should return 1 when passed 1' do
+    expect(hyperfactorial(1)).to eq(1)
+  end
+  it 'should return the correct values for larger arguments' do
+    expect(hyperfactorial(2)).to eq(4)
+    expect(hyperfactorial(3)).to eq(108)
+    expect(hyperfactorial(4)).to eq(27648)
+    expect(hyperfactorial(5)).to eq(86400000)
+  end
+end
