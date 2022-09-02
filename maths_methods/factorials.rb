@@ -30,7 +30,7 @@ end
 def iterate_semifactorial(number)
   return 1 if number <= 1
 
-  return number * iterate_semifactorial(number-2)
+  number * iterate_semifactorial(number - 2)
 end
 
 # Wikipedia: "In mathematics, the double factorial or semifactorial
@@ -39,7 +39,7 @@ end
 def semifactorial(number)
   return nil if number.negative? || number.to_i != number
 
-  return iterate_semifactorial(number)
+  iterate_semifactorial(number)
 end
 
 # Recursively calculate the multifactorial of a number
@@ -47,13 +47,13 @@ end
 def iterate_multifactorial(number, step)
   return 1 if number <= 1
 
-  return number * iterate_multifactorial(number-step, step)
+  number * iterate_multifactorial(number-step, step)
 end
 
 def multifactorial(number, step)
   return nil if number.negative? || number.to_i != number
 
-  return iterate_multifactorial(number, step)
+  iterate_multifactorial(number, step)
 end
 
 $is_prime = [false, false, true]
