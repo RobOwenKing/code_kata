@@ -18,7 +18,7 @@ RSpec.describe '#factorial' do
     expect(factorial(2)).to eq(2)
     expect(factorial(3)).to eq(6)
     expect(factorial(5)).to eq(120)
-    expect(factorial(10)).to eq(3628800)
+    expect(factorial(10)).to eq(3_628_800)
   end
 end
 
@@ -40,7 +40,7 @@ RSpec.describe '#semifactorial' do
     expect(semifactorial(10)).to eq(3840)
   end
   it 'should match up with #factorial' do
-    expect(semifactorial(9)*semifactorial(10)).to eq(factorial(10))
+    expect(semifactorial(9) * semifactorial(10)).to eq(factorial(10))
   end
 end
 
@@ -100,7 +100,7 @@ RSpec.describe '#hyperfactorial' do
   it 'should return the correct values for larger arguments' do
     expect(hyperfactorial(2)).to eq(4)
     expect(hyperfactorial(3)).to eq(108)
-    expect(hyperfactorial(4)).to eq(27648)
-    expect(hyperfactorial(5)).to eq(86400000)
+    expect(hyperfactorial(4)).to eq(27_648)
+    expect(hyperfactorial(5)).to eq(86_400_000)
   end
 end
