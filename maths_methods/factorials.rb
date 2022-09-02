@@ -79,3 +79,9 @@ def primorial(number)
   (0..number).each { |i| answer *= i if $is_prime[i] }
   answer
 end
+
+def hyperfactorial(number)
+  return 1 if number.zero?
+
+  (1..number).to_a.map { |x| x**x }.inject(:*)
+end
