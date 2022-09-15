@@ -56,27 +56,27 @@ def multifactorial(number, step)
   iterate_multifactorial(number, step)
 end
 
-$is_prime = [false, false, true]
+IS_PRIME = [false, false, true]
 
 def primes_less_than(number)
-  return if number < $is_prime.length
+  return if number < IS_PRIME.length
 
-  l = $is_prime.length
-  $is_prime += Array.new(number - l + 1, true)
+  l = IS_PRIME.length
+  (number - l + 1).times { IS_PRIME << true }
   (2..Math.sqrt(number)).each do |i|
-    next unless $is_prime[i]
+    next unless IS_PRIME[i]
 
     (i * [i, l / i].max..number).step(i) do |j|
-      $is_prime[j] = false
+      IS_PRIME[j] = false
     end
   end
 end
 
 def primorial(number)
-  primes_less_than(number) # Make sure $is_prime has enough values
+  primes_less_than(number) # Make sure IS_PRIME has enough values
 
   answer = 1
-  (0..number).each { |i| answer *= i if $is_prime[i] }
+  (0..number).each { |i| answer *= i if IS_PRIME[i] }
   answer
 end
 
